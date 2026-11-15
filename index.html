@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hariom Tomar | Data Analyst Portfolio</title>
+
+    <script>
+      // Always open the portfolio at the top, even if the previous URL had #contact/#about.
+      (function () {
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        if (window.location.hash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        window.addEventListener('DOMContentLoaded', function () {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }, { once: true });
+        window.addEventListener('load', function () {
+          window.scrollTo(0, 0);
+        }, { once: true });
+      })();
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -343,12 +360,17 @@ html.dark .neumorphic-knob-vertical{transform:none;background:linear-gradient(14
         /* Drawer trigger has a small breathing cue until first interaction. */
         .rail-trigger:not(.used) { animation:handlePulse 2.8s 1.5s ease-in-out 3; }
         @keyframes handlePulse { 0%,100% { box-shadow:0 5px 20px rgba(0,0,0,.14); } 50% { box-shadow:0 5px 25px rgba(82,82,91,.42); } }
+        /* Keep the core entrance/reveal motion consistent across desktop browsers.
+           Only decorative continuous motion is reduced when the OS requests it. */
         @media (prefers-reduced-motion:reduce) {
-          .hero-name,.hero-subtitle,.hero-nav,#vision .glass-card,#vision .bulb-art-frame,
-          .section-title-line,.rail-trigger:not(.used) { animation:none!important; }
-          .motion-ready .reveal,.motion-ready .project-card,.motion-ready #skills .glass-card {
-            opacity:1!important;transform:none!important;filter:none!important;
-          }
+          #vision .bulb-art-frame { animation:none!important; }
+          #sparkle-canvas { display:none!important; }
+        }
+        /* Fallback: if IntersectionObserver is unavailable, content stays visible. */
+        .no-motion-observer .reveal,
+        .no-motion-observer .project-card,
+        .no-motion-observer #skills .glass-card {
+          opacity:1!important; transform:none!important; filter:none!important;
         }
 
     </style>

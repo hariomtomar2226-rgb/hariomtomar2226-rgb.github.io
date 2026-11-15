@@ -155,52 +155,6 @@
             box-shadow: 0 18px 36px -10px rgba(15, 23, 42, 0.14);
         }
 
-        /* Project Card Skill-Evidence Illumination & Dimming States */
-        .project-card.skill-highlighted {
-            border-color: rgba(255, 255, 255, 0.75) !important;
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 20px 44px -10px rgba(0, 0, 0, 0.85), 0 0 28px rgba(255, 255, 255, 0.14) !important;
-        }
-        html:not(.dark) .project-card.skill-highlighted {
-            border-color: rgba(9, 9, 11, 0.85) !important;
-            box-shadow: 0 0 0 1px rgba(9, 9, 11, 0.35), 0 20px 40px -10px rgba(15, 23, 42, 0.18) !important;
-        }
-        .project-card.skill-dimmed {
-            opacity: 0.38;
-            filter: grayscale(40%);
-        }
-
-        /* Interactive Skill Pill Items */
-        .skill-item {
-            cursor: pointer;
-            padding: 3px 8px;
-            margin-left: -8px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 6px;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
-        }
-        .skill-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            transform: translateX(3px);
-        }
-        html:not(.dark) .skill-item:hover {
-            background: rgba(15, 23, 42, 0.06);
-            color: #09090b;
-        }
-        .skill-item.skill-active {
-            background: rgba(255, 255, 255, 0.16);
-            color: #ffffff;
-            font-weight: 600;
-        }
-        html:not(.dark) .skill-item.skill-active {
-            background: rgba(15, 23, 42, 0.11);
-            color: #09090b;
-            font-weight: 600;
-        }
-
         /* Adaptive Styling for "missing bulb peace.jpg" + Gentle Floating Motion */
         @keyframes gentleFloat {
             0%, 100% { transform: translateY(0px); }
@@ -624,7 +578,7 @@
             <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
-        <!-- Tech-Stack Filter Pills + Active Skill Filter Banner -->
+        <!-- Tech-Stack Filter Pills -->
         <div class="flex flex-col items-center gap-3 mb-10 reveal-up">
             <div id="project-filters" class="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-300/80 dark:border-zinc-700/70 backdrop-blur-md shadow-md">
                 <button type="button" data-filter="all"
@@ -648,15 +602,6 @@
                     Tableau
                 </button>
             </div>
-
-            <!-- Active Skill Matrix Status Indicator (Shown when a skill is clicked below) -->
-            <div id="active-skill-banner" class="hidden items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 dark:bg-zinc-100/95 text-white dark:text-zinc-950 text-xs font-semibold shadow-md">
-                <i class="fas fa-filter text-[10px]"></i>
-                <span>Highlighting projects applying: <strong id="active-skill-name">DAX</strong></span>
-                <button id="clear-skill-filter" type="button" class="ml-1 px-2 py-0.5 rounded-full bg-white/20 dark:bg-zinc-950/15 hover:bg-white/30 text-[10px] uppercase tracking-wider">
-                    Clear ×
-                </button>
-            </div>
         </div>
 
         <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
@@ -665,14 +610,10 @@
             <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
                      data-project-id="netflix"
                      data-stacks="sql powerbi"
-                     data-skills="sql mysql joins ctes window-functions relational-data-modeling power-bi dax dashboard-development eda business-performance"
                      style="--reveal-delay: 0ms;">
                 <div class="relative z-10">
                     <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Netflix User Analytics Dashboard</h3>
-                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
-                            Applied
-                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">MySQL</span>
@@ -700,14 +641,10 @@
             <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
                      data-project-id="retail"
                      data-stacks="excel"
-                     data-skills="advanced-excel power-query etl data-cleaning data-transformation dashboard-development eda business-performance root-cause"
                      style="--reveal-delay: 100ms;">
                 <div class="relative z-10">
                     <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Global Retail Sales Performance Analysis</h3>
-                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
-                            Applied
-                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -733,14 +670,10 @@
             <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
                      data-project-id="quality"
                      data-stacks="excel tableau"
-                     data-skills="advanced-excel power-query tableau etl data-cleaning data-transformation dashboard-development eda root-cause data-quality"
                      style="--reveal-delay: 150ms;">
                 <div class="relative z-10">
                     <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Sales Performance Data Quality Assessment</h3>
-                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
-                            Applied
-                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -767,14 +700,10 @@
             <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
                      data-project-id="bbs"
                      data-stacks="excel"
-                     data-skills="advanced-excel power-query etl data-cleaning data-transformation dashboard-development eda business-performance root-cause"
                      style="--reveal-delay: 250ms;">
                 <div class="relative z-10">
                     <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Behavior-Based Safety (BBS) Analysis</h3>
-                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
-                            Applied
-                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -799,12 +728,11 @@
         </div>
     </section>
 
-    <!-- Technical Skills Section (Interactive Evidence Matrix) -->
+    <!-- Technical Skills Section (Clean 4-Column x 2-Row Desktop Grid) -->
     <section id="skills" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-12 reveal-up">
             <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
             <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
-            <p class="text-zinc-500 dark:text-zinc-400 mt-3 text-xs">Click any skill below to highlight the featured projects where it was applied.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
@@ -815,13 +743,13 @@
                     <i class="fas fa-database text-zinc-500 dark:text-zinc-400"></i>
                     <span>SQL &amp; Databases</span>
                 </h3>
-                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
-                    <li class="skill-item" data-skill-key="sql" data-skill-label="SQL"><span>• SQL</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="mysql" data-skill-label="MySQL"><span>• MySQL</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="joins" data-skill-label="Joins"><span>• Joins</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="ctes" data-skill-label="CTEs"><span>• CTEs</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="window-functions" data-skill-label="Window Functions"><span>• Window Functions</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="relational-data-modeling" data-skill-label="Relational Data Modeling"><span>• Relational Data Modeling</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>SQL</li>
+                    <li>MySQL</li>
+                    <li>Joins</li>
+                    <li>CTEs</li>
+                    <li>Window Functions</li>
+                    <li>Relational Data Modeling</li>
                 </ul>
             </div>
 
@@ -831,12 +759,12 @@
                     <i class="fas fa-chart-pie text-zinc-500 dark:text-zinc-400"></i>
                     <span>Business Intelligence</span>
                 </h3>
-                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
-                    <li class="skill-item" data-skill-key="power-bi" data-skill-label="Power BI"><span>• Power BI</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="power-query" data-skill-label="Power Query"><span>• Power Query</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="dax" data-skill-label="DAX"><span>• DAX</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="tableau" data-skill-label="Tableau"><span>• Tableau</span><span class="text-[10px] opacity-60">1 proj</span></li>
-                    <li class="skill-item" data-skill-key="dashboard-development" data-skill-label="Dashboard Development"><span>• Dashboard Development</span><span class="text-[10px] opacity-60">4 proj</span></li>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Power BI</li>
+                    <li>Power Query</li>
+                    <li>DAX</li>
+                    <li>Tableau</li>
+                    <li>Dashboard Development</li>
                 </ul>
             </div>
 
@@ -846,12 +774,12 @@
                     <i class="fas fa-file-excel text-zinc-500 dark:text-zinc-400"></i>
                     <span>Data Preparation</span>
                 </h3>
-                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
-                    <li class="skill-item" data-skill-key="advanced-excel" data-skill-label="Advanced Excel"><span>• Advanced Excel</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="power-query" data-skill-label="Power Query"><span>• Power Query</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="etl" data-skill-label="ETL"><span>• ETL</span><span class="text-[10px] opacity-60">4 proj</span></li>
-                    <li class="skill-item" data-skill-key="data-cleaning" data-skill-label="Data Cleaning"><span>• Data Cleaning</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="data-transformation" data-skill-label="Data Transformation"><span>• Data Transformation</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Advanced Excel</li>
+                    <li>Power Query</li>
+                    <li>ETL</li>
+                    <li>Data Cleaning</li>
+                    <li>Data Transformation</li>
                 </ul>
             </div>
 
@@ -861,11 +789,11 @@
                     <i class="fab fa-python text-zinc-500 dark:text-zinc-400"></i>
                     <span>Programming</span>
                 </h3>
-                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
-                    <li class="skill-item" data-skill-key="eda" data-skill-label="Python (EDA)"><span>• Python</span><span class="text-[10px] opacity-60">EDA</span></li>
-                    <li class="skill-item" data-skill-key="data-cleaning" data-skill-label="Pandas"><span>• Pandas</span><span class="text-[10px] opacity-60">Data</span></li>
-                    <li class="skill-item" data-skill-key="data-transformation" data-skill-label="NumPy"><span>• NumPy</span><span class="text-[10px] opacity-60">Data</span></li>
-                    <li class="skill-item" data-skill-key="dashboard-development" data-skill-label="Matplotlib"><span>• Matplotlib</span><span class="text-[10px] opacity-60">Viz</span></li>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Python</li>
+                    <li>Pandas</li>
+                    <li>NumPy</li>
+                    <li>Matplotlib</li>
                 </ul>
             </div>
 
@@ -875,11 +803,11 @@
                     <i class="fas fa-magnifying-glass-chart text-zinc-500 dark:text-zinc-400"></i>
                     <span>Analytical Capabilities</span>
                 </h3>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
-                    <li class="skill-item" data-skill-key="eda" data-skill-label="Exploratory Data Analysis"><span>• Exploratory Data Analysis</span><span class="text-[10px] opacity-60">4 proj</span></li>
-                    <li class="skill-item" data-skill-key="business-performance" data-skill-label="Business Performance Analysis"><span>• Business Performance Analysis</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="root-cause" data-skill-label="Root Cause Analysis"><span>• Root Cause Analysis</span><span class="text-[10px] opacity-60">3 proj</span></li>
-                    <li class="skill-item" data-skill-key="data-quality" data-skill-label="Data Quality Assessment"><span>• Data Quality Assessment</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Exploratory Data Analysis</li>
+                    <li>Business Performance Analysis</li>
+                    <li>Root Cause Analysis</li>
+                    <li>Data Quality Assessment</li>
                 </ul>
             </div>
 
@@ -993,7 +921,7 @@
         </div>
     </div>
 
-    <!-- Interactive Sound Engine + KPI Counter + Filter/Modal/Matrix + Constellation Canvas -->
+    <!-- Interactive Sound Engine + KPI Counter + Project Filter/Modal + Constellation Canvas -->
     <script>
         (function () {
             /* =========================================================
@@ -1168,7 +1096,7 @@
                 updateSoundUI(state);
             });
 
-            document.querySelectorAll('a, button, .skill-item').forEach(el => {
+            document.querySelectorAll('a, button').forEach(el => {
                 el.addEventListener('mouseenter', () => SoundFX.playTick());
                 if (el.dataset.sound === 'chime') {
                     el.addEventListener('click', () => SoundFX.playChime());
@@ -1243,9 +1171,8 @@
                 function step(now) {
                     const elapsed = now - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    const eased = 1 - Math.pow(1 - progress, 3); // Ease-out cubic
+                    const eased = 1 - Math.pow(1 - progress, 3);
 
-                    // Play ascending subtle data-ticks across 10 intervals
                     const bucket = Math.floor(progress * 10);
                     if (bucket > lastTickBucket && progress < 1) {
                         lastTickBucket = bucket;
@@ -1286,9 +1213,6 @@
                 btn.addEventListener('click', () => {
                     const filter = btn.dataset.filter;
                     SoundFX.playSwitch(filter !== 'all');
-
-                    // Reset any active skill highlight when switching stack tabs
-                    clearSkillHighlight();
 
                     filterBtns.forEach(b => {
                         const isActive = b === btn;
@@ -1422,98 +1346,7 @@
             });
 
             /* =========================================================
-               7. INTERACTIVE SKILL EVIDENCE MATRIX
-               ========================================================= */
-            const skillItems = document.querySelectorAll('.skill-item');
-            const activeSkillBanner = document.getElementById('active-skill-banner');
-            const activeSkillName = document.getElementById('active-skill-name');
-            const clearSkillBtn = document.getElementById('clear-skill-filter');
-            let lockedSkillKey = null;
-
-            function applySkillHighlight(skillKey, skillLabel, isLocked) {
-                // Ensure all project cards are visible when inspecting skill evidence
-                if (isLocked) {
-                    filterBtns.forEach(b => {
-                        const isAll = b.dataset.filter === 'all';
-                        b.className = isAll
-                            ? 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm'
-                            : 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800';
-                    });
-                    projectCards.forEach(c => c.classList.remove('hidden'));
-                }
-
-                projectCards.forEach(card => {
-                    const cardSkills = (card.dataset.skills || '').split(' ');
-                    const badge = card.querySelector('.skill-match-badge');
-                    if (cardSkills.includes(skillKey)) {
-                        card.classList.add('skill-highlighted');
-                        card.classList.remove('skill-dimmed');
-                        if (badge) {
-                            badge.textContent = `Applied: ${skillLabel}`;
-                            badge.classList.remove('hidden');
-                        }
-                    } else {
-                        card.classList.remove('skill-highlighted');
-                        card.classList.add('skill-dimmed');
-                        if (badge) badge.classList.add('hidden');
-                    }
-                });
-            }
-
-            function clearSkillHighlight() {
-                lockedSkillKey = null;
-                skillItems.forEach(s => s.classList.remove('skill-active'));
-                projectCards.forEach(card => {
-                    card.classList.remove('skill-highlighted', 'skill-dimmed');
-                    const badge = card.querySelector('.skill-match-badge');
-                    if (badge) badge.classList.add('hidden');
-                });
-                activeSkillBanner.classList.add('hidden');
-                activeSkillBanner.classList.remove('inline-flex');
-            }
-
-            skillItems.forEach(item => {
-                const key = item.dataset.skillKey;
-                const label = item.dataset.skillLabel;
-
-                item.addEventListener('mouseenter', () => {
-                    if (!lockedSkillKey) {
-                        applySkillHighlight(key, label, false);
-                    }
-                });
-
-                item.addEventListener('mouseleave', () => {
-                    if (!lockedSkillKey) {
-                        clearSkillHighlight();
-                    }
-                });
-
-                item.addEventListener('click', () => {
-                    if (lockedSkillKey === key) {
-                        clearSkillHighlight();
-                        SoundFX.playTick();
-                        return;
-                    }
-                    lockedSkillKey = key;
-                    skillItems.forEach(s => s.classList.toggle('skill-active', s.dataset.skillKey === key));
-                    applySkillHighlight(key, label, true);
-
-                    activeSkillName.textContent = label;
-                    activeSkillBanner.classList.remove('hidden');
-                    activeSkillBanner.classList.add('inline-flex');
-
-                    SoundFX.playChime();
-                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
-
-            clearSkillBtn.addEventListener('click', () => {
-                clearSkillHighlight();
-                SoundFX.playTick();
-            });
-
-            /* =========================================================
-               8. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
+               7. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
                ========================================================= */
             const copyToast = document.getElementById('copy-toast');
             let toastTimer = null;
@@ -1538,7 +1371,7 @@
             });
 
             /* =========================================================
-               9. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
+               8. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
                ========================================================= */
             document.querySelectorAll('.glass-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -1563,7 +1396,7 @@
             });
 
             /* =========================================================
-               10. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
+               9. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
                ========================================================= */
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1601,7 +1434,7 @@
             onScroll();
 
             /* =========================================================
-               11. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
+               10. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
                ========================================================= */
             const taglineEl = document.getElementById('typed-tagline');
             const phrases = [
@@ -1639,7 +1472,7 @@
             setTimeout(() => { isDeleting = true; tickTagline(); }, 3200);
 
             /* =========================================================
-               12. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
+               11. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
                ========================================================= */
             const mouse = { x: -1000, y: -1000 };
             const ripples = [];
@@ -1660,7 +1493,7 @@
 
             window.addEventListener('click', (e) => {
                 ripples.push({ x: e.clientX, y: e.clientY, radius: 6, maxRadius: 210, alpha: 0.45 });
-                if (!e.target.closest('a, button, .skill-item, #case-study-dialog')) {
+                if (!e.target.closest('a, button, #case-study-dialog')) {
                     SoundFX.playPulse();
                 }
             });

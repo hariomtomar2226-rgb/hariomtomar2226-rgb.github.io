@@ -112,7 +112,7 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.12);
             transform-style: preserve-3d;
-            transition: border-color 0.3s ease, box-shadow 0.35s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease;
+            transition: border-color 0.3s ease, box-shadow 0.35s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.4s ease, opacity 0.35s ease;
             --mouse-x: 50%;
             --mouse-y: 50%;
         }
@@ -153,6 +153,52 @@
         html:not(.dark) .glass-card:hover {
             border-color: rgba(15, 23, 42, 0.35);
             box-shadow: 0 18px 36px -10px rgba(15, 23, 42, 0.14);
+        }
+
+        /* Project Card Skill-Evidence Illumination & Dimming States */
+        .project-card.skill-highlighted {
+            border-color: rgba(255, 255, 255, 0.75) !important;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 20px 44px -10px rgba(0, 0, 0, 0.85), 0 0 28px rgba(255, 255, 255, 0.14) !important;
+        }
+        html:not(.dark) .project-card.skill-highlighted {
+            border-color: rgba(9, 9, 11, 0.85) !important;
+            box-shadow: 0 0 0 1px rgba(9, 9, 11, 0.35), 0 20px 40px -10px rgba(15, 23, 42, 0.18) !important;
+        }
+        .project-card.skill-dimmed {
+            opacity: 0.38;
+            filter: grayscale(40%);
+        }
+
+        /* Interactive Skill Pill Items */
+        .skill-item {
+            cursor: pointer;
+            padding: 3px 8px;
+            margin-left: -8px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+        }
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+        html:not(.dark) .skill-item:hover {
+            background: rgba(15, 23, 42, 0.06);
+            color: #09090b;
+        }
+        .skill-item.skill-active {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-weight: 600;
+        }
+        html:not(.dark) .skill-item.skill-active {
+            background: rgba(15, 23, 42, 0.11);
+            color: #09090b;
+            font-weight: 600;
         }
 
         /* Adaptive Styling for "missing bulb peace.jpg" + Gentle Floating Motion */
@@ -239,7 +285,7 @@
             animation: caretBlink 0.9s infinite;
         }
 
-        /* Compact Vertical Neumorphic Pill Switch (~1/4 Screen Height Rail) */
+        /* Compact Vertical Neumorphic Pill Switch */
         .neumorphic-pill-vertical {
             position: relative;
             width: 34px;
@@ -341,6 +387,40 @@
         .tactile-btn:active {
             transform: scale(0.95);
         }
+
+        /* Case Study Modal Backdrop & Panel Transitions */
+        #case-study-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+        #case-study-modal.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #case-study-dialog {
+            transform: translateY(18px) scale(0.97);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #case-study-modal.is-open #case-study-dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Floating Copy Toast Notification */
+        #copy-toast {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%) translateY(24px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 70;
+            transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #copy-toast.is-shown {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200 dark:bg-zinc-950 dark:text-zinc-200 font-sans antialiased selection:bg-zinc-800 selection:text-white dark:selection:bg-zinc-200 dark:selection:text-zinc-950">
@@ -354,7 +434,16 @@
     <div class="cursor-glow" id="cursor-glow"></div>
     <canvas id="sparkle-canvas"></canvas>
 
-    <!-- Compact Floating Action & Theme Switcher Bar (Auto Pop-Out) -->
+    <!-- Floating Copy-to-Clipboard Glass Toast -->
+    <div id="copy-toast" role="status" aria-live="polite"
+         class="px-5 py-2.5 rounded-xl bg-zinc-900/95 dark:bg-zinc-100/95 text-white dark:text-zinc-950 border border-zinc-700/80 dark:border-zinc-300 shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-semibold flex items-center gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-600 flex items-center justify-center text-xs">
+            <i class="fas fa-check"></i>
+        </span>
+        <span id="copy-toast-text">Copied hariomtomar2226@gmail.com to clipboard ✓</span>
+    </div>
+
+    <!-- Compact Floating Action & Theme Switcher Bar -->
     <aside id="floating-drawer" class="floating-rail" aria-label="Quick Actions and Theme Controls">
         <div class="flex flex-col items-center gap-1.5 p-1.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-300/90 dark:border-zinc-700/80 shadow-xl backdrop-blur-xl">
 
@@ -416,8 +505,9 @@
                 <i class="fab fa-linkedin-in text-sm"></i>
             </a>
 
-            <!-- Email -->
-            <a href="mailto:hariomtomar2226@gmail.com" aria-label="Email" title="Send Email"
+            <!-- Email (One-Click Copy + Mailto) -->
+            <a href="mailto:hariomtomar2226@gmail.com" data-copy-email="hariomtomar2226@gmail.com"
+               aria-label="Copy Email Address" title="Copy Email (hariomtomar2226@gmail.com)"
                class="tactile-btn w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shadow-sm">
                 <i class="fas fa-envelope text-sm"></i>
             </a>
@@ -495,20 +585,94 @@
         </div>
     </section>
 
+    <!-- Animated Impact & KPI Counter Strip -->
+    <section id="impact-kpis" aria-label="Analytical Impact Metrics" class="py-4 px-6 max-w-5xl mx-auto relative z-10 reveal-up">
+        <div class="glass-card rounded-2xl p-6 md:px-8 md:py-7">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 text-center relative z-10">
+                <div class="space-y-1">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="66500" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Records Analyzed</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="4" data-suffix="">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">End-to-End Pipelines</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="12" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Interactive Dashboard Pages</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="4" data-suffix="">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Core BI &amp; Dev Tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Featured Projects Section -->
     <section id="projects" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
-        <div class="text-center mb-12 reveal-up">
+        <div class="text-center mb-8 reveal-up">
             <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Featured Projects</h2>
             <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        <!-- Tech-Stack Filter Pills + Active Skill Filter Banner -->
+        <div class="flex flex-col items-center gap-3 mb-10 reveal-up">
+            <div id="project-filters" class="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-300/80 dark:border-zinc-700/70 backdrop-blur-md shadow-md">
+                <button type="button" data-filter="all"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm">
+                    All Projects
+                </button>
+                <button type="button" data-filter="sql"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    SQL &amp; MySQL
+                </button>
+                <button type="button" data-filter="powerbi"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Power BI
+                </button>
+                <button type="button" data-filter="excel"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Excel
+                </button>
+                <button type="button" data-filter="tableau"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Tableau
+                </button>
+            </div>
+
+            <!-- Active Skill Matrix Status Indicator (Shown when a skill is clicked below) -->
+            <div id="active-skill-banner" class="hidden items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 dark:bg-zinc-100/95 text-white dark:text-zinc-950 text-xs font-semibold shadow-md">
+                <i class="fas fa-filter text-[10px]"></i>
+                <span>Highlighting projects applying: <strong id="active-skill-name">DAX</strong></span>
+                <button id="clear-skill-filter" type="button" class="ml-1 px-2 py-0.5 rounded-full bg-white/20 dark:bg-zinc-950/15 hover:bg-white/30 text-[10px] uppercase tracking-wider">
+                    Clear ×
+                </button>
+            </div>
+        </div>
+
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             
             <!-- Project 1: Netflix -->
-            <div class="glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full" style="--reveal-delay: 0ms;">
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="netflix"
+                     data-stacks="sql powerbi"
+                     data-skills="sql mysql joins ctes window-functions relational-data-modeling power-bi dax dashboard-development eda business-performance"
+                     style="--reveal-delay: 0ms;">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between gap-2 mb-3">
+                    <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Netflix User Analytics Dashboard</h3>
+                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
+                            Applied
+                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">MySQL</span>
@@ -525,18 +689,25 @@
                        class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </a>
-                    <a href="https://github.com/hariomtomar2226-rgb/Netflix-Project/tree/main/Screenshots" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    <button type="button" data-case-study="netflix"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 2: Global Retail -->
-            <div class="glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full" style="--reveal-delay: 100ms;">
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="retail"
+                     data-stacks="excel"
+                     data-skills="advanced-excel power-query etl data-cleaning data-transformation dashboard-development eda business-performance root-cause"
+                     style="--reveal-delay: 100ms;">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between gap-2 mb-3">
+                    <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Global Retail Sales Performance Analysis</h3>
+                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
+                            Applied
+                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -551,18 +722,25 @@
                        class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </a>
-                    <a href="https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    <button type="button" data-case-study="retail"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 3: Sales Performance Data Quality -->
-            <div class="glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full" style="--reveal-delay: 150ms;">
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="quality"
+                     data-stacks="excel tableau"
+                     data-skills="advanced-excel power-query tableau etl data-cleaning data-transformation dashboard-development eda root-cause data-quality"
+                     style="--reveal-delay: 150ms;">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between gap-2 mb-3">
+                    <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Sales Performance Data Quality Assessment</h3>
+                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
+                            Applied
+                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -578,18 +756,25 @@
                        class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </a>
-                    <a href="https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    <button type="button" data-case-study="quality"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 4: Behavior-Based Safety -->
-            <div class="glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full" style="--reveal-delay: 250ms;">
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="bbs"
+                     data-stacks="excel"
+                     data-skills="advanced-excel power-query etl data-cleaning data-transformation dashboard-development eda business-performance root-cause"
+                     style="--reveal-delay: 250ms;">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between gap-2 mb-3">
+                    <div class="flex items-start justify-between gap-2 mb-3">
                         <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Behavior-Based Safety (BBS) Analysis</h3>
+                        <span class="skill-match-badge hidden shrink-0 px-2.5 py-0.5 rounded-full bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 text-[10px] font-bold uppercase tracking-wider">
+                            Applied
+                        </span>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
@@ -604,21 +789,22 @@
                        class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </a>
-                    <a href="https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    <button type="button" data-case-study="bbs"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </article>
 
         </div>
     </section>
 
-    <!-- Technical Skills Section (4-Column x 2-Row Desktop Grid with Bullet Points) -->
+    <!-- Technical Skills Section (Interactive Evidence Matrix) -->
     <section id="skills" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-12 reveal-up">
             <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
             <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <p class="text-zinc-500 dark:text-zinc-400 mt-3 text-xs">Click any skill below to highlight the featured projects where it was applied.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
@@ -629,13 +815,13 @@
                     <i class="fas fa-database text-zinc-500 dark:text-zinc-400"></i>
                     <span>SQL &amp; Databases</span>
                 </h3>
-                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
-                    <li>SQL</li>
-                    <li>MySQL</li>
-                    <li>Joins</li>
-                    <li>CTEs</li>
-                    <li>Window Functions</li>
-                    <li>Relational Data Modeling</li>
+                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
+                    <li class="skill-item" data-skill-key="sql" data-skill-label="SQL"><span>• SQL</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="mysql" data-skill-label="MySQL"><span>• MySQL</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="joins" data-skill-label="Joins"><span>• Joins</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="ctes" data-skill-label="CTEs"><span>• CTEs</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="window-functions" data-skill-label="Window Functions"><span>• Window Functions</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="relational-data-modeling" data-skill-label="Relational Data Modeling"><span>• Relational Data Modeling</span><span class="text-[10px] opacity-60">1 proj</span></li>
                 </ul>
             </div>
 
@@ -645,12 +831,12 @@
                     <i class="fas fa-chart-pie text-zinc-500 dark:text-zinc-400"></i>
                     <span>Business Intelligence</span>
                 </h3>
-                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
-                    <li>Power BI</li>
-                    <li>Power Query</li>
-                    <li>DAX</li>
-                    <li>Tableau</li>
-                    <li>Dashboard Development</li>
+                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
+                    <li class="skill-item" data-skill-key="power-bi" data-skill-label="Power BI"><span>• Power BI</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="power-query" data-skill-label="Power Query"><span>• Power Query</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="dax" data-skill-label="DAX"><span>• DAX</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="tableau" data-skill-label="Tableau"><span>• Tableau</span><span class="text-[10px] opacity-60">1 proj</span></li>
+                    <li class="skill-item" data-skill-key="dashboard-development" data-skill-label="Dashboard Development"><span>• Dashboard Development</span><span class="text-[10px] opacity-60">4 proj</span></li>
                 </ul>
             </div>
 
@@ -660,12 +846,12 @@
                     <i class="fas fa-file-excel text-zinc-500 dark:text-zinc-400"></i>
                     <span>Data Preparation</span>
                 </h3>
-                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
-                    <li>Advanced Excel</li>
-                    <li>Power Query</li>
-                    <li>ETL</li>
-                    <li>Data Cleaning</li>
-                    <li>Data Transformation</li>
+                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
+                    <li class="skill-item" data-skill-key="advanced-excel" data-skill-label="Advanced Excel"><span>• Advanced Excel</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="power-query" data-skill-label="Power Query"><span>• Power Query</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="etl" data-skill-label="ETL"><span>• ETL</span><span class="text-[10px] opacity-60">4 proj</span></li>
+                    <li class="skill-item" data-skill-key="data-cleaning" data-skill-label="Data Cleaning"><span>• Data Cleaning</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="data-transformation" data-skill-label="Data Transformation"><span>• Data Transformation</span><span class="text-[10px] opacity-60">3 proj</span></li>
                 </ul>
             </div>
 
@@ -675,11 +861,11 @@
                     <i class="fab fa-python text-zinc-500 dark:text-zinc-400"></i>
                     <span>Programming</span>
                 </h3>
-                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
-                    <li>Python</li>
-                    <li>Pandas</li>
-                    <li>NumPy</li>
-                    <li>Matplotlib</li>
+                <ul class="space-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
+                    <li class="skill-item" data-skill-key="eda" data-skill-label="Python (EDA)"><span>• Python</span><span class="text-[10px] opacity-60">EDA</span></li>
+                    <li class="skill-item" data-skill-key="data-cleaning" data-skill-label="Pandas"><span>• Pandas</span><span class="text-[10px] opacity-60">Data</span></li>
+                    <li class="skill-item" data-skill-key="data-transformation" data-skill-label="NumPy"><span>• NumPy</span><span class="text-[10px] opacity-60">Data</span></li>
+                    <li class="skill-item" data-skill-key="dashboard-development" data-skill-label="Matplotlib"><span>• Matplotlib</span><span class="text-[10px] opacity-60">Viz</span></li>
                 </ul>
             </div>
 
@@ -689,11 +875,11 @@
                     <i class="fas fa-magnifying-glass-chart text-zinc-500 dark:text-zinc-400"></i>
                     <span>Analytical Capabilities</span>
                 </h3>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
-                    <li>Exploratory Data Analysis</li>
-                    <li>Business Performance Analysis</li>
-                    <li>Root Cause Analysis</li>
-                    <li>Data Quality Assessment</li>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm text-zinc-600 dark:text-zinc-400 relative z-10">
+                    <li class="skill-item" data-skill-key="eda" data-skill-label="Exploratory Data Analysis"><span>• Exploratory Data Analysis</span><span class="text-[10px] opacity-60">4 proj</span></li>
+                    <li class="skill-item" data-skill-key="business-performance" data-skill-label="Business Performance Analysis"><span>• Business Performance Analysis</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="root-cause" data-skill-label="Root Cause Analysis"><span>• Root Cause Analysis</span><span class="text-[10px] opacity-60">3 proj</span></li>
+                    <li class="skill-item" data-skill-key="data-quality" data-skill-label="Data Quality Assessment"><span>• Data Quality Assessment</span><span class="text-[10px] opacity-60">1 proj</span></li>
                 </ul>
             </div>
 
@@ -711,9 +897,12 @@
         <div class="glass-card p-7 rounded-2xl flex flex-col items-center gap-4">
             <!-- Primary Social & Email Buttons -->
             <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-                <a href="mailto:hariomtomar2226@gmail.com" data-sound="chime"
+                <a href="mailto:hariomtomar2226@gmail.com" data-copy-email="hariomtomar2226@gmail.com"
+                   title="Click to copy email & open mail client"
                    class="tactile-btn w-full sm:w-auto flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-lg">
-                    <i class="fas fa-envelope"></i> hariomtomar2226@gmail.com
+                    <i class="fas fa-envelope"></i>
+                    <span>hariomtomar2226@gmail.com</span>
+                    <i class="far fa-copy text-xs opacity-75"></i>
                 </a>
                 <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank" data-sound="chime"
                    class="tactile-btn w-full sm:w-auto flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
@@ -744,7 +933,67 @@
         © 2026 Hariom Tomar. Built with HTML &amp; Tailwind CSS.
     </footer>
 
-    <!-- Interactive Sound Engine + 3D Tilt + Constellation Canvas + Scroll Choreography -->
+    <!-- In-Page Quick-Preview Case Study Modal -->
+    <div id="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/75 backdrop-blur-md">
+        <div id="case-study-dialog"
+             class="w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                <div>
+                    <span id="modal-badge" class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
+                        Executive Case Brief
+                    </span>
+                    <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                        Project Title
+                    </h3>
+                    <div id="modal-tags" class="flex flex-wrap gap-1.5 mt-2.5"></div>
+                </div>
+                <button id="modal-close-btn" type="button" aria-label="Close Case Study Preview"
+                        class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Structured Analytical Flow: Problem -> Architecture -> Impact -->
+            <div class="space-y-5 py-5 text-sm leading-relaxed">
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-bullseye"></i> 01. Business Problem
+                    </div>
+                    <p id="modal-problem" class="text-zinc-700 dark:text-zinc-300"></p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-diagram-project"></i> 02. Data Architecture &amp; ETL
+                    </div>
+                    <p id="modal-architecture" class="text-zinc-700 dark:text-zinc-300"></p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-chart-line"></i> 03. Key Findings &amp; Business Impact
+                    </div>
+                    <ul id="modal-impact" class="space-y-1.5 text-zinc-700 dark:text-zinc-300 list-disc list-inside"></ul>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                <a id="modal-doc-link" href="#" target="_blank" data-sound="chime"
+                   class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-xl border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm font-medium">
+                    <i class="fab fa-github mr-1.5"></i> Repository &amp; Docs
+                </a>
+                <a id="modal-live-link" href="#" target="_blank" data-sound="chime"
+                   class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    <i class="fas fa-arrow-up-right-from-square mr-1.5"></i> Open Dashboard Visuals
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Sound Engine + KPI Counter + Filter/Modal/Matrix + Constellation Canvas -->
     <script>
         (function () {
             /* =========================================================
@@ -766,7 +1015,6 @@
                     return ctx;
                 }
 
-                // Unlock audio smoothly on first user interaction
                 ['pointerdown', 'keydown'].forEach(evt => {
                     window.addEventListener(evt, () => ensureContext(), { once: true, passive: true });
                 });
@@ -774,7 +1022,7 @@
                 function playTick() {
                     if (!enabled) return;
                     const now = performance.now();
-                    if (now - lastHoverTime < 65) return; // Rate-limit rapid hover ticks
+                    if (now - lastHoverTime < 65) return;
                     lastHoverTime = now;
 
                     const audio = ensureContext();
@@ -796,13 +1044,34 @@
                     osc.stop(t + 0.032);
                 }
 
+                function playDataStep(stepIndex) {
+                    if (!enabled) return;
+                    const audio = ensureContext();
+                    if (!audio || audio.state !== 'running') return;
+
+                    const t = audio.currentTime;
+                    const osc = audio.createOscillator();
+                    const gain = audio.createGain();
+                    osc.type = 'sine';
+                    const freq = 480 + stepIndex * 32;
+                    osc.frequency.setValueAtTime(freq, t);
+                    osc.frequency.exponentialRampToValueAtTime(freq * 1.15, t + 0.035);
+
+                    gain.gain.setValueAtTime(0.018, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.038);
+
+                    osc.connect(gain);
+                    gain.connect(audio.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.04);
+                }
+
                 function playSwitch(isDark) {
                     if (!enabled) return;
                     const audio = ensureContext();
                     if (!audio) return;
 
                     const t = audio.currentTime;
-                    // Tactile mechanical click + pitch shift
                     const osc = audio.createOscillator();
                     const gain = audio.createGain();
                     osc.type = 'triangle';
@@ -824,7 +1093,7 @@
                     if (!audio) return;
 
                     const t = audio.currentTime;
-                    const freqs = [587.33, 880]; // Clean D5 -> A5 harmonic fifth
+                    const freqs = [587.33, 880];
                     freqs.forEach((f, idx) => {
                         const osc = audio.createOscillator();
                         const gain = audio.createGain();
@@ -873,6 +1142,7 @@
                         return enabled;
                     },
                     playTick,
+                    playDataStep,
                     playSwitch,
                     playChime,
                     playPulse
@@ -898,8 +1168,7 @@
                 updateSoundUI(state);
             });
 
-            // Attach Hover & Click Audio Triggers to Interactive Elements
-            document.querySelectorAll('a, button').forEach(el => {
+            document.querySelectorAll('a, button, .skill-item').forEach(el => {
                 el.addEventListener('mouseenter', () => SoundFX.playTick());
                 if (el.dataset.sound === 'chime') {
                     el.addEventListener('click', () => SoundFX.playChime());
@@ -957,7 +1226,319 @@
             });
 
             /* =========================================================
-               4. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
+               4. ANIMATED IMPACT & KPI COUNTER STRIP (SCROLL TRIGGERED)
+               ========================================================= */
+            const kpiSection = document.getElementById('impact-kpis');
+            const kpiCounters = document.querySelectorAll('.kpi-counter');
+            let kpisAnimated = false;
+
+            function animateKpis() {
+                if (kpisAnimated) return;
+                kpisAnimated = true;
+
+                const duration = 1450;
+                const startTime = performance.now();
+                let lastTickBucket = -1;
+
+                function step(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3); // Ease-out cubic
+
+                    // Play ascending subtle data-ticks across 10 intervals
+                    const bucket = Math.floor(progress * 10);
+                    if (bucket > lastTickBucket && progress < 1) {
+                        lastTickBucket = bucket;
+                        SoundFX.playDataStep(bucket);
+                    }
+
+                    kpiCounters.forEach(el => {
+                        const target = Number(el.dataset.target);
+                        const suffix = el.dataset.suffix || '';
+                        const current = Math.round(target * eased);
+                        el.textContent = current.toLocaleString('en-US') + suffix;
+                    });
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            const kpiObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateKpis();
+                        kpiObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.35 });
+            if (kpiSection) kpiObserver.observe(kpiSection);
+
+            /* =========================================================
+               5. TECH-STACK PROJECT FILTER PILLS
+               ========================================================= */
+            const filterBtns = document.querySelectorAll('.filter-pill');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    SoundFX.playSwitch(filter !== 'all');
+
+                    // Reset any active skill highlight when switching stack tabs
+                    clearSkillHighlight();
+
+                    filterBtns.forEach(b => {
+                        const isActive = b === btn;
+                        b.className = isActive
+                            ? 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm'
+                            : 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800';
+                    });
+
+                    projectCards.forEach(card => {
+                        const stacks = (card.dataset.stacks || '').split(' ');
+                        const match = filter === 'all' || stacks.includes(filter);
+                        if (match) {
+                            card.classList.remove('hidden');
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(12px) scale(0.98)';
+                            requestAnimationFrame(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = '';
+                            });
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            /* =========================================================
+               6. IN-PAGE QUICK-PREVIEW CASE STUDY MODAL
+               ========================================================= */
+            const CASE_STUDIES = {
+                netflix: {
+                    title: 'Netflix User Analytics Dashboard',
+                    tags: ['MySQL', 'SQL', 'Power BI', 'DAX', '4-Table Schema'],
+                    problem: 'Raw subscriber exports lacked relational normalization and longitudinal tracking, making it difficult to pinpoint subscription tier churn drivers, regional revenue concentration, and device engagement differences across 2,500+ user records.',
+                    architecture: 'Engineered a 4-table normalized relational schema in MySQL with primary/foreign key constraints, executed SQL cleaning and validation scripts (CTEs, joins, window functions), and modeled DAX time-intelligence and retention measures inside a 4-page Power BI report.',
+                    impact: [
+                        'Identified top-performing subscription tiers and age cohorts driving recurring monthly revenue.',
+                        'Surfaced device-level watch-time disparities to guide targeted retention and plan-upgrade campaigns.',
+                        'Reduced manual reporting time by consolidating demographic, billing, and engagement KPIs into one interactive view.'
+                    ],
+                    docUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project',
+                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project/tree/main/Screenshots'
+                },
+                retail: {
+                    title: 'Global Retail Sales Performance Analysis',
+                    tags: ['Advanced Excel', 'Power Query', '51,000+ Rows', '4-Page Dashboard'],
+                    problem: 'Despite strong top-line revenue across 51,000+ global retail orders, net profit margins varied sharply across regions, shipping modes, and sub-categories—masking loss-making product lines.',
+                    architecture: 'Automated ingestion and transformation of 51,000+ transaction records using Power Query, built a dynamic Pivot-driven data model with custom calculated fields, and designed a 4-page interactive Excel executive dashboard with synchronized slicers.',
+                    impact: [
+                        'Pinpointed specific sub-categories and high-discount regions acting as structural profitability drains.',
+                        'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers.',
+                        'Delivered actionable discount-cap and regional pricing recommendations to protect operating margin.'
+                    ],
+                    docUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis',
+                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
+                },
+                quality: {
+                    title: 'Sales Performance Data Quality Assessment',
+                    tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2015–2018 Audit'],
+                    problem: 'Leadership relied on multi-year historical sales dashboards (2015–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across 11,000+ records.',
+                    architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built dual-layer diagnostic visualizations in Excel and Tableau to isolate corrupted segments.',
+                    impact: [
+                        'Uncovered 29% missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
+                        'Demonstrated side-by-side KPI variance before vs. after data remediation to establish governance standards.',
+                        'Provided a repeatable pre-BI validation checklist to prevent flawed executive decision-making.'
+                    ],
+                    docUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-',
+                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
+                },
+                bbs: {
+                    title: 'Behavior-Based Safety (BBS) Analysis',
+                    tags: ['Excel', 'Power Query', '2,000+ Observations', '10 Business Units'],
+                    problem: 'Over 2,000 workplace safety observation logs across 10 business units and 18 hazard categories were stored in fragmented spreadsheets, preventing EHS leaders from spotting recurring high-risk zones early.',
+                    architecture: 'Standardized categorical taxonomies and cleaned 2,000+ observation records via Power Query, constructing an interactive risk-matrix dashboard segmented by department, shift, and hazard type.',
+                    impact: [
+                        'Isolated high-frequency unsafe acts across specific business units and 18 safety categories.',
+                        'Enabled proactive safety interventions and targeted training in top-risk operational zones.',
+                        'Established clear compliance trend tracking across departments.'
+                    ],
+                    docUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard',
+                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
+                }
+            };
+
+            const modal = document.getElementById('case-study-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalTags = document.getElementById('modal-tags');
+            const modalProblem = document.getElementById('modal-problem');
+            const modalArch = document.getElementById('modal-architecture');
+            const modalImpact = document.getElementById('modal-impact');
+            const modalDocLink = document.getElementById('modal-doc-link');
+            const modalLiveLink = document.getElementById('modal-live-link');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            function openCaseStudy(id) {
+                const data = CASE_STUDIES[id];
+                if (!data) return;
+
+                modalTitle.textContent = data.title;
+                modalTags.innerHTML = data.tags.map(t =>
+                    `<span class="text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">${t}</span>`
+                ).join('');
+                modalProblem.textContent = data.problem;
+                modalArch.textContent = data.architecture;
+                modalImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
+                modalDocLink.href = data.docUrl;
+                modalLiveLink.href = data.liveUrl;
+
+                modal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                SoundFX.playChime();
+            }
+
+            function closeCaseStudy() {
+                if (!modal.classList.contains('is-open')) return;
+                modal.classList.remove('is-open');
+                document.body.style.overflow = '';
+                SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-case-study]').forEach(btn => {
+                btn.addEventListener('click', () => openCaseStudy(btn.dataset.caseStudy));
+            });
+
+            modalCloseBtn.addEventListener('click', closeCaseStudy);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeCaseStudy();
+            });
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeCaseStudy();
+            });
+
+            /* =========================================================
+               7. INTERACTIVE SKILL EVIDENCE MATRIX
+               ========================================================= */
+            const skillItems = document.querySelectorAll('.skill-item');
+            const activeSkillBanner = document.getElementById('active-skill-banner');
+            const activeSkillName = document.getElementById('active-skill-name');
+            const clearSkillBtn = document.getElementById('clear-skill-filter');
+            let lockedSkillKey = null;
+
+            function applySkillHighlight(skillKey, skillLabel, isLocked) {
+                // Ensure all project cards are visible when inspecting skill evidence
+                if (isLocked) {
+                    filterBtns.forEach(b => {
+                        const isAll = b.dataset.filter === 'all';
+                        b.className = isAll
+                            ? 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm'
+                            : 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800';
+                    });
+                    projectCards.forEach(c => c.classList.remove('hidden'));
+                }
+
+                projectCards.forEach(card => {
+                    const cardSkills = (card.dataset.skills || '').split(' ');
+                    const badge = card.querySelector('.skill-match-badge');
+                    if (cardSkills.includes(skillKey)) {
+                        card.classList.add('skill-highlighted');
+                        card.classList.remove('skill-dimmed');
+                        if (badge) {
+                            badge.textContent = `Applied: ${skillLabel}`;
+                            badge.classList.remove('hidden');
+                        }
+                    } else {
+                        card.classList.remove('skill-highlighted');
+                        card.classList.add('skill-dimmed');
+                        if (badge) badge.classList.add('hidden');
+                    }
+                });
+            }
+
+            function clearSkillHighlight() {
+                lockedSkillKey = null;
+                skillItems.forEach(s => s.classList.remove('skill-active'));
+                projectCards.forEach(card => {
+                    card.classList.remove('skill-highlighted', 'skill-dimmed');
+                    const badge = card.querySelector('.skill-match-badge');
+                    if (badge) badge.classList.add('hidden');
+                });
+                activeSkillBanner.classList.add('hidden');
+                activeSkillBanner.classList.remove('inline-flex');
+            }
+
+            skillItems.forEach(item => {
+                const key = item.dataset.skillKey;
+                const label = item.dataset.skillLabel;
+
+                item.addEventListener('mouseenter', () => {
+                    if (!lockedSkillKey) {
+                        applySkillHighlight(key, label, false);
+                    }
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    if (!lockedSkillKey) {
+                        clearSkillHighlight();
+                    }
+                });
+
+                item.addEventListener('click', () => {
+                    if (lockedSkillKey === key) {
+                        clearSkillHighlight();
+                        SoundFX.playTick();
+                        return;
+                    }
+                    lockedSkillKey = key;
+                    skillItems.forEach(s => s.classList.toggle('skill-active', s.dataset.skillKey === key));
+                    applySkillHighlight(key, label, true);
+
+                    activeSkillName.textContent = label;
+                    activeSkillBanner.classList.remove('hidden');
+                    activeSkillBanner.classList.add('inline-flex');
+
+                    SoundFX.playChime();
+                    document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            clearSkillBtn.addEventListener('click', () => {
+                clearSkillHighlight();
+                SoundFX.playTick();
+            });
+
+            /* =========================================================
+               8. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
+               ========================================================= */
+            const copyToast = document.getElementById('copy-toast');
+            let toastTimer = null;
+
+            function showCopyToast() {
+                copyToast.classList.add('is-shown');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    copyToast.classList.remove('is-shown');
+                }, 3000);
+            }
+
+            document.querySelectorAll('[data-copy-email]').forEach(link => {
+                link.addEventListener('click', () => {
+                    const email = link.dataset.copyEmail;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(email).catch(() => {});
+                    }
+                    SoundFX.playChime();
+                    showCopyToast();
+                });
+            });
+
+            /* =========================================================
+               9. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
                ========================================================= */
             document.querySelectorAll('.glass-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -982,7 +1563,7 @@
             });
 
             /* =========================================================
-               5. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
+               10. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
                ========================================================= */
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1020,7 +1601,7 @@
             onScroll();
 
             /* =========================================================
-               6. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
+               11. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
                ========================================================= */
             const taglineEl = document.getElementById('typed-tagline');
             const phrases = [
@@ -1058,7 +1639,7 @@
             setTimeout(() => { isDeleting = true; tickTagline(); }, 3200);
 
             /* =========================================================
-               7. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
+               12. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
                ========================================================= */
             const mouse = { x: -1000, y: -1000 };
             const ripples = [];
@@ -1079,7 +1660,7 @@
 
             window.addEventListener('click', (e) => {
                 ripples.push({ x: e.clientX, y: e.clientY, radius: 6, maxRadius: 210, alpha: 0.45 });
-                if (!e.target.closest('a, button')) {
+                if (!e.target.closest('a, button, .skill-item, #case-study-dialog')) {
                     SoundFX.playPulse();
                 }
             });
@@ -1160,7 +1741,6 @@
                         alpha = Math.min(1, alpha + proximity * 0.65);
                         r += proximity * 1.3;
 
-                        // Connect particle directly to cursor spotlight
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(mouse.x, mouse.y);
@@ -1170,7 +1750,6 @@
                         ctx.lineWidth = 0.8;
                         ctx.stroke();
 
-                        // Connect neighboring particles within cursor aura (Data Network Effect)
                         for (let j = i + 1; j < particles.length; j++) {
                             const p2 = particles[j];
                             const d12 = Math.hypot(p.x - p2.x, p.y - p2.y);

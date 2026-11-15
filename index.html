@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hariom Tomar | Data Analyst Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --cursor-x: -1000px;
+            --cursor-y: -1000px;
+        }
+
         body {
-            background-color: #09090b;
-            color: #e4e4e7;
+            transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
         }
 
@@ -17,7 +26,7 @@
         .bg-data-man {
             position: fixed;
             inset: -20px;
-            z-index: -2;
+            z-index: -3;
             background-image: url('data man.jpg');
             background-size: cover;
             background-position: center top;
@@ -25,18 +34,58 @@
             filter: blur(6px) grayscale(100%) contrast(115%);
             opacity: 0.22;
             pointer-events: none;
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        html:not(.dark) .bg-data-man {
+            filter: blur(7px) grayscale(100%) invert(1) contrast(105%);
+            opacity: 0.10;
         }
 
-        /* Subtle Dark Vignette Overlay for Readability */
+        /* Subtle Vignette Overlay */
         .bg-vignette {
             position: fixed;
             inset: 0;
-            z-index: -1;
+            z-index: -2;
             background: radial-gradient(circle at 50% 30%, rgba(9, 9, 11, 0.45) 0%, rgba(9, 9, 11, 0.92) 85%);
+            pointer-events: none;
+            transition: background 0.4s ease;
+        }
+        html:not(.dark) .bg-vignette {
+            background: radial-gradient(circle at 50% 30%, rgba(248, 250, 252, 0.55) 0%, rgba(241, 245, 249, 0.92) 85%);
+        }
+
+        /* Cursor Ambient Glow Spotlight */
+        .cursor-glow {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(
+                380px circle at var(--cursor-x) var(--cursor-y),
+                rgba(255, 255, 255, 0.09),
+                transparent 75%
+            );
+            transition: opacity 0.3s ease;
+        }
+        html:not(.dark) .cursor-glow {
+            background: radial-gradient(
+                380px circle at var(--cursor-x) var(--cursor-y),
+                rgba(15, 23, 42, 0.08),
+                transparent 75%
+            );
+        }
+
+        /* Sparkle Particle Canvas */
+        #sparkle-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
             pointer-events: none;
         }
 
-        /* Monochrome Glass Cards */
+        /* Adaptive Glass Cards (Dark & Light) */
         .glass-card {
             background: rgba(24, 24, 27, 0.72);
             backdrop-filter: blur(12px);
@@ -50,74 +99,90 @@
             box-shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 255, 255, 0.05);
         }
 
-        /* Seamless Dark Theme Styling for "missing bulb peace.jpg" */
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.06);
+        }
+        html:not(.dark) .glass-card:hover {
+            border-color: rgba(15, 23, 42, 0.35);
+            box-shadow: 0 14px 32px -8px rgba(15, 23, 42, 0.12);
+        }
+
+        /* Adaptive Styling for "missing bulb peace.jpg" */
         .bulb-art-frame {
             background: #121215;
             border: 1px solid rgba(255, 255, 255, 0.14);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
+            transition: all 0.4s ease;
         }
         .bulb-art-img {
-            /* Inverts the cream paper background into deep black while keeping high-contrast editorial look */
             filter: invert(0.93) grayscale(100%) contrast(125%);
             mix-blend-mode: lighten;
+            transition: filter 0.4s ease;
         }
 
-        /* Interactive Spider Canvas */
-        #spider-canvas {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 40;
-            pointer-events: none; /* Lets all clicks pass right through to buttons & links */
+        html:not(.dark) .bulb-art-frame {
+            background: #f3f1ed;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+        html:not(.dark) .bulb-art-img {
+            filter: none;
+            mix-blend-mode: normal;
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-zinc-200 selection:text-zinc-950">
+<body class="bg-zinc-950 text-zinc-200 dark:bg-zinc-950 dark:text-zinc-200 font-sans antialiased selection:bg-zinc-800 selection:text-white dark:selection:bg-zinc-200 dark:selection:text-zinc-950">
 
     <!-- Background Layers -->
     <div class="bg-data-man"></div>
     <div class="bg-vignette"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="sparkle-canvas"></canvas>
 
-    <!-- Interactive Crawling Spider Layer -->
-    <canvas id="spider-canvas"></canvas>
-
-    <!-- Floating Social Bar (Top Right) -->
+    <!-- Floating Action & Theme Switcher Bar (Top Right) -->
     <div class="fixed top-6 right-6 z-50 flex flex-col gap-3">
+        <!-- Dark / Light Mode Switch Button -->
+        <button id="theme-toggle" type="button" aria-label="Toggle Dark or Light Mode" title="Switch Theme"
+                class="w-10 h-10 rounded-lg bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center transition shadow-lg cursor-pointer">
+            <i id="theme-icon" class="fas fa-sun text-base"></i>
+        </button>
+
         <a href="https://github.com/hariomtomar2226-rgb" target="_blank" aria-label="GitHub"
-           class="w-10 h-10 rounded-lg bg-zinc-900/90 border border-zinc-700/80 hover:border-zinc-200 text-zinc-400 hover:text-white flex items-center justify-center transition shadow-lg">
+           class="w-10 h-10 rounded-lg bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center transition shadow-lg">
             <i class="fab fa-github text-lg"></i>
         </a>
         <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank" aria-label="LinkedIn"
-           class="w-10 h-10 rounded-lg bg-zinc-900/90 border border-zinc-700/80 hover:border-zinc-200 text-zinc-400 hover:text-white flex items-center justify-center transition shadow-lg">
+           class="w-10 h-10 rounded-lg bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center transition shadow-lg">
             <i class="fab fa-linkedin-in text-lg"></i>
         </a>
         <a href="mailto:hariomtomar2226@gmail.com" aria-label="Email"
-           class="w-10 h-10 rounded-lg bg-zinc-900/90 border border-zinc-700/80 hover:border-zinc-200 text-zinc-400 hover:text-white flex items-center justify-center transition shadow-lg">
+           class="w-10 h-10 rounded-lg bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center transition shadow-lg">
             <i class="fas fa-envelope text-lg"></i>
         </a>
     </div>
 
     <!-- Hero Header -->
     <header class="pt-20 pb-10 px-6 text-center max-w-4xl mx-auto relative z-10">
-        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-3">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-3 transition-colors">
             Hariom Tomar
         </h1>
-        <p class="text-lg md:text-xl text-zinc-400 font-medium mb-8 tracking-wide">
-            Data Analyst <span class="text-zinc-600 mx-2">|</span> Turning Data into Actionable Insights
+        <p class="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium mb-8 tracking-wide transition-colors">
+            Data Analyst <span class="text-zinc-400 dark:text-zinc-600 mx-2">|</span> Turning Data into Actionable Insights
         </p>
 
         <!-- Navigation -->
-        <nav class="inline-flex flex-wrap justify-center gap-6 md:gap-10 px-7 py-3 rounded-full bg-zinc-900/80 border border-zinc-700/70 backdrop-blur-md text-sm font-medium shadow-xl">
-            <a href="#vision" class="text-zinc-300 hover:text-white transition">Philosophy</a>
-            <a href="#about" class="text-zinc-300 hover:text-white transition">About</a>
-            <a href="#projects" class="text-zinc-300 hover:text-white transition">Projects</a>
-            <a href="#skills" class="text-zinc-300 hover:text-white transition">Skills</a>
-            <a href="#contact" class="text-zinc-300 hover:text-white transition">Contact</a>
+        <nav class="inline-flex flex-wrap justify-center gap-6 md:gap-10 px-7 py-3 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-zinc-300/80 dark:border-zinc-700/70 backdrop-blur-md text-sm font-medium shadow-lg transition-colors">
+            <a href="#vision" class="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition">Philosophy</a>
+            <a href="#about" class="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition">About</a>
+            <a href="#projects" class="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition">Projects</a>
+            <a href="#skills" class="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition">Skills</a>
+            <a href="#contact" class="text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition">Contact</a>
         </nav>
     </header>
 
-    <!-- Missing Bulb Piece Spotlight Section (Below Navigation, Above About Me) -->
+    <!-- Missing Bulb Piece Spotlight Section -->
     <section id="vision" class="py-10 px-6 max-w-5xl mx-auto relative z-10">
         <div class="glass-card rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <!-- Image Container -->
@@ -129,14 +194,14 @@
 
             <!-- Quote & Value Proposition -->
             <div class="flex-1 text-center md:text-left space-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/90 border border-zinc-700 text-xs uppercase tracking-widest text-zinc-400">
-                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-200 animate-pulse"></span>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-200/80 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700 text-xs uppercase tracking-widest text-zinc-700 dark:text-zinc-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-zinc-200 animate-pulse"></span>
                     The Missing Piece
                 </div>
-                <blockquote class="text-2xl md:text-3xl font-semibold text-zinc-100 leading-snug">
-                    “Every dataset holds a bigger picture—it only illuminates when you place the <span class="text-white underline decoration-zinc-500 underline-offset-4">missing piece</span>.”
+                <blockquote class="text-2xl md:text-3xl font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
+                    “Every dataset holds a bigger picture—it only illuminates when you place the <span class="text-zinc-950 dark:text-white underline decoration-zinc-400 dark:decoration-zinc-500 underline-offset-4">missing piece</span>.”
                 </blockquote>
-                <p class="text-zinc-400 text-sm md:text-base leading-relaxed">
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
                     Raw numbers alone leave businesses in the dark. I bridge the gap between complex, fragmented data and clear strategic decisions—bringing the missing analytical insight that completes your team's vision.
                 </p>
             </div>
@@ -146,14 +211,14 @@
     <!-- About Me Section -->
     <section id="about" class="py-16 px-6 max-w-5xl mx-auto relative z-10">
         <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-zinc-100">About Me</h2>
-            <div class="w-16 h-1 bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">About Me</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
         <div class="flex flex-col md:flex-row items-center gap-10 glass-card p-8 md:p-10 rounded-2xl">
-            <div class="flex-1 space-y-4 text-zinc-300 leading-relaxed text-base">
+            <div class="flex-1 space-y-4 text-zinc-700 dark:text-zinc-300 leading-relaxed text-base">
                 <p>
-                    I am a <strong class="text-white font-semibold">Data Analyst</strong> with hands-on experience developing end-to-end analytics solutions through independent projects. My work spans data extraction, ETL, relational data modeling, exploratory analysis, business performance assessment, and executive dashboard development.
+                    I am a <strong class="text-zinc-950 dark:text-white font-semibold">Data Analyst</strong> with hands-on experience developing end-to-end analytics solutions through independent projects. My work spans data extraction, ETL, relational data modeling, exploratory analysis, business performance assessment, and executive dashboard development.
                 </p>
                 <p>
                     I enjoy exploring datasets to identify patterns, investigate performance gaps, uncover business trends, and translate analytical findings into actionable recommendations. My approach combines technical execution with business-oriented thinking—ensuring analyses go beyond reporting metrics to explain <em>what</em> they mean and <em>where</em> improvements can be made.
@@ -163,7 +228,7 @@
                 <img src="Image_1.jpg" 
                      alt="Hariom Tomar" 
                      onerror="this.src='https://github.com/hariomtomar2226-rgb.png'"
-                     class="w-44 h-44 md:w-48 md:h-48 rounded-full object-cover border-4 border-zinc-400/50 grayscale-[20%] contrast-105 shadow-2xl">
+                     class="w-44 h-44 md:w-48 md:h-48 rounded-full object-cover border-4 border-zinc-300 dark:border-zinc-400/50 grayscale-[15%] contrast-105 shadow-2xl">
             </div>
         </div>
     </section>
@@ -171,8 +236,8 @@
     <!-- Featured Projects Section -->
     <section id="projects" class="py-16 px-6 max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-zinc-100">Featured Projects</h2>
-            <div class="w-16 h-1 bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Featured Projects</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -181,25 +246,25 @@
             <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <h3 class="text-xl font-bold text-zinc-100">Netflix User Analytics Dashboard</h3>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Netflix User Analytics Dashboard</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">MySQL</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">SQL</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Power BI</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">DAX</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">MySQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">SQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power BI</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">DAX</span>
                     </div>
-                    <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
                         Built an end-to-end analytics solution for 2,500+ customer records. Designed a 4-table normalized relational database in MySQL, executed ETL and validation workflows, and created a 4-page interactive Power BI dashboard analyzing demographics, subscriptions, engagement, and growth trends.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-800">
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
                     <a href="https://github.com/hariomtomar2226-rgb/Netflix-Project" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
                         Documentation
                     </a>
                     <a href="https://github.com/hariomtomar2226-rgb/Netflix-Project/tree/main/Screenshots" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold transition shadow-md">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold transition shadow-md">
                         View Dashboard
                     </a>
                 </div>
@@ -209,23 +274,23 @@
             <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <h3 class="text-xl font-bold text-zinc-100">Global Retail Sales Performance Analysis</h3>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Global Retail Sales Performance Analysis</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Excel</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Power Query</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
                     </div>
-                    <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
                         Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard covering sales, profit, shipping, and product performance. Built dynamic KPI tracking with slicers and identified structural profitability drains across regional markets and product categories.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-800">
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
                     <a href="https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
                         Documentation
                     </a>
                     <a href="https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold transition shadow-md">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold transition shadow-md">
                         View Dashboard
                     </a>
                 </div>
@@ -235,24 +300,24 @@
             <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <h3 class="text-xl font-bold text-zinc-100">Sales Performance Data Quality Assessment</h3>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Sales Performance Data Quality Assessment</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Excel</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Power Query</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Tableau</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Tableau</span>
                     </div>
-                    <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
                         Audited 4 years of sales data (2015–2018) across 11,000+ rows in Excel and Tableau. Identified significant data quality issues including 29% missing location attributes and historical anomalies—demonstrating how unreliable source data directly impacts reported KPIs.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-800">
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
                     <a href="https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
                         Documentation
                     </a>
                     <a href="https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold transition shadow-md">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold transition shadow-md">
                         View Dashboard
                     </a>
                 </div>
@@ -262,23 +327,23 @@
             <div class="glass-card rounded-2xl p-7 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between gap-2 mb-3">
-                        <h3 class="text-xl font-bold text-zinc-100">Behavior-Based Safety (BBS) Analysis</h3>
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Behavior-Based Safety (BBS) Analysis</h3>
                     </div>
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Excel</span>
-                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-800/90 text-zinc-200 border border-zinc-700">Power Query</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
                     </div>
-                    <p class="text-zinc-300 text-sm leading-relaxed mb-6">
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
                         Cleaned 2,000+ workplace safety observation records across 10 business units and 18 safety categories. Built an interactive dashboard highlighting high-risk operational zones, recurring hazards, and compliance trends across departments.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-800">
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
                     <a href="https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium transition">
                         Documentation
                     </a>
                     <a href="https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard" target="_blank"
-                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-sm font-semibold transition shadow-md">
+                       class="flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold transition shadow-md">
                         View Dashboard
                     </a>
                 </div>
@@ -290,30 +355,30 @@
     <!-- Technical Skills Section -->
     <section id="skills" class="py-16 px-6 max-w-5xl mx-auto relative z-10">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-zinc-100">Technical Skills</h2>
-            <div class="w-16 h-1 bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-zinc-100 font-semibold mb-2"><i class="fas fa-database mr-2 text-zinc-400"></i>SQL & Databases</h3>
-                <p class="text-zinc-400 text-sm">SQL, MySQL, Joins, CTEs, Window Functions, Relational Data Modeling</p>
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold mb-2"><i class="fas fa-database mr-2 text-zinc-500 dark:text-zinc-400"></i>SQL & Databases</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm">SQL, MySQL, Joins, CTEs, Window Functions, Relational Data Modeling</p>
             </div>
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-zinc-100 font-semibold mb-2"><i class="fas fa-chart-pie mr-2 text-zinc-400"></i>Business Intelligence</h3>
-                <p class="text-zinc-400 text-sm">Power BI, Power Query, DAX, Tableau, Dashboard Development</p>
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold mb-2"><i class="fas fa-chart-pie mr-2 text-zinc-500 dark:text-zinc-400"></i>Business Intelligence</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm">Power BI, Power Query, DAX, Tableau, Dashboard Development</p>
             </div>
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-zinc-100 font-semibold mb-2"><i class="fas fa-file-excel mr-2 text-zinc-400"></i>Data Preparation</h3>
-                <p class="text-zinc-400 text-sm">Advanced Excel, Power Query, ETL, Data Cleaning & Transformation</p>
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold mb-2"><i class="fas fa-file-excel mr-2 text-zinc-500 dark:text-zinc-400"></i>Data Preparation</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm">Advanced Excel, Power Query, ETL, Data Cleaning & Transformation</p>
             </div>
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-zinc-100 font-semibold mb-2"><i class="fab fa-python mr-2 text-zinc-400"></i>Programming</h3>
-                <p class="text-zinc-400 text-sm">Python (Pandas, NumPy, Matplotlib)</p>
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold mb-2"><i class="fab fa-python mr-2 text-zinc-500 dark:text-zinc-400"></i>Programming</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm">Python (Pandas, NumPy, Matplotlib)</p>
             </div>
             <div class="glass-card p-6 rounded-xl sm:col-span-2 lg:col-span-2">
-                <h3 class="text-zinc-100 font-semibold mb-2"><i class="fas fa-magnifying-glass-chart mr-2 text-zinc-400"></i>Analytical Capabilities</h3>
-                <p class="text-zinc-400 text-sm">Exploratory Data Analysis, Business Performance Analysis, Root Cause Analysis, Data Quality Assessment</p>
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold mb-2"><i class="fas fa-magnifying-glass-chart mr-2 text-zinc-500 dark:text-zinc-400"></i>Analytical Capabilities</h3>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm">Exploratory Data Analysis, Business Performance Analysis, Root Cause Analysis, Data Quality Assessment</p>
             </div>
         </div>
     </section>
@@ -321,36 +386,81 @@
     <!-- Contact Section -->
     <section id="contact" class="py-16 px-6 max-w-4xl mx-auto relative z-10">
         <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-zinc-100">Connect With Me</h2>
-            <div class="w-16 h-1 bg-zinc-400 mx-auto mt-3 rounded-full"></div>
-            <p class="text-zinc-400 mt-4 text-sm">Open to Data Analyst, Business Intelligence, and Business Operations opportunities.</p>
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Connect With Me</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <p class="text-zinc-600 dark:text-zinc-400 mt-4 text-sm">Open to Data Analyst, Business Intelligence, and Business Operations opportunities.</p>
         </div>
 
         <div class="glass-card p-8 rounded-2xl flex flex-col sm:flex-row items-center justify-center gap-6">
             <a href="mailto:hariomtomar2226@gmail.com"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-zinc-100 hover:bg-white text-zinc-950 font-semibold transition shadow-lg">
+               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 font-semibold transition shadow-lg">
                 <i class="fas fa-envelope"></i> hariomtomar2226@gmail.com
             </a>
             <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-zinc-600 text-zinc-200 hover:bg-zinc-800 hover:border-zinc-400 font-medium transition">
+               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 font-medium transition">
                 <i class="fab fa-linkedin"></i> LinkedIn Profile
             </a>
             <a href="https://github.com/hariomtomar2226-rgb" target="_blank"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-zinc-700 text-zinc-300 hover:border-zinc-400 hover:text-white font-medium transition">
+               class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500 dark:hover:border-zinc-400 hover:text-zinc-950 dark:hover:text-white font-medium transition">
                 <i class="fab fa-github"></i> GitHub
             </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-zinc-500 text-xs border-t border-zinc-800/80 relative z-10">
+    <footer class="py-8 text-center text-zinc-500 text-xs border-t border-zinc-200 dark:border-zinc-800/80 relative z-10">
         © 2026 Hariom Tomar. Built with HTML & Tailwind CSS.
     </footer>
 
-    <!-- Interactive Procedural Spider Script -->
+    <!-- Theme Toggle + Sparkling Dots & Cursor Glow Script -->
     <script>
         (function () {
-            const canvas = document.getElementById('spider-canvas');
+            const htmlEl = document.documentElement;
+            const toggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+
+            // Load saved theme preference (defaults to dark)
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            if (savedTheme === 'light') {
+                htmlEl.classList.remove('dark');
+                document.body.classList.remove('bg-zinc-950', 'text-zinc-200');
+                document.body.classList.add('bg-slate-50', 'text-zinc-800');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isDark = htmlEl.classList.toggle('dark');
+                if (isDark) {
+                    document.body.classList.remove('bg-slate-50', 'text-zinc-800');
+                    document.body.classList.add('bg-zinc-950', 'text-zinc-200');
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('portfolio-theme', 'dark');
+                } else {
+                    document.body.classList.remove('bg-zinc-950', 'text-zinc-200');
+                    document.body.classList.add('bg-slate-50', 'text-zinc-800');
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('portfolio-theme', 'light');
+                }
+            });
+
+            // Cursor Spotlight Position
+            const mouse = { x: -1000, y: -1000 };
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+                document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+            });
+
+            window.addEventListener('mouseleave', () => {
+                mouse.x = -1000;
+                mouse.y = -1000;
+                document.documentElement.style.setProperty('--cursor-x', `-1000px`);
+                document.documentElement.style.setProperty('--cursor-y', `-1000px`);
+            });
+
+            // Sparkling Dots Particle Field
+            const canvas = document.getElementById('sparkle-canvas');
             const ctx = canvas.getContext('2d');
             let width = canvas.width = window.innerWidth;
             let height = canvas.height = window.innerHeight;
@@ -358,165 +468,79 @@
             window.addEventListener('resize', () => {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
+                initParticles();
             });
 
-            // Track Cursor
-            const mouse = { x: -1000, y: -1000 };
-            window.addEventListener('mousemove', (e) => {
-                mouse.x = e.clientX;
-                mouse.y = e.clientY;
-            });
-            window.addEventListener('mouseleave', () => {
-                mouse.x = -1000;
-                mouse.y = -1000;
-            });
-
-            // Single Monochrome Spider Entity
-            const spider = {
-                x: width * 0.25,
-                y: height * 0.35,
-                angle: Math.random() * Math.PI * 2,
-                speed: 0.9,
-                baseSpeed: 0.9,
-                fleeSpeed: 6.2,
-                fleeTimer: 0,
-                stepPhase: 0,
-                targetAngle: Math.random() * Math.PI * 2,
-                wanderTimer: 0
-            };
-
-            function normalizeAngle(a) {
-                while (a > Math.PI) a -= Math.PI * 2;
-                while (a < -Math.PI) a += Math.PI * 2;
-                return a;
+            let particles = [];
+            function initParticles() {
+                particles = [];
+                const count = Math.min(Math.floor((width * height) / 9500), 170);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 1.6 + 0.5,
+                        vx: (Math.random() - 0.5) * 0.25,
+                        vy: (Math.random() - 0.5) * 0.25,
+                        twinkleSpeed: Math.random() * 0.03 + 0.01,
+                        twinklePhase: Math.random() * Math.PI * 2,
+                        baseAlpha: Math.random() * 0.45 + 0.15
+                    });
+                }
             }
 
-            function updateSpider() {
-                const dx = spider.x - mouse.x;
-                const dy = spider.y - mouse.y;
-                const distToMouse = Math.hypot(dx, dy);
-                const fleeRadius = 150;
+            initParticles();
 
-                if (distToMouse < fleeRadius) {
-                    // Run directly away from cursor
-                    spider.targetAngle = Math.atan2(dy, dx);
-                    spider.fleeTimer = 35; // Keep sprinting briefly after escaping radius
-                }
-
-                if (spider.fleeTimer > 0) {
-                    spider.fleeTimer--;
-                    spider.speed += (spider.fleeSpeed - spider.speed) * 0.2;
-                    // Turn quickly when fleeing
-                    const diff = normalizeAngle(spider.targetAngle - spider.angle);
-                    spider.angle += diff * 0.25;
-                } else {
-                    // Calm wandering state
-                    spider.speed += (spider.baseSpeed - spider.speed) * 0.08;
-                    spider.wanderTimer--;
-                    if (spider.wanderTimer <= 0) {
-                        spider.targetAngle = spider.angle + (Math.random() - 0.5) * 1.8;
-                        spider.wanderTimer = 50 + Math.random() * 90;
-                    }
-                    const diff = normalizeAngle(spider.targetAngle - spider.angle);
-                    spider.angle += diff * 0.05;
-                }
-
-                // Move forward
-                spider.x += Math.cos(spider.angle) * spider.speed;
-                spider.y += Math.sin(spider.angle) * spider.speed;
-
-                // Keep comfortably inside viewport edges
-                const margin = 45;
-                if (spider.x < margin) { spider.x = margin; spider.targetAngle = 0; }
-                if (spider.x > width - margin) { spider.x = width - margin; spider.targetAngle = Math.PI; }
-                if (spider.y < margin) { spider.y = margin; spider.targetAngle = Math.PI / 2; }
-                if (spider.y > height - margin) { spider.y = height - margin; spider.targetAngle = -Math.PI / 2; }
-
-                // Leg animation cadence proportional to speed
-                spider.stepPhase += spider.speed * 0.28;
-            }
-
-            function drawSpider() {
+            function animateSparkles() {
                 ctx.clearRect(0, 0, width, height);
-                ctx.save();
-                ctx.translate(spider.x, spider.y);
-                ctx.rotate(spider.angle);
+                const isDark = htmlEl.classList.contains('dark');
 
-                // Subtle ambient shadow under spider
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.85)';
-                ctx.shadowBlur = 8;
-                ctx.shadowOffsetY = 4;
+                for (let p of particles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.twinklePhase += p.twinkleSpeed;
 
-                // Draw 8 articulated legs (4 per side)
-                const legSpread = [-0.65, -0.25, 0.22, 0.68];
-                const legLengths = [20, 23, 22, 25];
+                    // Wrap around screen edges
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
 
-                for (let side of [-1, 1]) {
-                    for (let i = 0; i < 4; i++) {
-                        // Alternating tripod/tetrapod gait
-                        const phaseOffset = (i % 2 === 0 ? 0 : Math.PI) + (side === 1 ? Math.PI * 0.5 : 0);
-                        const swing = Math.sin(spider.stepPhase + phaseOffset) * 0.24;
+                    // Twinkle opacity
+                    const twinkle = (Math.sin(p.twinklePhase) + 1) * 0.5;
+                    let alpha = p.baseAlpha * (0.4 + twinkle * 0.6);
+                    let r = p.radius;
 
-                        const baseAngle = side * (Math.PI / 2 + legSpread[i]) + swing;
-                        const kneeX = Math.cos(baseAngle) * (legLengths[i] * 0.58);
-                        const kneeY = Math.sin(baseAngle) * (legLengths[i] * 0.58);
-
-                        const tipAngle = baseAngle + side * 0.45 - swing * 0.5;
-                        const tipX = kneeX + Math.cos(tipAngle) * (legLengths[i] * 0.65);
-                        const tipY = kneeY + Math.sin(tipAngle) * (legLengths[i] * 0.65);
-
-                        ctx.beginPath();
-                        ctx.moveTo(0, 0);
-                        ctx.lineTo(kneeX, kneeY);
-                        ctx.lineTo(tipX, tipY);
-                        ctx.strokeStyle = 'rgba(212, 212, 216, 0.72)'; // Grayish-white legs
-                        ctx.lineWidth = 1.4;
-                        ctx.lineCap = 'round';
-                        ctx.lineJoin = 'round';
-                        ctx.stroke();
+                    // Boost brightness & size when near cursor
+                    const dist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    const glowRadius = 180;
+                    if (dist < glowRadius) {
+                        const proximity = 1 - dist / glowRadius;
+                        alpha = Math.min(1, alpha + proximity * 0.65);
+                        r += proximity * 1.2;
                     }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+                    if (isDark) {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                        if (dist < glowRadius) {
+                            ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+                            ctx.shadowBlur = 8;
+                        } else {
+                            ctx.shadowBlur = 0;
+                        }
+                    } else {
+                        ctx.fillStyle = `rgba(24, 24, 27, ${alpha * 0.65})`;
+                        ctx.shadowBlur = 0;
+                    }
+                    ctx.fill();
                 }
 
-                // Abdomen (back)
-                ctx.beginPath();
-                ctx.ellipse(-7, 0, 7.5, 5.5, 0, 0, Math.PI * 2);
-                ctx.fillStyle = '#18181b';
-                ctx.fill();
-                ctx.lineWidth = 1.2;
-                ctx.strokeStyle = '#d4d4d8';
-                ctx.stroke();
-
-                // Subtle silver hourglass/data-node detail on abdomen
-                ctx.beginPath();
-                ctx.arc(-7, 0, 2, 0, Math.PI * 2);
-                ctx.fillStyle = '#a1a1aa';
-                ctx.fill();
-
-                // Cephalothorax (head)
-                ctx.beginPath();
-                ctx.arc(2, 0, 4.2, 0, Math.PI * 2);
-                ctx.fillStyle = '#27272a';
-                ctx.fill();
-                ctx.strokeStyle = '#f4f4f5';
-                ctx.stroke();
-
-                // Tiny glowing white eyes
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.arc(5.2, -1.5, 1, 0, Math.PI * 2);
-                ctx.arc(5.2, 1.5, 1, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.restore();
+                requestAnimationFrame(animateSparkles);
             }
 
-            function animate() {
-                updateSpider();
-                drawSpider();
-                requestAnimationFrame(animate);
-            }
-
-            animate();
+            animateSparkles();
         })();
     </script>
 </body>

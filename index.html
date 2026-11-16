@@ -239,79 +239,165 @@
             animation: caretBlink 0.9s infinite;
         }
 
-        /* Compact Vertical Neumorphic Pill Switch */
-        .neumorphic-pill-vertical {
+        /* =========================================================
+           TACTILE HORIZONTAL NEUMORPHIC PILL SWITCHES & BUTTONS
+           ========================================================= */
+        .neumorphic-pill-horizontal {
             position: relative;
-            width: 34px;
-            height: 54px;
+            width: 74px;
+            height: 32px;
             border-radius: 9999px;
             padding: 3px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             user-select: none;
             background: linear-gradient(145deg, #d5d9e0, #e8ecf2);
             box-shadow:
-                inset 2px 2px 4px rgba(163, 171, 184, 0.65),
-                inset -2px -2px 4px rgba(255, 255, 255, 0.85),
-                0 3px 8px rgba(15, 23, 42, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+                inset 2px 2px 5px rgba(155, 163, 177, 0.7),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+                0 2px 6px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.75);
         }
-        html.dark .neumorphic-pill-vertical {
-            background: linear-gradient(145deg, #121215, #1e1e24);
+        html.dark .neumorphic-pill-horizontal {
+            background: linear-gradient(145deg, #101014, #1b1b21);
             box-shadow:
-                inset 2px 2px 4px rgba(0, 0, 0, 0.85),
+                inset 2px 2px 5px rgba(0, 0, 0, 0.88),
                 inset -1px -1px 3px rgba(255, 255, 255, 0.07),
-                0 4px 10px rgba(0, 0, 0, 0.65);
+                0 3px 8px rgba(0, 0, 0, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .neumorphic-knob-vertical {
-            width: 26px;
-            height: 26px;
+        .neumorphic-knob-horizontal {
+            width: 24px;
+            height: 24px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            position: relative;
+            z-index: 2;
             transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
             background: linear-gradient(145deg, #ffffff, #eef1f6);
             box-shadow:
-                1.5px 1.5px 4px rgba(150, 158, 172, 0.55),
+                1.5px 1.5px 4px rgba(145, 153, 168, 0.6),
                 -1.5px -1.5px 3px rgba(255, 255, 255, 0.95);
-            color: #64748b;
+            color: #475569;
         }
-        html.dark .neumorphic-knob-vertical {
-            transform: translateY(20px);
-            background: linear-gradient(145deg, #2b2b33, #1d1d22);
+        html.dark .neumorphic-knob-horizontal {
+            background: linear-gradient(145deg, #2d2d36, #1d1d23);
             box-shadow:
-                1.5px 1.5px 4px rgba(0, 0, 0, 0.8),
-                -1px -1px 2px rgba(255, 255, 255, 0.08);
+                1.5px 1.5px 4px rgba(0, 0, 0, 0.85),
+                -1px -1px 2px rgba(255, 255, 255, 0.09);
             color: #f4f4f5;
         }
 
-        .neumorphic-label-vertical {
+        /* Slide Right State */
+        .neumorphic-pill-horizontal.is-right .neumorphic-knob-horizontal {
+            transform: translateX(42px);
+        }
+
+        .neumorphic-label-horizontal {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 7px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8px;
             font-weight: 800;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
             line-height: 1;
             text-transform: uppercase;
-            text-align: center;
-            transition: all 0.35s ease;
+            transition: all 0.3s ease;
             pointer-events: none;
-        }
-        html:not(.dark) .neumorphic-label-vertical {
-            bottom: 6px;
             color: #64748b;
         }
-        html.dark .neumorphic-label-vertical {
-            top: 6px;
+        html.dark .neumorphic-label-horizontal {
             color: #a1a1aa;
+        }
+        /* When knob is on the left, text sits on the right */
+        .neumorphic-pill-horizontal:not(.is-right) .neumorphic-label-horizontal {
+            right: 9px;
+        }
+        /* When knob is on the right, text sits on the left */
+        .neumorphic-pill-horizontal.is-right .neumorphic-label-horizontal {
+            left: 9px;
+        }
+
+        /* Extruded Tactile Pressing Pill Buttons (Resume, GitHub, LinkedIn, Email) */
+        .neumorphic-press-pill {
+            width: 74px;
+            height: 32px;
+            border-radius: 9999px;
+            padding: 3px 8px 3px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            background: linear-gradient(145deg, #eef1f6, #d7dce4);
+            box-shadow:
+                3px 3px 6px rgba(155, 163, 177, 0.55),
+                -2px -2px 5px rgba(255, 255, 255, 0.92),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            color: #334155;
+        }
+        html.dark .neumorphic-press-pill {
+            background: linear-gradient(145deg, #222229, #15151a);
+            box-shadow:
+                3px 3px 7px rgba(0, 0, 0, 0.8),
+                -2px -2px 5px rgba(255, 255, 255, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e4e4e7;
+        }
+        .neumorphic-press-pill:hover {
+            transform: translateY(-1px);
+            border-color: rgba(15, 23, 42, 0.25);
+        }
+        html.dark .neumorphic-press-pill:hover {
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+        }
+        .neumorphic-press-pill:active {
+            transform: scale(0.95);
+            background: linear-gradient(145deg, #d7dce4, #eef1f6);
+            box-shadow:
+                inset 2px 2px 4px rgba(155, 163, 177, 0.65),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.85);
+        }
+        html.dark .neumorphic-press-pill:active {
+            background: linear-gradient(145deg, #131317, #1f1f26);
+            box-shadow:
+                inset 2px 2px 5px rgba(0, 0, 0, 0.88),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .press-pill-icon {
+            width: 23px;
+            height: 23px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(15, 23, 42, 0.06);
+        }
+        html.dark .press-pill-icon {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .press-pill-text {
+            flex: 1;
+            text-align: center;
+            font-size: 7.5px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            line-height: 1;
         }
 
         /* Compact Automatic Pop-Out Floating Action Rail */
@@ -331,6 +417,11 @@
         @media (max-width: 640px) {
             .floating-rail {
                 right: 6px;
+                transform: translateY(-50%) scale(0.9);
+                transform-origin: right center;
+            }
+            .floating-rail.is-visible {
+                transform: translateY(-50%) translateX(0) scale(0.9);
             }
         }
 
@@ -397,22 +488,25 @@
         <span id="copy-toast-text">Copied hariomtomar2226@gmail.com to clipboard ✓</span>
     </div>
 
-    <!-- Compact Floating Action & Theme Switcher Bar -->
+    <!-- Tactile Neumorphic Floating Action & Switcher Rail -->
     <aside id="floating-drawer" class="floating-rail" aria-label="Quick Actions and Theme Controls">
-        <div class="flex flex-col items-center gap-1.5 p-1.5 rounded-2xl bg-white/90 dark:bg-zinc-900/90 border border-zinc-300/90 dark:border-zinc-700/80 shadow-xl backdrop-blur-xl">
+        <div class="flex flex-col items-center gap-2 p-2 rounded-[22px] bg-white/85 dark:bg-zinc-900/85 border border-zinc-300/90 dark:border-zinc-700/80 shadow-2xl backdrop-blur-xl">
 
-            <!-- Sound Effects Toggle -->
-            <button id="sound-toggle" type="button" aria-pressed="true" title="Sound Effects: ON (Click to Mute)"
-                    class="tactile-btn w-8 h-7 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-800 dark:text-zinc-200 flex items-center justify-center relative">
-                <i id="sound-icon" class="fas fa-volume-high text-[11px]"></i>
-                <span id="sound-dot" class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <!-- 1. Sound Effects Toggle (Horizontal Sliding Pill) -->
+            <button id="sound-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle Sound Effects"
+                    title="Sound Effects: ON (Click to Mute)"
+                    class="neumorphic-pill-horizontal">
+                <span class="neumorphic-knob-horizontal">
+                    <i id="sound-icon" class="fas fa-volume-high text-[11px]"></i>
+                </span>
+                <span id="sound-label" class="neumorphic-label-horizontal">ON</span>
             </button>
 
-            <!-- Compact Neumorphic Theme Switch -->
+            <!-- 2. Dark / Light Mode Toggle (Horizontal Sliding Pill) -->
             <button id="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle Dark or Light Mode"
                     title="Switch between Dark and Light Mode"
-                    class="neumorphic-pill-vertical">
-                <span class="neumorphic-knob-vertical">
+                    class="neumorphic-pill-horizontal is-right">
+                <span class="neumorphic-knob-horizontal">
                     <!-- Sun SVG Icon (Light Mode) -->
                     <svg id="theme-svg-sun" class="w-3.5 h-3.5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="4.5"></circle>
@@ -426,44 +520,59 @@
                         <line x1="17.51" y1="6.49" x2="19.07" y2="4.93"></line>
                     </svg>
                     <!-- Moon Icon (Dark Mode) -->
-                    <i id="theme-icon-moon" class="fas fa-moon text-xs"></i>
+                    <i id="theme-icon-moon" class="fas fa-moon text-[11px]"></i>
                 </span>
-                <span id="theme-label" class="neumorphic-label-vertical">DARK</span>
+                <span id="theme-label" class="neumorphic-label-horizontal">DARK</span>
             </button>
 
-            <!-- Compact PDF Logo Resume Download Button -->
+            <!-- Subtle Divider -->
+            <div class="w-10 h-[1px] bg-zinc-300/80 dark:bg-zinc-700/70 my-0.5"></div>
+
+            <!-- 3. Resume Download Pill (Extruded Depth Button) -->
             <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf"
                data-sound="chime"
                aria-label="Download Resume PDF" title="Download Resume (PDF)"
-               class="tactile-btn w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-900 dark:text-zinc-100 flex items-center justify-center shadow-sm group">
-                <svg class="w-4 h-5 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 2C2.89543 2 2 2.89543 2 4V40C2 41.1046 2.89543 42 4 42H32C33.1046 42 34 41.1046 34 40V12.5L23.5 2H4Z" fill="currentColor"/>
-                    <path d="M23.5 2V12.5H34" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M25.5 2L34 10.5H25.5V2Z" fill="currentColor"/>
-                    <path d="M17.5 11.5C16.2 11.5 15.8 14.5 16.5 18.2C17.2 21.8 19.6 25.4 22.8 26.8C25.2 27.8 27.2 27.2 27.2 25.8C27.2 24.4 24.8 23.8 21.2 24.4C17.2 25.1 12.6 27.2 10.4 29.4C8.8 31 8.8 32.4 10.1 32.4C11.6 32.4 13.8 29.5 15.6 24.8C17.4 20.1 18.7 14.6 18.5 12.5C18.4 11.8 18 11.5 17.5 11.5Z"
-                          stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <rect x="6.5" y="33.5" width="23" height="6.2" rx="1" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.3"/>
-                    <text x="18" y="38.2" text-anchor="middle" fill="#ffffff" class="dark:fill-zinc-900" font-family="Arial, sans-serif" font-weight="bold" font-size="4.8" letter-spacing="0.4">PDF</text>
-                </svg>
+               class="neumorphic-press-pill group">
+                <span class="press-pill-icon">
+                    <svg class="w-3.5 h-4 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2C2.89543 2 2 2.89543 2 4V40C2 41.1046 2.89543 42 4 42H32C33.1046 42 34 41.1046 34 40V12.5L23.5 2H4Z" fill="currentColor"/>
+                        <path d="M23.5 2V12.5H34" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="2.2" stroke-linejoin="round"/>
+                        <path d="M25.5 2L34 10.5H25.5V2Z" fill="currentColor"/>
+                        <path d="M17.5 11.5C16.2 11.5 15.8 14.5 16.5 18.2C17.2 21.8 19.6 25.4 22.8 26.8C25.2 27.8 27.2 27.2 27.2 25.8C27.2 24.4 24.8 23.8 21.2 24.4C17.2 25.1 12.6 27.2 10.4 29.4C8.8 31 8.8 32.4 10.1 32.4C11.6 32.4 13.8 29.5 15.6 24.8C17.4 20.1 18.7 14.6 18.5 12.5C18.4 11.8 18 11.5 17.5 11.5Z"
+                              stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="6.5" y="33.5" width="23" height="6.2" rx="1" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.3"/>
+                        <text x="18" y="38.2" text-anchor="middle" fill="#ffffff" class="dark:fill-zinc-900" font-family="Arial, sans-serif" font-weight="bold" font-size="4.8" letter-spacing="0.4">PDF</text>
+                    </svg>
+                </span>
+                <span class="press-pill-text">RESUME</span>
             </a>
 
-            <!-- GitHub -->
+            <!-- 4. GitHub Pill (Extruded Depth Button) -->
             <a href="https://github.com/hariomtomar2226-rgb" target="_blank" aria-label="GitHub" title="GitHub Profile"
-               class="tactile-btn w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shadow-sm">
-                <i class="fab fa-github text-sm"></i>
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fab fa-github text-xs"></i>
+                </span>
+                <span class="press-pill-text">GITHUB</span>
             </a>
 
-            <!-- LinkedIn -->
+            <!-- 5. LinkedIn Pill (Extruded Depth Button) -->
             <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank" aria-label="LinkedIn" title="LinkedIn Profile"
-               class="tactile-btn w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shadow-sm">
-                <i class="fab fa-linkedin-in text-sm"></i>
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fab fa-linkedin-in text-xs"></i>
+                </span>
+                <span class="press-pill-text">LINKEDIN</span>
             </a>
 
-            <!-- Email (One-Click Copy + Mailto) -->
+            <!-- 6. Email Pill (Extruded Depth Button + One-Click Copy) -->
             <a href="mailto:hariomtomar2226@gmail.com" data-copy-email="hariomtomar2226@gmail.com"
                aria-label="Copy Email Address" title="Copy Email (hariomtomar2226@gmail.com)"
-               class="tactile-btn w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700/80 hover:border-zinc-900 dark:hover:border-zinc-200 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shadow-sm">
-                <i class="fas fa-envelope text-sm"></i>
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fas fa-envelope text-[11px]"></i>
+                </span>
+                <span class="press-pill-text">EMAIL</span>
             </a>
 
         </div>
@@ -1077,16 +1186,17 @@
                 };
             })();
 
-            // Sound Toggle UI Binding
+            // Sound Toggle UI Binding (Horizontal Sliding Pill)
             const soundBtn = document.getElementById('sound-toggle');
             const soundIcon = document.getElementById('sound-icon');
-            const soundDot = document.getElementById('sound-dot');
+            const soundLabel = document.getElementById('sound-label');
 
             function updateSoundUI(isOn) {
-                soundBtn.setAttribute('aria-pressed', String(isOn));
+                soundBtn.setAttribute('aria-checked', String(isOn));
                 soundBtn.title = isOn ? 'Sound Effects: ON (Click to Mute)' : 'Sound Effects: MUTED (Click to Unmute)';
                 soundIcon.className = isOn ? 'fas fa-volume-high text-[11px]' : 'fas fa-volume-xmark text-[11px] opacity-50';
-                soundDot.style.display = isOn ? 'block' : 'none';
+                soundLabel.textContent = isOn ? 'ON' : 'MUTE';
+                soundBtn.classList.toggle('is-right', isOn);
             }
             updateSoundUI(SoundFX.isEnabled());
 
@@ -1114,7 +1224,7 @@
             });
 
             /* =========================================================
-               3. NEUMORPHIC THEME SWITCH
+               3. NEUMORPHIC THEME SWITCH (Horizontal Sliding Pill)
                ========================================================= */
             const htmlEl = document.documentElement;
             const toggleBtn = document.getElementById('theme-toggle');
@@ -1131,6 +1241,7 @@
                     moonIcon.classList.remove('hidden');
                     themeLabel.textContent = 'DARK';
                     toggleBtn.setAttribute('aria-checked', 'true');
+                    toggleBtn.classList.add('is-right');
                 } else {
                     htmlEl.classList.remove('dark');
                     document.body.classList.remove('bg-zinc-950', 'text-zinc-200');
@@ -1139,6 +1250,7 @@
                     sunSvg.classList.remove('hidden');
                     themeLabel.textContent = 'LIGHT';
                     toggleBtn.setAttribute('aria-checked', 'false');
+                    toggleBtn.classList.remove('is-right');
                 }
             }
 

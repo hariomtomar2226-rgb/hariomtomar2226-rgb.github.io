@@ -433,21 +433,21 @@
             transform: scale(0.95);
         }
 
-        /* Case Study Modal Backdrop & Panel Transitions */
-        #case-study-modal {
+        /* Modals Backdrop & Panel Transitions */
+        .portfolio-modal {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.28s ease;
         }
-        #case-study-modal.is-open {
+        .portfolio-modal.is-open {
             opacity: 1;
             pointer-events: auto;
         }
-        #case-study-dialog {
+        .modal-dialog {
             transform: translateY(18px) scale(0.97);
             transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        #case-study-modal.is-open #case-study-dialog {
+        .portfolio-modal.is-open .modal-dialog {
             transform: translateY(0) scale(1);
         }
 
@@ -735,11 +735,13 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <a href="https://github.com/hariomtomar2226-rgb/Netflix-Project" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="netflix" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
-                    </a>
-                    <button type="button" data-case-study="netflix"
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="netflix"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -760,14 +762,17 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
                     </div>
                     <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
-Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard covering sales, profit, shipping, and product performance. Built dynamic KPI tracking with slicers and identified 29 loss-making countries that reduced overall profitability by 23.4%, along with key regional and category-level profit drivers.                    </p>
+                        Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard covering sales, profit, shipping, and product performance. Built dynamic KPI tracking with slicers and identified 29 loss-making countries that reduced overall profitability by 23.4%, along with key regional and category-level profit drivers.
+                    </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <a href="https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="retail" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
-                    </a>
-                    <button type="button" data-case-study="retail"
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="retail"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -789,13 +794,17 @@ Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard cove
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Tableau</span>
                     </div>
                     <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
-Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales (6,066–6,618 units) to estimate full-year sales of 71K–74K units, against 64,630 recorded units. Revealed that the apparent 12.82% year-over-year decline was significantly influenced by incomplete data.                </div>
+                        Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales to estimate full-year performance and data quality gaps.
+                    </p>
+                </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <a href="https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="quality" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
-                    </a>
-                    <button type="button" data-case-study="quality"
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="quality"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -816,13 +825,17 @@ Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tablea
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
                     </div>
                     <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
-Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories through a mapping table. Classified observations as Safe or Unsafe and analyzed compliance across workplaces, observers, and inspection measures to identify recurring unsafe behaviors and areas requiring intervention.                </div>
+                        Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories to identify recurring unsafe behaviors.
+                    </p>
+                </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <a href="https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard" target="_blank" data-sound="chime"
-                       class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="bbs" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
-                    </a>
-                    <button type="button" data-case-study="bbs"
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="bbs"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -832,7 +845,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
         </div>
     </section>
 
-    <!-- Technical Skills Section (Clean 4-Column x 2-Row Desktop Grid) -->
+    <!-- Technical Skills Section -->
     <section id="skills" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-12 reveal-up">
             <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
@@ -946,7 +959,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                 </a>
             </div>
 
-            <!-- Rectangular with Slight Curved Corners (rounded-xl) Download Resume Button -->
+            <!-- Download Resume Button -->
             <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf" data-sound="chime"
                title="Download Resume (PDF)"
                class="tactile-btn relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold tracking-wide uppercase shadow-lg">
@@ -965,11 +978,49 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
         © 2026 Hariom Tomar. Built with HTML &amp; Tailwind CSS.
     </footer>
 
-    <!-- In-Page Quick-Preview Case Study Modal -->
+    <!-- =========================================================
+       MODAL 1: DASHBOARD GALLERY MODAL (VIEW DASHBOARD BUTTON)
+       ========================================================= -->
+    <div id="dashboard-gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title"
+         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/80 backdrop-blur-md">
+        <div class="modal-dialog w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+            <!-- Header -->
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                <div>
+                    <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
+                        Interactive Dashboard Gallery
+                    </span>
+                    <h3 id="gallery-modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                        Project Title
+                    </h3>
+                </div>
+                <button id="gallery-close-btn" type="button" aria-label="Close Dashboard Gallery"
+                        class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Gallery Images Container (Exact Sequence per Prompt) -->
+            <div id="gallery-images-container" class="space-y-6 py-6">
+                <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                <button id="gallery-footer-close" type="button"
+                        class="tactile-btn py-2.5 px-6 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    Close Gallery
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+       MODAL 2: EXECUTIVE CASE STUDY MODAL (DOCUMENTATION BUTTON)
+       ========================================================= -->
     <div id="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
-         class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/75 backdrop-blur-md">
-        <div id="case-study-dialog"
-             class="w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/75 backdrop-blur-md">
+        <div class="modal-dialog w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
             <!-- Modal Header -->
             <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
                 <div>
@@ -1011,21 +1062,17 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                 </div>
             </div>
 
-            <!-- Modal Footer Actions -->
-            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                <a id="modal-doc-link" href="#" target="_blank" data-sound="chime"
-                   class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-xl border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-sm font-medium">
-                    <i class="fab fa-github mr-1.5"></i> Repository &amp; Docs
-                </a>
-                <a id="modal-live-link" href="#" target="_blank" data-sound="chime"
-                   class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
-                    <i class="fas fa-arrow-up-right-from-square mr-1.5"></i> Open Dashboard Visuals
+            <!-- Modal Footer Actions (Requested: EXPLORE TECHNICAL DOCUMENTATION ON GITHUB) -->
+            <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                <a id="modal-github-btn" href="#" target="_blank" data-sound="chime"
+                   class="tactile-btn w-full text-center py-3 px-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-bold tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
+                    <i class="fab fa-github"></i> EXPLORE TECHNICAL DOCUMENTATION ON GITHUB
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Interactive Sound Engine + KPI Counter + Project Filter/Modal + Constellation Canvas -->
+    <!-- Interactive Scripts Engine -->
     <script>
         (function () {
             /* =========================================================
@@ -1261,7 +1308,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             });
 
             /* =========================================================
-               4. ANIMATED IMPACT & KPI COUNTER STRIP (SCROLL TRIGGERED)
+               4. ANIMATED IMPACT & KPI COUNTER STRIP
                ========================================================= */
             const kpiSection = document.getElementById('impact-kpis');
             const kpiCounters = document.querySelectorAll('.kpi-counter');
@@ -1347,7 +1394,91 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             });
 
             /* =========================================================
-               6. IN-PAGE QUICK-PREVIEW CASE STUDY MODAL
+               6. DASHBOARD GALLERY DATA & MODAL LOGIC (SOURCE A: ASSETS)
+               ========================================================= */
+            const GALLERIES = {
+                netflix: {
+                    title: 'Netflix User Analytics Dashboard',
+                    images: [
+                        { src: 'assets/netflix/01Executive_performance_overview.png', caption: '01. Executive Performance Overview' },
+                        { src: 'assets/netflix/02Customer_demographics_overview.png', caption: '02. Customer Demographics Overview' },
+                        { src: 'assets/netflix/03Strategic_key_insights.png', caption: '03. Strategic Key Insights' },
+                        { src: 'assets/netflix/04Strategic_recommendations.png', caption: '04. Strategic Recommendations' }
+                    ]
+                },
+                retail: {
+                    title: 'Global Retail Sales Performance Analysis',
+                    images: [
+                        { src: 'assets/Global Retail Sales Performance Analysis/Sales Overview.png', caption: 'Sales Overview' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/Regional Sales Distribution.png', caption: 'Regional Sales Distribution' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 1.png', caption: 'Profit Analysis - Part 1' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 2.png', caption: 'Profit Analysis - Part 2' }
+                    ]
+                },
+                quality: {
+                    title: 'Sales Performance Data Quality Assessment',
+                    images: [
+                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_1.png', caption: 'Dashboard View 1' },
+                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_2.png', caption: 'Dashboard View 2' }
+                    ]
+                },
+                bbs: {
+                    title: 'Behavior-Based Safety (BBS) Analysis',
+                    images: [
+                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard 1.png', caption: 'Dashboard View 1' },
+                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard2.png', caption: 'Dashboard View 2' }
+                    ]
+                }
+            };
+
+            const galleryModal = document.getElementById('dashboard-gallery-modal');
+            const galleryTitle = document.getElementById('gallery-modal-title');
+            const galleryImagesContainer = document.getElementById('gallery-images-container');
+            const galleryCloseBtn = document.getElementById('gallery-close-btn');
+            const galleryFooterClose = document.getElementById('gallery-footer-close');
+
+            function openGallery(id) {
+                const data = GALLERIES[id];
+                if (!data) return;
+
+                galleryTitle.textContent = data.title;
+                galleryImagesContainer.innerHTML = data.images.map((img, idx) => `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                            <span>Image ${idx + 1} of ${data.images.length}</span>
+                            <span class="font-mono text-[11px]">${img.src}</span>
+                        </div>
+                        <div class="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-950 shadow-lg">
+                            <img src="${img.src}" alt="${img.caption}" loading="lazy" class="w-full h-auto object-contain hover:scale-[1.01] transition-transform duration-300">
+                        </div>
+                        <p class="text-xs font-medium text-zinc-700 dark:text-zinc-300 px-1">${img.caption}</p>
+                    </div>
+                `).join('');
+
+                galleryModal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                SoundFX.playChime();
+            }
+
+            function closeGallery() {
+                if (!galleryModal.classList.contains('is-open')) return;
+                galleryModal.classList.remove('is-open');
+                document.body.style.overflow = '';
+                SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-gallery]').forEach(btn => {
+                btn.addEventListener('click', () => openGallery(btn.dataset.gallery));
+            });
+
+            galleryCloseBtn.addEventListener('click', closeGallery);
+            galleryFooterClose.addEventListener('click', closeGallery);
+            galleryModal.addEventListener('click', (e) => {
+                if (e.target === galleryModal) closeGallery();
+            });
+
+            /* =========================================================
+               7. EXECUTIVE CASE STUDY MODAL & GITHUB REPO LINKS
                ========================================================= */
             const CASE_STUDIES = {
                 netflix: {
@@ -1360,8 +1491,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                         'Surfaced device-level watch-time disparities to guide targeted retention and plan-upgrade campaigns.',
                         'Reduced manual reporting time by consolidating demographic, billing, and engagement KPIs into one interactive view.'
                     ],
-                    docUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project',
-                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project/tree/main/Screenshots'
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project'
                 },
                 retail: {
                     title: 'Global Retail Sales Performance Analysis',
@@ -1373,21 +1503,19 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                         'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers.',
                         'Delivered actionable discount-cap and regional pricing recommendations to protect operating margin.'
                     ],
-                    docUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis',
-                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
                 },
                 quality: {
                     title: 'Sales Performance Data Quality Assessment',
-                    tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2015–2018 Audit'],
-                    problem: 'Leadership relied on multi-year historical sales dashboards (2015–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across 11,000+ records.',
+                    tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2014–2018 Audit'],
+                    problem: 'Leadership relied on multi-year historical sales dashboards (2014–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across records.',
                     architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built dual-layer diagnostic visualizations in Excel and Tableau to isolate corrupted segments.',
                     impact: [
-                        'Uncovered 29% missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
+                        'Uncovered missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
                         'Demonstrated side-by-side KPI variance before vs. after data remediation to establish governance standards.',
                         'Provided a repeatable pre-BI validation checklist to prevent flawed executive decision-making.'
                     ],
-                    docUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-',
-                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
                 },
                 bbs: {
                     title: 'Behavior-Based Safety (BBS) Analysis',
@@ -1399,43 +1527,40 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                         'Enabled proactive safety interventions and targeted training in top-risk operational zones.',
                         'Established clear compliance trend tracking across departments.'
                     ],
-                    docUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard',
-                    liveUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
                 }
             };
 
-            const modal = document.getElementById('case-study-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalTags = document.getElementById('modal-tags');
-            const modalProblem = document.getElementById('modal-problem');
-            const modalArch = document.getElementById('modal-architecture');
-            const modalImpact = document.getElementById('modal-impact');
-            const modalDocLink = document.getElementById('modal-doc-link');
-            const modalLiveLink = document.getElementById('modal-live-link');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const caseModal = document.getElementById('case-study-modal');
+            const caseTitle = document.getElementById('modal-title');
+            const caseTags = document.getElementById('modal-tags');
+            const caseProblem = document.getElementById('modal-problem');
+            const caseArch = document.getElementById('modal-architecture');
+            const caseImpact = document.getElementById('modal-impact');
+            const caseGithubBtn = document.getElementById('modal-github-btn');
+            const caseCloseBtn = document.getElementById('modal-close-btn');
 
             function openCaseStudy(id) {
                 const data = CASE_STUDIES[id];
                 if (!data) return;
 
-                modalTitle.textContent = data.title;
-                modalTags.innerHTML = data.tags.map(t =>
+                caseTitle.textContent = data.title;
+                caseTags.innerHTML = data.tags.map(t =>
                     `<span class="text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">${t}</span>`
                 ).join('');
-                modalProblem.textContent = data.problem;
-                modalArch.textContent = data.architecture;
-                modalImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
-                modalDocLink.href = data.docUrl;
-                modalLiveLink.href = data.liveUrl;
+                caseProblem.textContent = data.problem;
+                caseArch.textContent = data.architecture;
+                caseImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
+                caseGithubBtn.href = data.gitUrl;
 
-                modal.classList.add('is-open');
+                caseModal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
                 SoundFX.playChime();
             }
 
             function closeCaseStudy() {
-                if (!modal.classList.contains('is-open')) return;
-                modal.classList.remove('is-open');
+                if (!caseModal.classList.contains('is-open')) return;
+                caseModal.classList.remove('is-open');
                 document.body.style.overflow = '';
                 SoundFX.playTick();
             }
@@ -1444,16 +1569,20 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                 btn.addEventListener('click', () => openCaseStudy(btn.dataset.caseStudy));
             });
 
-            modalCloseBtn.addEventListener('click', closeCaseStudy);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeCaseStudy();
+            caseCloseBtn.addEventListener('click', closeCaseStudy);
+            caseModal.addEventListener('click', (e) => {
+                if (e.target === caseModal) closeCaseStudy();
             });
+
             window.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeCaseStudy();
+                if (e.key === 'Escape') {
+                    closeGallery();
+                    closeCaseStudy();
+                }
             });
 
             /* =========================================================
-               7. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
+               8. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
                ========================================================= */
             const copyToast = document.getElementById('copy-toast');
             let toastTimer = null;
@@ -1478,7 +1607,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             });
 
             /* =========================================================
-               8. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
+               9. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
                ========================================================= */
             document.querySelectorAll('.glass-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -1503,7 +1632,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             });
 
             /* =========================================================
-               9. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
+               10. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
                ========================================================= */
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1541,7 +1670,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             onScroll();
 
             /* =========================================================
-               10. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
+               11. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
                ========================================================= */
             const taglineEl = document.getElementById('typed-tagline');
             const phrases = [
@@ -1579,7 +1708,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
             setTimeout(() => { isDeleting = true; tickTagline(); }, 3200);
 
             /* =========================================================
-               11. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
+               12. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
                ========================================================= */
             const mouse = { x: -1000, y: -1000 };
             const ripples = [];
@@ -1600,7 +1729,7 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
 
             window.addEventListener('click', (e) => {
                 ripples.push({ x: e.clientX, y: e.clientY, radius: 6, maxRadius: 210, alpha: 0.45 });
-                if (!e.target.closest('a, button, #case-study-dialog')) {
+                if (!e.target.closest('a, button, .modal-dialog')) {
                     SoundFX.playPulse();
                 }
             });
@@ -1642,7 +1771,6 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                 const glowRadius = 185;
                 const linkDist = 115;
 
-                // Draw & update click ripples
                 for (let i = ripples.length - 1; i >= 0; i--) {
                     const rp = ripples[i];
                     rp.radius += 5.5;
@@ -1659,7 +1787,6 @@ Analyzed 292 safety observations across 605 employees using an interactive Excel
                     }
                 }
 
-                // Update and render particles + network lines near cursor
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
                     p.x += p.vx;

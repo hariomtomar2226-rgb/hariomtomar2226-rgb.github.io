@@ -315,11 +315,9 @@
         html.dark .neumorphic-label-horizontal {
             color: #a1a1aa;
         }
-        /* When knob is on the left, text sits on the right */
         .neumorphic-pill-horizontal:not(.is-right) .neumorphic-label-horizontal {
             right: 9px;
         }
-        /* When knob is on the right, text sits on the left */
         .neumorphic-pill-horizontal.is-right .neumorphic-label-horizontal {
             left: 9px;
         }
@@ -433,7 +431,7 @@
             transform: scale(0.95);
         }
 
-        /* Modals Backdrop & Panel Transitions */
+        /* Modal Backdrop & Dialog Transitions (Dashboard Gallery + Case Study + Fullscreen Lightbox) */
         .portfolio-modal {
             opacity: 0;
             pointer-events: none;
@@ -443,12 +441,30 @@
             opacity: 1;
             pointer-events: auto;
         }
-        .modal-dialog {
+        .portfolio-modal-dialog {
             transform: translateY(18px) scale(0.97);
             transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .portfolio-modal.is-open .modal-dialog {
+        .portfolio-modal.is-open .portfolio-modal-dialog {
             transform: translateY(0) scale(1);
+        }
+
+        /* Gallery Thumbnail Strip Active State */
+        .gallery-thumb {
+            transition: all 0.2s ease;
+            opacity: 0.58;
+        }
+        .gallery-thumb:hover {
+            opacity: 0.9;
+        }
+        .gallery-thumb.is-active {
+            opacity: 1;
+            border-color: #18181b;
+            box-shadow: 0 0 0 2px #18181b;
+        }
+        html.dark .gallery-thumb.is-active {
+            border-color: #f4f4f5;
+            box-shadow: 0 0 0 2px #f4f4f5;
         }
 
         /* Floating Copy Toast Notification */
@@ -459,7 +475,7 @@
             transform: translateX(-50%) translateY(24px);
             opacity: 0;
             pointer-events: none;
-            z-index: 70;
+            z-index: 80;
             transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
         #copy-toast.is-shown {
@@ -735,13 +751,11 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
-                    <button type="button" data-case-study="netflix" data-sound="chime"
+                    <button type="button" data-open-docs="netflix"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </button>
-                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
-                    <button type="button" data-gallery="netflix"
+                    <button type="button" data-open-gallery="netflix"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -766,13 +780,11 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
-                    <button type="button" data-case-study="retail" data-sound="chime"
+                    <button type="button" data-open-docs="retail"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </button>
-                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
-                    <button type="button" data-gallery="retail"
+                    <button type="button" data-open-gallery="retail"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -794,17 +806,15 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Tableau</span>
                     </div>
                     <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
-                        Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales to estimate full-year performance and data quality gaps.
+                        Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales (6,066–6,618 units) to estimate full-year sales of 71K–74K units, against 64,630 recorded units. Revealed that the apparent 12.82% year-over-year decline was significantly influenced by incomplete data.
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
-                    <button type="button" data-case-study="quality" data-sound="chime"
+                    <button type="button" data-open-docs="quality"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </button>
-                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
-                    <button type="button" data-gallery="quality"
+                    <button type="button" data-open-gallery="quality"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -825,17 +835,15 @@
                         <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
                     </div>
                     <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
-                        Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories to identify recurring unsafe behaviors.
+                        Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories through a mapping table. Classified observations as Safe or Unsafe and analyzed compliance across workplaces, observers, and inspection measures to identify recurring unsafe behaviors and areas requiring intervention.
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
-                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
-                    <button type="button" data-case-study="bbs" data-sound="chime"
+                    <button type="button" data-open-docs="bbs"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
                         Documentation
                     </button>
-                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
-                    <button type="button" data-gallery="bbs"
+                    <button type="button" data-open-gallery="bbs"
                             class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
                         View Dashboard
                     </button>
@@ -845,7 +853,7 @@
         </div>
     </section>
 
-    <!-- Technical Skills Section -->
+    <!-- Technical Skills Section (Clean 4-Column x 2-Row Desktop Grid) -->
     <section id="skills" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
         <div class="text-center mb-12 reveal-up">
             <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
@@ -959,7 +967,7 @@
                 </a>
             </div>
 
-            <!-- Download Resume Button -->
+            <!-- Rectangular with Slight Curved Corners (rounded-xl) Download Resume Button -->
             <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf" data-sound="chime"
                title="Download Resume (PDF)"
                class="tactile-btn relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold tracking-wide uppercase shadow-lg">
@@ -978,101 +986,185 @@
         © 2026 Hariom Tomar. Built with HTML &amp; Tailwind CSS.
     </footer>
 
-    <!-- =========================================================
-       MODAL 1: DASHBOARD GALLERY MODAL (VIEW DASHBOARD BUTTON)
-       ========================================================= -->
-    <div id="dashboard-gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title"
-         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/80 backdrop-blur-md">
-        <div class="modal-dialog w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
-            <!-- Header -->
-            <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+    <!-- =========================================================================
+         MODAL 1: PROJECT DASHBOARD GALLERY (Triggered by "View Dashboard")
+         ========================================================================= -->
+    <div id="dashboard-gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-title"
+         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-zinc-950/80 backdrop-blur-md">
+        <div id="gallery-dialog"
+             class="portfolio-modal-dialog w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-4 sm:p-7 text-zinc-800 dark:text-zinc-200 flex flex-col gap-4">
+
+            <!-- Gallery Header -->
+            <div class="flex items-start justify-between gap-4 pb-3 border-b border-zinc-200 dark:border-zinc-800">
                 <div>
-                    <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
-                        Interactive Dashboard Gallery
-                    </span>
-                    <h3 id="gallery-modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-                        Project Title
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+                            Interactive Dashboard Gallery
+                        </span>
+                        <span id="gallery-counter" class="text-xs font-semibold tabular-nums text-zinc-500 dark:text-zinc-400">
+                            1 / 4
+                        </span>
+                    </div>
+                    <h3 id="gallery-title" class="text-lg sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                        Project Dashboard
                     </h3>
                 </div>
-                <button id="gallery-close-btn" type="button" aria-label="Close Dashboard Gallery"
-                        class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
-                    <i class="fas fa-xmark"></i>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button id="gallery-fullscreen-btn" type="button" title="Open Full-Screen Screenshot Viewer"
+                            class="tactile-btn px-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 flex items-center gap-1.5">
+                        <i class="fas fa-expand"></i>
+                        <span class="hidden sm:inline">Full Screen</span>
+                    </button>
+                    <button id="gallery-close-btn" type="button" aria-label="Close Dashboard Gallery"
+                            class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Active Screenshot Stage -->
+            <div class="relative rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center min-h-[240px] sm:min-h-[380px] max-h-[58vh] group">
+                <img id="gallery-active-img"
+                     src=""
+                     alt="Dashboard Screenshot"
+                     title="Click image for Full-Screen Viewer"
+                     class="max-h-[56vh] w-auto max-w-full object-contain cursor-zoom-in select-none transition-opacity duration-200">
+
+                <!-- Previous Slide Button -->
+                <button id="gallery-prev-btn" type="button" aria-label="Previous Dashboard Page"
+                        class="tactile-btn absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-100 shadow-lg flex items-center justify-center hover:scale-105">
+                    <i class="fas fa-chevron-left text-sm"></i>
+                </button>
+
+                <!-- Next Slide Button -->
+                <button id="gallery-next-btn" type="button" aria-label="Next Dashboard Page"
+                        class="tactile-btn absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700 text-zinc-800 dark:text-zinc-100 shadow-lg flex items-center justify-center hover:scale-105">
+                    <i class="fas fa-chevron-right text-sm"></i>
                 </button>
             </div>
 
-            <!-- Gallery Images Container (Exact Sequence per Prompt) -->
-            <div id="gallery-images-container" class="space-y-6 py-6">
-                <!-- Dynamically populated via JS -->
+            <!-- Active Slide Caption Bar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
+                <p id="gallery-caption" class="text-xs sm:text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+                    Page 1
+                </p>
+                <span class="text-[11px] text-zinc-500 dark:text-zinc-400">
+                    Click screenshot or press <kbd class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[10px]">F</kbd> for Full-Screen • Use <kbd class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[10px]">←</kbd> <kbd class="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 font-mono text-[10px]">→</kbd> keys to navigate
+                </span>
             </div>
 
-            <!-- Footer -->
-            <div class="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                <button id="gallery-footer-close" type="button"
-                        class="tactile-btn py-2.5 px-6 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
-                    Close Gallery
-                </button>
-            </div>
+            <!-- Ordered Thumbnail Strip (Preserves Exact Image Sequence) -->
+            <div id="gallery-thumbnails" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1"></div>
         </div>
     </div>
 
-    <!-- =========================================================
-       MODAL 2: EXECUTIVE CASE STUDY MODAL (DOCUMENTATION BUTTON)
-       ========================================================= -->
+    <!-- =========================================================================
+         FULL-SCREEN SCREENSHOT VIEWER (Lightbox)
+         ========================================================================= -->
+    <div id="fullscreen-viewer-modal" role="dialog" aria-modal="true" aria-label="Full-Screen Screenshot Viewer"
+         class="portfolio-modal fixed inset-0 z-[70] flex flex-col justify-between p-4 sm:p-6 bg-zinc-950/95 backdrop-blur-xl text-zinc-100">
+        <!-- Top Lightbox Bar -->
+        <div class="flex items-center justify-between gap-4 max-w-7xl w-full mx-auto">
+            <div class="flex items-center gap-3 min-w-0">
+                <span id="fs-counter" class="px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-200 text-xs font-bold tabular-nums shrink-0">1 / 4</span>
+                <p id="fs-caption" class="text-sm sm:text-base font-semibold truncate text-zinc-100">Dashboard Screenshot</p>
+            </div>
+            <button id="fs-close-btn" type="button" aria-label="Exit Full-Screen Viewer"
+                    class="tactile-btn px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-600 text-zinc-100 text-xs font-semibold flex items-center gap-2 shrink-0">
+                <i class="fas fa-compress"></i>
+                <span>Exit Full Screen</span>
+            </button>
+        </div>
+
+        <!-- Fullscreen Stage -->
+        <div class="relative flex-1 flex items-center justify-center my-3 overflow-hidden">
+            <img id="fs-img" src="" alt="Full-Screen Dashboard View"
+                 class="max-h-[82vh] max-w-[94vw] object-contain rounded-lg shadow-2xl select-none">
+
+            <button id="fs-prev-btn" type="button" aria-label="Previous Screenshot"
+                    class="tactile-btn absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-600 text-white shadow-xl flex items-center justify-center">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="fs-next-btn" type="button" aria-label="Next Screenshot"
+                    class="tactile-btn absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-600 text-white shadow-xl flex items-center justify-center">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Bottom Hint -->
+        <div class="text-center text-xs text-zinc-400">
+            Press <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-200 font-mono">ESC</kbd> to return to gallery
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         MODAL 2: EXECUTIVE CASE STUDY (Triggered by "Documentation")
+         ========================================================================= -->
     <div id="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
          class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/75 backdrop-blur-md">
-        <div class="modal-dialog w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+        <div id="case-study-dialog"
+             class="portfolio-modal-dialog w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
             <!-- Modal Header -->
             <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
                 <div>
                     <span id="modal-badge" class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
-                        Executive Case Brief
+                        Executive Case Study
                     </span>
                     <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                         Project Title
                     </h3>
                     <div id="modal-tags" class="flex flex-wrap gap-1.5 mt-2.5"></div>
                 </div>
-                <button id="modal-close-btn" type="button" aria-label="Close Case Study Preview"
+                <button id="modal-close-btn" type="button" aria-label="Close Executive Case Study"
                         class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
                     <i class="fas fa-xmark"></i>
                 </button>
             </div>
 
-            <!-- Structured Analytical Flow: Problem -> Architecture -> Impact -->
-            <div class="space-y-5 py-5 text-sm leading-relaxed">
+            <!-- Structured Analytical Flow: Overview -> Problem -> Methodology -> Findings & Recommendations -->
+            <div class="space-y-4 py-5 text-sm leading-relaxed">
                 <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
                     <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
-                        <i class="fas fa-bullseye"></i> 01. Business Problem
+                        <i class="fas fa-file-lines"></i> 01. Executive Summary
+                    </div>
+                    <p id="modal-summary" class="text-zinc-700 dark:text-zinc-300"></p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-bullseye"></i> 02. Business Problem
                     </div>
                     <p id="modal-problem" class="text-zinc-700 dark:text-zinc-300"></p>
                 </div>
 
                 <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
                     <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
-                        <i class="fas fa-diagram-project"></i> 02. Data Architecture &amp; ETL
+                        <i class="fas fa-diagram-project"></i> 03. Methodology, Data Architecture &amp; ETL
                     </div>
                     <p id="modal-architecture" class="text-zinc-700 dark:text-zinc-300"></p>
                 </div>
 
                 <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
                     <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
-                        <i class="fas fa-chart-line"></i> 03. Key Findings &amp; Business Impact
+                        <i class="fas fa-chart-line"></i> 04. Key Findings, Business Impact &amp; Recommendations
                     </div>
                     <ul id="modal-impact" class="space-y-1.5 text-zinc-700 dark:text-zinc-300 list-disc list-inside"></ul>
                 </div>
             </div>
 
-            <!-- Modal Footer Actions (Requested: EXPLORE TECHNICAL DOCUMENTATION ON GITHUB) -->
+            <!-- Modal Footer Action: Single Dedicated GitHub Technical Documentation Destination -->
             <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800">
-                <a id="modal-github-btn" href="#" target="_blank" data-sound="chime"
-                   class="tactile-btn w-full text-center py-3 px-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-bold tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
-                    <i class="fab fa-github"></i> EXPLORE TECHNICAL DOCUMENTATION ON GITHUB
+                <a id="modal-github-btn" href="#" target="_blank" rel="noopener noreferrer" data-sound="chime"
+                   class="tactile-btn w-full flex items-center justify-center gap-2.5 py-3 px-5 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-xs sm:text-sm font-bold tracking-wider uppercase shadow-md">
+                    <i class="fab fa-github text-base"></i>
+                    <span>EXPLORE TECHNICAL DOCUMENTATION ON GITHUB</span>
+                    <i class="fas fa-arrow-up-right-from-square text-xs"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Interactive Scripts Engine -->
+    <!-- Interactive Sound Engine + KPI Counter + Project Filter + Gallery & Case Study Architecture -->
     <script>
         (function () {
             /* =========================================================
@@ -1308,7 +1400,7 @@
             });
 
             /* =========================================================
-               4. ANIMATED IMPACT & KPI COUNTER STRIP
+               4. ANIMATED IMPACT & KPI COUNTER STRIP (SCROLL TRIGGERED)
                ========================================================= */
             const kpiSection = document.getElementById('impact-kpis');
             const kpiCounters = document.querySelectorAll('.kpi-counter');
@@ -1394,96 +1486,35 @@
             });
 
             /* =========================================================
-               6. DASHBOARD GALLERY DATA & MODAL LOGIC (SOURCE A: ASSETS)
+               6. SINGLE SOURCE OF TRUTH: PROJECT ASSETS & CASE STUDIES
+                  - SOURCE A: Main Portfolio Repository `assets/` folders
+                  - SOURCE B: Individual Project GitHub Repositories
                ========================================================= */
-            const GALLERIES = {
-                netflix: {
-                    title: 'Netflix User Analytics Dashboard',
-                    images: [
-                        { src: 'assets/netflix/01Executive_performance_overview.png', caption: '01. Executive Performance Overview' },
-                        { src: 'assets/netflix/02Customer_demographics_overview.png', caption: '02. Customer Demographics Overview' },
-                        { src: 'assets/netflix/03Strategic_key_insights.png', caption: '03. Strategic Key Insights' },
-                        { src: 'assets/netflix/04Strategic_recommendations.png', caption: '04. Strategic Recommendations' }
-                    ]
-                },
-                retail: {
-                    title: 'Global Retail Sales Performance Analysis',
-                    images: [
-                        { src: 'assets/Global Retail Sales Performance Analysis/Sales Overview.png', caption: 'Sales Overview' },
-                        { src: 'assets/Global Retail Sales Performance Analysis/Regional Sales Distribution.png', caption: 'Regional Sales Distribution' },
-                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 1.png', caption: 'Profit Analysis - Part 1' },
-                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 2.png', caption: 'Profit Analysis - Part 2' }
-                    ]
-                },
-                quality: {
-                    title: 'Sales Performance Data Quality Assessment',
-                    images: [
-                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_1.png', caption: 'Dashboard View 1' },
-                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_2.png', caption: 'Dashboard View 2' }
-                    ]
-                },
-                bbs: {
-                    title: 'Behavior-Based Safety (BBS) Analysis',
-                    images: [
-                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard 1.png', caption: 'Dashboard View 1' },
-                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard2.png', caption: 'Dashboard View 2' }
-                    ]
-                }
-            };
-
-            const galleryModal = document.getElementById('dashboard-gallery-modal');
-            const galleryTitle = document.getElementById('gallery-modal-title');
-            const galleryImagesContainer = document.getElementById('gallery-images-container');
-            const galleryCloseBtn = document.getElementById('gallery-close-btn');
-            const galleryFooterClose = document.getElementById('gallery-footer-close');
-
-            function openGallery(id) {
-                const data = GALLERIES[id];
-                if (!data) return;
-
-                galleryTitle.textContent = data.title;
-                galleryImagesContainer.innerHTML = data.images.map((img, idx) => `
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-                            <span>Image ${idx + 1} of ${data.images.length}</span>
-                            <span class="font-mono text-[11px]">${img.src}</span>
-                        </div>
-                        <div class="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-950 shadow-lg">
-                            <img src="${img.src}" alt="${img.caption}" loading="lazy" class="w-full h-auto object-contain hover:scale-[1.01] transition-transform duration-300">
-                        </div>
-                        <p class="text-xs font-medium text-zinc-700 dark:text-zinc-300 px-1">${img.caption}</p>
-                    </div>
-                `).join('');
-
-                galleryModal.classList.add('is-open');
-                document.body.style.overflow = 'hidden';
-                SoundFX.playChime();
-            }
-
-            function closeGallery() {
-                if (!galleryModal.classList.contains('is-open')) return;
-                galleryModal.classList.remove('is-open');
-                document.body.style.overflow = '';
-                SoundFX.playTick();
-            }
-
-            document.querySelectorAll('[data-gallery]').forEach(btn => {
-                btn.addEventListener('click', () => openGallery(btn.dataset.gallery));
-            });
-
-            galleryCloseBtn.addEventListener('click', closeGallery);
-            galleryFooterClose.addEventListener('click', closeGallery);
-            galleryModal.addEventListener('click', (e) => {
-                if (e.target === galleryModal) closeGallery();
-            });
-
-            /* =========================================================
-               7. EXECUTIVE CASE STUDY MODAL & GITHUB REPO LINKS
-               ========================================================= */
-            const CASE_STUDIES = {
+            const PROJECTS_DATA = {
                 netflix: {
                     title: 'Netflix User Analytics Dashboard',
                     tags: ['MySQL', 'SQL', 'Power BI', 'DAX', '4-Table Schema'],
+                    // Exact sequence & local asset paths from main portfolio repo
+                    screenshots: [
+                        {
+                            src: 'assets/netflix/01Executive_performance_overview.png',
+                            caption: '01 — Executive Performance Overview'
+                        },
+                        {
+                            src: 'assets/netflix/02Customer_demographics_overview.png',
+                            caption: '02 — Customer Demographics Overview'
+                        },
+                        {
+                            src: 'assets/netflix/03Strategic_key_insights.png',
+                            caption: '03 — Strategic Key Insights'
+                        },
+                        {
+                            src: 'assets/netflix/04Strategic_recommendations.png',
+                            caption: '04 — Strategic Recommendations'
+                        }
+                    ],
+                    // Preserved Executive Case Study content & GitHub repository URL
+                    summary: 'Built an end-to-end analytics solution for 2,500+ customer records. Designed a 4-table normalized relational database in MySQL, executed ETL and validation workflows, and created a 4-page interactive Power BI dashboard analyzing demographics, subscriptions, engagement, and growth trends.',
                     problem: 'Raw subscriber exports lacked relational normalization and longitudinal tracking, making it difficult to pinpoint subscription tier churn drivers, regional revenue concentration, and device engagement differences across 2,500+ user records.',
                     architecture: 'Engineered a 4-table normalized relational schema in MySQL with primary/foreign key constraints, executed SQL cleaning and validation scripts (CTEs, joins, window functions), and modeled DAX time-intelligence and retention measures inside a 4-page Power BI report.',
                     impact: [
@@ -1491,98 +1522,302 @@
                         'Surfaced device-level watch-time disparities to guide targeted retention and plan-upgrade campaigns.',
                         'Reduced manual reporting time by consolidating demographic, billing, and engagement KPIs into one interactive view.'
                     ],
-                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project'
+                    githubRepoUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project'
                 },
                 retail: {
                     title: 'Global Retail Sales Performance Analysis',
                     tags: ['Advanced Excel', 'Power Query', '51,000+ Rows', '4-Page Dashboard'],
-                    problem: 'Despite strong top-line revenue across 51,000+ global retail orders, net profit margins varied sharply across regions, shipping modes, and sub-categories—masking loss-making product lines.',
+                    // Exact sequence & local asset paths from main portfolio repo
+                    screenshots: [
+                        {
+                            src: 'assets/Global Retail Sales Performance Analysis/Sales Overview.png',
+                            caption: '01 — Sales Overview'
+                        },
+                        {
+                            src: 'assets/Global Retail Sales Performance Analysis/Regional Sales Distribution.png',
+                            caption: '02 — Regional Sales Distribution'
+                        },
+                        {
+                            src: 'assets/Global Retail Sales Performance Analysis/profit analysis 1.png',
+                            caption: '03 — Profit Analysis (Part 1)'
+                        },
+                        {
+                            src: 'assets/Global Retail Sales Performance Analysis/profit analysis 2.png',
+                            caption: '04 — Profit Analysis (Part 2)'
+                        }
+                    ],
+                    // Preserved Executive Case Study content & GitHub repository URL
+                    summary: 'Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard covering sales, profit, shipping, and product performance. Built dynamic KPI tracking with slicers and identified 29 loss-making countries that reduced overall profitability by 23.4%, along with key regional and category-level profit drivers.',
+                    problem: 'Despite strong top-line revenue across 51,000+ global retail orders, net profit margins varied sharply across regions, shipping modes, and sub-categories—masking loss-making product lines and unprofitable country markets.',
                     architecture: 'Automated ingestion and transformation of 51,000+ transaction records using Power Query, built a dynamic Pivot-driven data model with custom calculated fields, and designed a 4-page interactive Excel executive dashboard with synchronized slicers.',
                     impact: [
+                        'Identified 29 loss-making countries that reduced overall profitability by 23.4%, alongside key regional and category-level profit drivers.',
                         'Pinpointed specific sub-categories and high-discount regions acting as structural profitability drains.',
-                        'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers.',
-                        'Delivered actionable discount-cap and regional pricing recommendations to protect operating margin.'
+                        'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers and delivered actionable discount-cap recommendations.'
                     ],
-                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
+                    githubRepoUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
                 },
                 quality: {
                     title: 'Sales Performance Data Quality Assessment',
                     tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2014–2018 Audit'],
-                    problem: 'Leadership relied on multi-year historical sales dashboards (2014–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across records.',
-                    architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built dual-layer diagnostic visualizations in Excel and Tableau to isolate corrupted segments.',
-                    impact: [
-                        'Uncovered missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
-                        'Demonstrated side-by-side KPI variance before vs. after data remediation to establish governance standards.',
-                        'Provided a repeatable pre-BI validation checklist to prevent flawed executive decision-making.'
+                    // Exact sequence & local asset paths from main portfolio repo
+                    screenshots: [
+                        {
+                            src: 'assets/Sales Performance Data Quality Assessment/dashboard_1.png',
+                            caption: '01 — Sales Performance & Trend Overview (Dashboard 1)'
+                        },
+                        {
+                            src: 'assets/Sales Performance Data Quality Assessment/dashboard_2.png',
+                            caption: '02 — Geography, Warehouse & Data Completeness Audit (Dashboard 2)'
+                        }
                     ],
-                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
+                    // Preserved Executive Case Study content & GitHub repository URL
+                    summary: 'Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales (6,066–6,618 units) to estimate full-year sales of 71K–74K units, against 64,630 recorded units. Revealed that the apparent 12.82% year-over-year decline was significantly influenced by incomplete data.',
+                    problem: 'Leadership relied on multi-year historical sales dashboards (2014–2018) without visibility into underlying missing records, truncated year-end ingestion, and geographic attribution gaps across 11,000+ rows.',
+                    architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built a 2-page interactive Tableau diagnostic dashboard covering KPIs, trends, geography, and warehouse performance.',
+                    impact: [
+                        'Identified missing 2018 records after November 15 and compared historical December sales (6,066–6,618 units) to estimate full-year sales of 71K–74K units versus 64,630 recorded units.',
+                        'Proved that the apparent 12.82% year-over-year sales decline was significantly distorted by incomplete year-end data capture.',
+                        'Uncovered 29% missing location attributes and delivered a repeatable pre-BI validation checklist to prevent flawed executive decisions.'
+                    ],
+                    githubRepoUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
                 },
                 bbs: {
                     title: 'Behavior-Based Safety (BBS) Analysis',
-                    tags: ['Excel', 'Power Query', '2,000+ Observations', '10 Business Units'],
-                    problem: 'Over 2,000 workplace safety observation logs across 10 business units and 18 hazard categories were stored in fragmented spreadsheets, preventing EHS leaders from spotting recurring high-risk zones early.',
-                    architecture: 'Standardized categorical taxonomies and cleaned 2,000+ observation records via Power Query, constructing an interactive risk-matrix dashboard segmented by department, shift, and hazard type.',
-                    impact: [
-                        'Isolated high-frequency unsafe acts across specific business units and 18 safety categories.',
-                        'Enabled proactive safety interventions and targeted training in top-risk operational zones.',
-                        'Established clear compliance trend tracking across departments.'
+                    tags: ['Excel', 'Power Query', '292 Observations', '605 Employees'],
+                    // Exact sequence & local asset paths from main portfolio repo
+                    screenshots: [
+                        {
+                            src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard 1.png',
+                            caption: '01 — BBS Executive Compliance Overview (Dashboard 1)'
+                        },
+                        {
+                            src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard2.png',
+                            caption: '02 — Workplace, Observer & Inspection Measure Breakdown (Dashboard 2)'
+                        }
                     ],
-                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
+                    // Preserved Executive Case Study content & GitHub repository URL
+                    summary: 'Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories through a mapping table. Classified observations as Safe or Unsafe and analyzed compliance across workplaces, observers, and inspection measures to identify recurring unsafe behaviors and areas requiring intervention.',
+                    problem: 'Workplace safety observation logs across 605 employees and 32+ granular inspection measures were stored in wide, unstandardized spreadsheets, preventing EHS leaders from isolating recurring unsafe behaviors early.',
+                    architecture: 'Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized safety categories through a relational mapping table, and classified all 292 observations as Safe or Unsafe inside an interactive Excel dashboard.',
+                    impact: [
+                        'Analyzed compliance across workplaces, observers, and 10 standardized inspection categories to pinpoint recurring unsafe behaviors.',
+                        'Isolated high-risk operational zones requiring immediate targeted safety interventions and refresher training.',
+                        'Established clear Safe vs. Unsafe compliance benchmarking across departments.'
+                    ],
+                    githubRepoUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
                 }
             };
 
-            const caseModal = document.getElementById('case-study-modal');
-            const caseTitle = document.getElementById('modal-title');
-            const caseTags = document.getElementById('modal-tags');
-            const caseProblem = document.getElementById('modal-problem');
-            const caseArch = document.getElementById('modal-architecture');
-            const caseImpact = document.getElementById('modal-impact');
-            const caseGithubBtn = document.getElementById('modal-github-btn');
-            const caseCloseBtn = document.getElementById('modal-close-btn');
+            /* =========================================================
+               7. DASHBOARD GALLERY + FULL-SCREEN LIGHTBOX CONTROLLER
+                  (Triggered ONLY by "View Dashboard" button)
+               ========================================================= */
+            const galleryModal = document.getElementById('dashboard-gallery-modal');
+            const galleryTitle = document.getElementById('gallery-title');
+            const galleryCounter = document.getElementById('gallery-counter');
+            const galleryActiveImg = document.getElementById('gallery-active-img');
+            const galleryCaption = document.getElementById('gallery-caption');
+            const galleryThumbs = document.getElementById('gallery-thumbnails');
+            const galleryPrevBtn = document.getElementById('gallery-prev-btn');
+            const galleryNextBtn = document.getElementById('gallery-next-btn');
+            const galleryCloseBtn = document.getElementById('gallery-close-btn');
+            const galleryFsBtn = document.getElementById('gallery-fullscreen-btn');
 
-            function openCaseStudy(id) {
-                const data = CASE_STUDIES[id];
-                if (!data) return;
+            const fsModal = document.getElementById('fullscreen-viewer-modal');
+            const fsImg = document.getElementById('fs-img');
+            const fsCounter = document.getElementById('fs-counter');
+            const fsCaption = document.getElementById('fs-caption');
+            const fsPrevBtn = document.getElementById('fs-prev-btn');
+            const fsNextBtn = document.getElementById('fs-next-btn');
+            const fsCloseBtn = document.getElementById('fs-close-btn');
 
-                caseTitle.textContent = data.title;
-                caseTags.innerHTML = data.tags.map(t =>
-                    `<span class="text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">${t}</span>`
-                ).join('');
-                caseProblem.textContent = data.problem;
-                caseArch.textContent = data.architecture;
-                caseImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
-                caseGithubBtn.href = data.gitUrl;
+            let activeGalleryProject = null;
+            let activeSlideIndex = 0;
 
-                caseModal.classList.add('is-open');
+            function renderGallerySlide() {
+                if (!activeGalleryProject) return;
+                const slides = activeGalleryProject.screenshots;
+                const total = slides.length;
+                const current = slides[activeSlideIndex];
+                const encodedSrc = encodeURI(current.src);
+
+                galleryCounter.textContent = `${activeSlideIndex + 1} / ${total}`;
+                galleryActiveImg.src = encodedSrc;
+                galleryActiveImg.alt = `${activeGalleryProject.title} — ${current.caption}`;
+                galleryCaption.textContent = current.caption;
+
+                // Keep Full-Screen Lightbox synced in real time
+                fsCounter.textContent = `${activeSlideIndex + 1} / ${total}`;
+                fsImg.src = encodedSrc;
+                fsImg.alt = `${activeGalleryProject.title} — ${current.caption}`;
+                fsCaption.textContent = `${activeGalleryProject.title} • ${current.caption}`;
+
+                // Update thumbnail active highlight
+                galleryThumbs.querySelectorAll('.gallery-thumb').forEach((thumbBtn, idx) => {
+                    thumbBtn.classList.toggle('is-active', idx === activeSlideIndex);
+                });
+            }
+
+            function openDashboardGallery(projectId) {
+                const project = PROJECTS_DATA[projectId];
+                if (!project || !project.screenshots || !project.screenshots.length) return;
+
+                activeGalleryProject = project;
+                activeSlideIndex = 0;
+                galleryTitle.textContent = project.title;
+
+                // Build ordered thumbnails strictly matching prompt's image sequence
+                const colClass = project.screenshots.length <= 2 ? 'grid-cols-2 max-w-lg mx-auto' : 'grid-cols-2 sm:grid-cols-4';
+                galleryThumbs.className = `grid ${colClass} gap-3 pt-1`;
+
+                galleryThumbs.innerHTML = project.screenshots.map((shot, idx) => `
+                    <button type="button" data-slide-idx="${idx}"
+                            class="gallery-thumb group rounded-xl overflow-hidden border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-950 text-left flex flex-col">
+                        <div class="aspect-video w-full overflow-hidden bg-zinc-200/60 dark:bg-zinc-900">
+                            <img src="${encodeURI(shot.src)}" alt="${shot.caption}" loading="lazy"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
+                        </div>
+                        <span class="px-2 py-1.5 text-[10px] font-semibold truncate text-zinc-700 dark:text-zinc-300">
+                            ${shot.caption}
+                        </span>
+                    </button>
+                `).join('');
+
+                galleryThumbs.querySelectorAll('[data-slide-idx]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        activeSlideIndex = Number(btn.dataset.slideIdx);
+                        SoundFX.playTick();
+                        renderGallerySlide();
+                    });
+                });
+
+                renderGallerySlide();
+                galleryModal.classList.add('is-open');
                 document.body.style.overflow = 'hidden';
                 SoundFX.playChime();
             }
 
-            function closeCaseStudy() {
-                if (!caseModal.classList.contains('is-open')) return;
-                caseModal.classList.remove('is-open');
+            function closeDashboardGallery() {
+                if (!galleryModal.classList.contains('is-open')) return;
+                closeFullscreenViewer(true);
+                galleryModal.classList.remove('is-open');
                 document.body.style.overflow = '';
                 SoundFX.playTick();
             }
 
-            document.querySelectorAll('[data-case-study]').forEach(btn => {
-                btn.addEventListener('click', () => openCaseStudy(btn.dataset.caseStudy));
+            function stepGallerySlide(delta) {
+                if (!activeGalleryProject) return;
+                const total = activeGalleryProject.screenshots.length;
+                activeSlideIndex = (activeSlideIndex + delta + total) % total;
+                SoundFX.playTick();
+                renderGallerySlide();
+            }
+
+            function openFullscreenViewer() {
+                if (!activeGalleryProject) return;
+                renderGallerySlide();
+                fsModal.classList.add('is-open');
+                SoundFX.playSwitch(true);
+            }
+
+            function closeFullscreenViewer(silent) {
+                if (!fsModal.classList.contains('is-open')) return;
+                fsModal.classList.remove('is-open');
+                if (!silent) SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-open-gallery]').forEach(btn => {
+                btn.addEventListener('click', () => openDashboardGallery(btn.dataset.openGallery));
             });
 
-            caseCloseBtn.addEventListener('click', closeCaseStudy);
-            caseModal.addEventListener('click', (e) => {
-                if (e.target === caseModal) closeCaseStudy();
+            galleryPrevBtn.addEventListener('click', () => stepGallerySlide(-1));
+            galleryNextBtn.addEventListener('click', () => stepGallerySlide(1));
+            galleryCloseBtn.addEventListener('click', closeDashboardGallery);
+            galleryFsBtn.addEventListener('click', openFullscreenViewer);
+            galleryActiveImg.addEventListener('click', openFullscreenViewer);
+
+            galleryModal.addEventListener('click', (e) => {
+                if (e.target === galleryModal) closeDashboardGallery();
             });
 
+            fsPrevBtn.addEventListener('click', () => stepGallerySlide(-1));
+            fsNextBtn.addEventListener('click', () => stepGallerySlide(1));
+            fsCloseBtn.addEventListener('click', () => closeFullscreenViewer(false));
+            fsModal.addEventListener('click', (e) => {
+                if (e.target === fsModal) closeFullscreenViewer(false);
+            });
+
+            /* =========================================================
+               8. EXECUTIVE CASE STUDY MODAL CONTROLLER
+                  (Triggered ONLY by "Documentation" button)
+               ========================================================= */
+            const caseStudyModal = document.getElementById('case-study-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalTags = document.getElementById('modal-tags');
+            const modalSummary = document.getElementById('modal-summary');
+            const modalProblem = document.getElementById('modal-problem');
+            const modalArch = document.getElementById('modal-architecture');
+            const modalImpact = document.getElementById('modal-impact');
+            const modalGithubBtn = document.getElementById('modal-github-btn');
+            const modalCloseBtn = document.getElementById('modal-close-btn');
+
+            function openExecutiveCaseStudy(projectId) {
+                const data = PROJECTS_DATA[projectId];
+                if (!data) return;
+
+                modalTitle.textContent = data.title;
+                modalTags.innerHTML = data.tags.map(t =>
+                    `<span class="text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">${t}</span>`
+                ).join('');
+                modalSummary.textContent = data.summary;
+                modalProblem.textContent = data.problem;
+                modalArch.textContent = data.architecture;
+                modalImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
+                modalGithubBtn.href = data.githubRepoUrl;
+
+                caseStudyModal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                SoundFX.playChime();
+            }
+
+            function closeExecutiveCaseStudy() {
+                if (!caseStudyModal.classList.contains('is-open')) return;
+                caseStudyModal.classList.remove('is-open');
+                document.body.style.overflow = '';
+                SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-open-docs]').forEach(btn => {
+                btn.addEventListener('click', () => openExecutiveCaseStudy(btn.dataset.openDocs));
+            });
+
+            modalCloseBtn.addEventListener('click', closeExecutiveCaseStudy);
+            caseStudyModal.addEventListener('click', (e) => {
+                if (e.target === caseStudyModal) closeExecutiveCaseStudy();
+            });
+
+            // Unified Keyboard Shortcuts (Escape, Left/Right Arrows, F for Fullscreen)
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
-                    closeGallery();
-                    closeCaseStudy();
+                    if (fsModal.classList.contains('is-open')) {
+                        closeFullscreenViewer(false);
+                    } else if (galleryModal.classList.contains('is-open')) {
+                        closeDashboardGallery();
+                    } else if (caseStudyModal.classList.contains('is-open')) {
+                        closeExecutiveCaseStudy();
+                    }
+                } else if (galleryModal.classList.contains('is-open')) {
+                    if (e.key === 'ArrowLeft') stepGallerySlide(-1);
+                    if (e.key === 'ArrowRight') stepGallerySlide(1);
+                    if ((e.key === 'f' || e.key === 'F') && !fsModal.classList.contains('is-open')) {
+                        openFullscreenViewer();
+                    }
                 }
             });
 
             /* =========================================================
-               8. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
+               9. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
                ========================================================= */
             const copyToast = document.getElementById('copy-toast');
             let toastTimer = null;
@@ -1607,7 +1842,7 @@
             });
 
             /* =========================================================
-               9. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
+               10. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
                ========================================================= */
             document.querySelectorAll('.glass-card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -1632,7 +1867,7 @@
             });
 
             /* =========================================================
-               10. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
+               11. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
                ========================================================= */
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1670,7 +1905,7 @@
             onScroll();
 
             /* =========================================================
-               11. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
+               12. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
                ========================================================= */
             const taglineEl = document.getElementById('typed-tagline');
             const phrases = [
@@ -1708,7 +1943,7 @@
             setTimeout(() => { isDeleting = true; tickTagline(); }, 3200);
 
             /* =========================================================
-               12. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
+               13. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
                ========================================================= */
             const mouse = { x: -1000, y: -1000 };
             const ripples = [];
@@ -1729,7 +1964,7 @@
 
             window.addEventListener('click', (e) => {
                 ripples.push({ x: e.clientX, y: e.clientY, radius: 6, maxRadius: 210, alpha: 0.45 });
-                if (!e.target.closest('a, button, .modal-dialog')) {
+                if (!e.target.closest('a, button, #case-study-dialog, #gallery-dialog, #fullscreen-viewer-modal')) {
                     SoundFX.playPulse();
                 }
             });
@@ -1771,6 +2006,7 @@
                 const glowRadius = 185;
                 const linkDist = 115;
 
+                // Draw & update click ripples
                 for (let i = ripples.length - 1; i >= 0; i--) {
                     const rp = ripples[i];
                     rp.radius += 5.5;
@@ -1787,6 +2023,7 @@
                     }
                 }
 
+                // Update and render particles + network lines near cursor
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
                     p.x += p.vx;

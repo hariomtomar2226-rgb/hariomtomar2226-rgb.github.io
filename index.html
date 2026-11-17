@@ -163,4 +163,1700 @@
         .bulb-art-frame {
             background: #121215;
             border: 1px solid rgba(255, 255, 255, 0.14);
-            box-shadow: 0 20px 40px rgba
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65);
+            transition: all 0.4s ease;
+            animation: gentleFloat 5.5s ease-in-out infinite;
+        }
+        .bulb-art-img {
+            filter: invert(0.93) grayscale(100%) contrast(125%);
+            mix-blend-mode: lighten;
+            transition: filter 0.4s ease, transform 0.5s ease;
+        }
+        .glass-card:hover .bulb-art-img {
+            transform: scale(1.03);
+        }
+
+        html:not(.dark) .bulb-art-frame {
+            background: #f3f1ed;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        }
+        html:not(.dark) .bulb-art-img {
+            filter: none;
+            mix-blend-mode: normal;
+        }
+
+        /* Staggered Scroll-Reveal Animation */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(26px) scale(0.985);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--reveal-delay, 0ms);
+        }
+        .reveal-up.is-revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Active Nav Link Pill */
+        .nav-link {
+            position: relative;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            transition: color 0.25s ease, background-color 0.25s ease;
+        }
+        .nav-link.active-nav {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+        }
+        html:not(.dark) .nav-link.active-nav {
+            background: rgba(15, 23, 42, 0.09);
+            color: #09090b;
+            font-weight: 600;
+        }
+
+        /* Hero Entry Animations */
+        @keyframes heroDrop {
+            0% { opacity: 0; transform: translateY(-16px); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        .hero-animate-1 { animation: heroDrop 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .hero-animate-2 { opacity: 0; animation: heroDrop 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards; }
+        .hero-animate-3 { opacity: 0; animation: heroDrop 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards; }
+
+        /* Blinking Cursor on Hero Tagline */
+        @keyframes caretBlink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .tagline-caret {
+            display: inline-block;
+            width: 2px;
+            height: 1.05em;
+            background-color: currentColor;
+            vertical-align: -0.15em;
+            margin-left: 3px;
+            animation: caretBlink 0.9s infinite;
+        }
+
+        /* =========================================================
+           TACTILE HORIZONTAL NEUMORPHIC PILL SWITCHES & BUTTONS
+           ========================================================= */
+        .neumorphic-pill-horizontal {
+            position: relative;
+            width: 74px;
+            height: 32px;
+            border-radius: 9999px;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            background: linear-gradient(145deg, #d5d9e0, #e8ecf2);
+            box-shadow:
+                inset 2px 2px 5px rgba(155, 163, 177, 0.7),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.9),
+                0 2px 6px rgba(15, 23, 42, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+        }
+        html.dark .neumorphic-pill-horizontal {
+            background: linear-gradient(145deg, #101014, #1b1b21);
+            box-shadow:
+                inset 2px 2px 5px rgba(0, 0, 0, 0.88),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.07),
+                0 3px 8px rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neumorphic-knob-horizontal {
+            width: 24px;
+            height: 24px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
+            background: linear-gradient(145deg, #ffffff, #eef1f6);
+            box-shadow:
+                1.5px 1.5px 4px rgba(145, 153, 168, 0.6),
+                -1.5px -1.5px 3px rgba(255, 255, 255, 0.95);
+            color: #475569;
+        }
+        html.dark .neumorphic-knob-horizontal {
+            background: linear-gradient(145deg, #2d2d36, #1d1d23);
+            box-shadow:
+                1.5px 1.5px 4px rgba(0, 0, 0, 0.85),
+                -1px -1px 2px rgba(255, 255, 255, 0.09);
+            color: #f4f4f5;
+        }
+
+        /* Slide Right State */
+        .neumorphic-pill-horizontal.is-right .neumorphic-knob-horizontal {
+            transform: translateX(42px);
+        }
+
+        .neumorphic-label-horizontal {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #64748b;
+        }
+        html.dark .neumorphic-label-horizontal {
+            color: #a1a1aa;
+        }
+        /* When knob is on the left, text sits on the right */
+        .neumorphic-pill-horizontal:not(.is-right) .neumorphic-label-horizontal {
+            right: 9px;
+        }
+        /* When knob is on the right, text sits on the left */
+        .neumorphic-pill-horizontal.is-right .neumorphic-label-horizontal {
+            left: 9px;
+        }
+
+        /* Extruded Tactile Pressing Pill Buttons (Resume, GitHub, LinkedIn, Email) */
+        .neumorphic-press-pill {
+            width: 74px;
+            height: 32px;
+            border-radius: 9999px;
+            padding: 3px 8px 3px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            background: linear-gradient(145deg, #eef1f6, #d7dce4);
+            box-shadow:
+                3px 3px 6px rgba(155, 163, 177, 0.55),
+                -2px -2px 5px rgba(255, 255, 255, 0.92),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.75);
+            color: #334155;
+        }
+        html.dark .neumorphic-press-pill {
+            background: linear-gradient(145deg, #222229, #15151a);
+            box-shadow:
+                3px 3px 7px rgba(0, 0, 0, 0.8),
+                -2px -2px 5px rgba(255, 255, 255, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e4e4e7;
+        }
+        .neumorphic-press-pill:hover {
+            transform: translateY(-1px);
+            border-color: rgba(15, 23, 42, 0.25);
+        }
+        html.dark .neumorphic-press-pill:hover {
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+        }
+        .neumorphic-press-pill:active {
+            transform: scale(0.95);
+            background: linear-gradient(145deg, #d7dce4, #eef1f6);
+            box-shadow:
+                inset 2px 2px 4px rgba(155, 163, 177, 0.65),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.85);
+        }
+        html.dark .neumorphic-press-pill:active {
+            background: linear-gradient(145deg, #131317, #1f1f26);
+            box-shadow:
+                inset 2px 2px 5px rgba(0, 0, 0, 0.88),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+        }
+
+        .press-pill-icon {
+            width: 23px;
+            height: 23px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(15, 23, 42, 0.06);
+        }
+        html.dark .press-pill-icon {
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .press-pill-text {
+            flex: 1;
+            text-align: center;
+            font-size: 7.5px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* Compact Automatic Pop-Out Floating Action Rail */
+        .floating-rail {
+            position: fixed;
+            top: 50%;
+            right: 12px;
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(-50%) translateX(130%);
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+        }
+        .floating-rail.is-visible {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+        @media (max-width: 640px) {
+            .floating-rail {
+                right: 6px;
+                transform: translateY(-50%) scale(0.9);
+                transform-origin: right center;
+            }
+            .floating-rail.is-visible {
+                transform: translateY(-50%) translateX(0) scale(0.9);
+            }
+        }
+
+        /* Magnetic Tactile Button Micro-Press */
+        .tactile-btn {
+            transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .tactile-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Modals Backdrop & Panel Transitions */
+        .portfolio-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+        .portfolio-modal.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-dialog {
+            transform: translateY(18px) scale(0.97);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .portfolio-modal.is-open .modal-dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Floating Copy Toast Notification */
+        #copy-toast {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%) translateY(24px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 70;
+            transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        #copy-toast.is-shown {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200 dark:bg-zinc-950 dark:text-zinc-200 font-sans antialiased selection:bg-zinc-800 selection:text-white dark:selection:bg-zinc-200 dark:selection:text-zinc-950">
+
+    <!-- Top Scroll Reading Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Background Layers -->
+    <div class="bg-data-man"></div>
+    <div class="bg-vignette"></div>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <canvas id="sparkle-canvas"></canvas>
+
+    <!-- Floating Copy-to-Clipboard Glass Toast -->
+    <div id="copy-toast" role="status" aria-live="polite"
+         class="px-5 py-2.5 rounded-xl bg-zinc-900/95 dark:bg-zinc-100/95 text-white dark:text-zinc-950 border border-zinc-700/80 dark:border-zinc-300 shadow-2xl backdrop-blur-xl text-xs sm:text-sm font-semibold flex items-center gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 dark:text-emerald-600 flex items-center justify-center text-xs">
+            <i class="fas fa-check"></i>
+        </span>
+        <span id="copy-toast-text">Copied hariomtomar2226@gmail.com to clipboard ✓</span>
+    </div>
+
+    <!-- Tactile Neumorphic Floating Action & Switcher Rail -->
+    <aside id="floating-drawer" class="floating-rail" aria-label="Quick Actions and Theme Controls">
+        <div class="flex flex-col items-center gap-2 p-2 rounded-[22px] bg-white/85 dark:bg-zinc-900/85 border border-zinc-300/90 dark:border-zinc-700/80 shadow-2xl backdrop-blur-xl">
+
+            <!-- 1. Sound Effects Toggle (Horizontal Sliding Pill) -->
+            <button id="sound-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle Sound Effects"
+                    title="Sound Effects: ON (Click to Mute)"
+                    class="neumorphic-pill-horizontal">
+                <span class="neumorphic-knob-horizontal">
+                    <i id="sound-icon" class="fas fa-volume-high text-[11px]"></i>
+                </span>
+                <span id="sound-label" class="neumorphic-label-horizontal">ON</span>
+            </button>
+
+            <!-- 2. Dark / Light Mode Toggle (Horizontal Sliding Pill) -->
+            <button id="theme-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle Dark or Light Mode"
+                    title="Switch between Dark and Light Mode"
+                    class="neumorphic-pill-horizontal is-right">
+                <span class="neumorphic-knob-horizontal">
+                    <!-- Sun SVG Icon (Light Mode) -->
+                    <svg id="theme-svg-sun" class="w-3.5 h-3.5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4.5"></circle>
+                        <line x1="12" y1="2" x2="12" y2="4.2"></line>
+                        <line x1="12" y1="19.8" x2="12" y2="22"></line>
+                        <line x1="4.93" y1="4.93" x2="6.49" y2="6.49"></line>
+                        <line x1="17.51" y1="17.51" x2="19.07" y2="19.07"></line>
+                        <line x1="2" y1="12" x2="4.2" y2="12"></line>
+                        <line x1="19.8" y1="12" x2="22" y2="12"></line>
+                        <line x1="4.93" y1="19.07" x2="6.49" y2="17.51"></line>
+                        <line x1="17.51" y1="6.49" x2="19.07" y2="4.93"></line>
+                    </svg>
+                    <!-- Moon Icon (Dark Mode) -->
+                    <i id="theme-icon-moon" class="fas fa-moon text-[11px]"></i>
+                </span>
+                <span id="theme-label" class="neumorphic-label-horizontal">DARK</span>
+            </button>
+
+            <!-- Subtle Divider -->
+            <div class="w-10 h-[1px] bg-zinc-300/80 dark:bg-zinc-700/70 my-0.5"></div>
+
+            <!-- 3. Resume Download Pill (Extruded Depth Button) -->
+            <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf"
+               data-sound="chime"
+               aria-label="Download Resume PDF" title="Download Resume (PDF)"
+               class="neumorphic-press-pill group">
+                <span class="press-pill-icon">
+                    <svg class="w-3.5 h-4 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 2C2.89543 2 2 2.89543 2 4V40C2 41.1046 2.89543 42 4 42H32C33.1046 42 34 41.1046 34 40V12.5L23.5 2H4Z" fill="currentColor"/>
+                        <path d="M23.5 2V12.5H34" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="2.2" stroke-linejoin="round"/>
+                        <path d="M25.5 2L34 10.5H25.5V2Z" fill="currentColor"/>
+                        <path d="M17.5 11.5C16.2 11.5 15.8 14.5 16.5 18.2C17.2 21.8 19.6 25.4 22.8 26.8C25.2 27.8 27.2 27.2 27.2 25.8C27.2 24.4 24.8 23.8 21.2 24.4C17.2 25.1 12.6 27.2 10.4 29.4C8.8 31 8.8 32.4 10.1 32.4C11.6 32.4 13.8 29.5 15.6 24.8C17.4 20.1 18.7 14.6 18.5 12.5C18.4 11.8 18 11.5 17.5 11.5Z"
+                              stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="6.5" y="33.5" width="23" height="6.2" rx="1" stroke="#ffffff" class="dark:stroke-zinc-900" stroke-width="1.3"/>
+                        <text x="18" y="38.2" text-anchor="middle" fill="#ffffff" class="dark:fill-zinc-900" font-family="Arial, sans-serif" font-weight="bold" font-size="4.8" letter-spacing="0.4">PDF</text>
+                    </svg>
+                </span>
+                <span class="press-pill-text">RESUME</span>
+            </a>
+
+            <!-- 4. GitHub Pill (Extruded Depth Button) -->
+            <a href="https://github.com/hariomtomar2226-rgb" target="_blank" aria-label="GitHub" title="GitHub Profile"
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fab fa-github text-xs"></i>
+                </span>
+                <span class="press-pill-text">GITHUB</span>
+            </a>
+
+            <!-- 5. LinkedIn Pill (Extruded Depth Button) -->
+            <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank" aria-label="LinkedIn" title="LinkedIn Profile"
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fab fa-linkedin-in text-xs"></i>
+                </span>
+                <span class="press-pill-text">LINKEDIN</span>
+            </a>
+
+            <!-- 6. Email Pill (Extruded Depth Button + One-Click Copy) -->
+            <a href="mailto:hariomtomar2226@gmail.com" data-copy-email="hariomtomar2226@gmail.com"
+               aria-label="Copy Email Address" title="Copy Email (hariomtomar2226@gmail.com)"
+               class="neumorphic-press-pill">
+                <span class="press-pill-icon">
+                    <i class="fas fa-envelope text-[11px]"></i>
+                </span>
+                <span class="press-pill-text">EMAIL</span>
+            </a>
+
+        </div>
+    </aside>
+
+    <!-- Hero Header -->
+    <header class="pt-16 pb-6 px-6 text-center max-w-4xl mx-auto relative z-10">
+        <h1 class="hero-animate-1 text-4xl md:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-3 transition-colors">
+            Hariom Tomar
+        </h1>
+        <p class="hero-animate-2 text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium mb-6 tracking-wide transition-colors min-h-[1.75rem]">
+            Data Analyst <span class="text-zinc-400 dark:text-zinc-600 mx-2">|</span> <span id="typed-tagline">Turning Data into Actionable Insights</span><span class="tagline-caret"></span>
+        </p>
+
+        <!-- Navigation with Scroll-Spy -->
+        <nav id="main-nav" class="hero-animate-3 inline-flex flex-wrap justify-center gap-2 md:gap-4 px-5 py-2 rounded-full bg-white/80 dark:bg-zinc-900/80 border border-zinc-300/80 dark:border-zinc-700/70 backdrop-blur-md text-sm font-medium shadow-lg transition-colors">
+            <a href="#vision" class="nav-link text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Philosophy</a>
+            <a href="#about" class="nav-link text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">About</a>
+            <a href="#projects" class="nav-link text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Projects</a>
+            <a href="#skills" class="nav-link text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Skills</a>
+            <a href="#contact" class="nav-link text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Missing Bulb Piece Spotlight Section -->
+    <section id="vision" class="pt-4 pb-12 px-6 max-w-[1100px] mx-auto relative z-10 reveal-up">
+        <div class="glass-card tilt-card rounded-2xl p-5 md:px-9 md:py-7 flex flex-col md:flex-row items-center gap-7 md:gap-10">
+            <!-- Image Container -->
+            <div class="w-52 sm:w-60 md:w-64 shrink-0 rounded-xl overflow-hidden bulb-art-frame p-2 relative z-10">
+                <img src="missing bulb peace.jpg" 
+                     alt="The Missing Piece of Insight" 
+                     class="w-full h-auto rounded-lg bulb-art-img object-contain">
+            </div>
+
+            <!-- Quote & Value Proposition -->
+            <div class="flex-1 text-center md:text-left space-y-3.5 relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-200/80 dark:bg-zinc-800/90 border border-zinc-300 dark:border-zinc-700 text-xs uppercase tracking-widest text-zinc-700 dark:text-zinc-400">
+                    <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-zinc-200 animate-pulse"></span>
+                    The Missing Piece
+                </div>
+                <blockquote class="text-2xl md:text-3xl font-semibold text-zinc-900 dark:text-zinc-100 leading-snug">
+                    “Every dataset holds a bigger picture—it only illuminates when you place the <span class="text-zinc-950 dark:text-white underline decoration-zinc-400 dark:decoration-zinc-500 underline-offset-4">missing piece</span>.”
+                </blockquote>
+                <p class="text-zinc-600 dark:text-zinc-400 text-sm md:text-base leading-relaxed">
+                    Raw numbers alone leave businesses in the dark. <strong class="text-zinc-950 dark:text-white font-semibold">I bridge the gap </strong>between complex, fragmented data and clear strategic decisions—bringing the missing analytical insight <strong class="text-zinc-950 dark:text-white font-semibold">that completes your team's vision </strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-14 px-6 max-w-5xl mx-auto relative z-10 reveal-up">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">About Me</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-10 glass-card tilt-card p-8 md:p-10 rounded-2xl">
+            <div class="flex-1 space-y-4 text-zinc-700 dark:text-zinc-300 leading-relaxed text-base relative z-10">
+                <p>
+                    I am a <strong class="text-zinc-950 dark:text-white font-semibold">Data Analyst</strong> with hands-on experience developing <strong class="text-zinc-950 dark:text-white font-semibold">end-to-end analytics solutions </strong> through independent projects. My work spans data extraction, ETL, relational data modeling, exploratory analysis, business performance assessment, and executive dashboard development.
+                </p>
+                <p>
+                    <strong class="text-zinc-950 dark:text-white font-semibold">I enjoy exploring datasets to identify patterns</strong>, investigate performance gaps, uncover business trends, and translate analytical findings into actionable recommendations. <strong class="text-zinc-950 dark:text-white font-semibold">My approach combines technical execution with business-oriented thinking</strong>—ensuring analyses go beyond reporting metrics to explain <em>what</em> they mean and <em>where</em> improvements can be made.
+                </p>
+            </div>
+            <div class="shrink-0 relative z-10 group">
+                <img src="Image_1.jpg" 
+                     alt="Hariom Tomar" 
+                     onerror="this.src='https://github.com/hariomtomar2226-rgb.png'"
+                     class="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-zinc-300 dark:border-zinc-400/50 grayscale-[15%] contrast-105 shadow-2xl transition-transform duration-500 group-hover:scale-105">
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Impact & KPI Counter Strip -->
+    <section id="impact-kpis" aria-label="Analytical Impact Metrics" class="py-4 px-6 max-w-5xl mx-auto relative z-10 reveal-up">
+        <div class="glass-card rounded-2xl p-6 md:px-8 md:py-7">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 text-center relative z-10">
+                <div class="space-y-1">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="98000" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Records Analyzed</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="4" data-suffix="">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">ANALYTICS PROJECTS</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="10" data-suffix="+">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Interactive Dashboard Pages</p>
+                </div>
+                <div class="space-y-1 lg:border-l border-zinc-200 dark:border-zinc-800">
+                    <div class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 tabular-nums">
+                        <span class="kpi-counter" data-target="4" data-suffix="">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-wider font-semibold text-zinc-500 dark:text-zinc-400">Core BI &amp; Dev Tools</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section id="projects" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-8 reveal-up">
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Featured Projects</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <!-- Tech-Stack Filter Pills -->
+        <div class="flex flex-col items-center gap-3 mb-10 reveal-up">
+            <div id="project-filters" class="inline-flex flex-wrap justify-center gap-2 p-1.5 rounded-2xl bg-white/80 dark:bg-zinc-900/80 border border-zinc-300/80 dark:border-zinc-700/70 backdrop-blur-md shadow-md">
+                <button type="button" data-filter="all"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm">
+                    All Projects
+                </button>
+                <button type="button" data-filter="sql"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    SQL &amp; MySQL
+                </button>
+                <button type="button" data-filter="powerbi"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Power BI
+                </button>
+                <button type="button" data-filter="excel"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Excel
+                </button>
+                <button type="button" data-filter="tableau"
+                        class="filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800">
+                    Tableau
+                </button>
+            </div>
+        </div>
+
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            
+            <!-- Project 1: Netflix -->
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="netflix"
+                     data-stacks="sql powerbi"
+                     style="--reveal-delay: 0ms;">
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Netflix User Analytics Dashboard</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">MySQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">SQL</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power BI</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">DAX</span>
+                    </div>
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
+                        Built an end-to-end analytics solution for 2,500+ customer records. Designed a 4-table normalized relational database in MySQL, executed ETL and validation workflows, and created a 4-page interactive Power BI dashboard analyzing demographics, subscriptions, engagement, and growth trends.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="netflix" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                        Documentation
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="netflix"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                        View Dashboard
+                    </button>
+                </div>
+            </article>
+
+            <!-- Project 2: Global Retail -->
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="retail"
+                     data-stacks="excel"
+                     style="--reveal-delay: 100ms;">
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Global Retail Sales Performance Analysis</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
+                    </div>
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
+                        Analyzed 51,000+ retail records across a 4-page interactive Excel dashboard covering sales, profit, shipping, and product performance. Built dynamic KPI tracking with slicers and identified 29 loss-making countries that reduced overall profitability by 23.4%, along with key regional and category-level profit drivers.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="retail" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                        Documentation
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="retail"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                        View Dashboard
+                    </button>
+                </div>
+            </article>
+
+            <!-- Project 3: Sales Performance Data Quality -->
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="quality"
+                     data-stacks="excel tableau"
+                     style="--reveal-delay: 150ms;">
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Sales Performance Data Quality Assessment</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Tableau</span>
+                    </div>
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
+                        Analyzed 5 years of sales data (2014–2018) through a 2-page interactive Tableau dashboard covering KPIs, trends, geography, and warehouse performance. Identified missing 2018 records after November 15 and compared historical December sales to estimate full-year performance and data quality gaps.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="quality" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                        Documentation
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="quality"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                        View Dashboard
+                    </button>
+                </div>
+            </article>
+
+            <!-- Project 4: Behavior-Based Safety -->
+            <article class="project-card glass-card tilt-card reveal-up rounded-2xl p-7 flex flex-col justify-between h-full"
+                     data-project-id="bbs"
+                     data-stacks="excel"
+                     style="--reveal-delay: 250ms;">
+                <div class="relative z-10">
+                    <div class="flex items-start justify-between gap-2 mb-3">
+                        <h3 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Behavior-Based Safety (BBS) Analysis</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Excel</span>
+                        <span class="text-xs px-2.5 py-1 rounded-md bg-zinc-200/80 dark:bg-zinc-800/90 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">Power Query</span>
+                    </div>
+                    <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed mb-6">
+                        Analyzed 292 safety observations across 605 employees using an interactive Excel dashboard. Cleaned and unpivoted 32+ inspection measures in Power Query, consolidating them into 10 standardized categories to identify recurring unsafe behaviors.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-800 mt-auto relative z-10">
+                    <!-- Button 2: Documentation (Opens Executive Case Study) -->
+                    <button type="button" data-case-study="bbs" data-sound="chime"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                        Documentation
+                    </button>
+                    <!-- Button 1: View Dashboard (Opens Local Asset Gallery) -->
+                    <button type="button" data-gallery="bbs"
+                            class="tactile-btn flex-1 text-center py-2.5 px-4 rounded-lg bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                        View Dashboard
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="py-14 px-6 max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-12 reveal-up">
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+            
+            <!-- Card 1: SQL & Databases -->
+            <div class="glass-card tilt-card reveal-up p-6 rounded-2xl flex flex-col justify-start h-full" style="--reveal-delay: 0ms;">
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold text-base mb-3.5 flex items-center gap-2.5 relative z-10">
+                    <i class="fas fa-database text-zinc-500 dark:text-zinc-400"></i>
+                    <span>SQL &amp; Databases</span>
+                </h3>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>SQL</li>
+                    <li>MySQL</li>
+                    <li>Joins</li>
+                    <li>CTEs</li>
+                    <li>Window Functions</li>
+                    <li>Relational Data Modeling</li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Business Intelligence -->
+            <div class="glass-card tilt-card reveal-up p-6 rounded-2xl flex flex-col justify-start h-full" style="--reveal-delay: 80ms;">
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold text-base mb-3.5 flex items-center gap-2.5 relative z-10">
+                    <i class="fas fa-chart-pie text-zinc-500 dark:text-zinc-400"></i>
+                    <span>Business Intelligence</span>
+                </h3>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Power BI</li>
+                    <li>Power Query</li>
+                    <li>DAX</li>
+                    <li>Tableau</li>
+                    <li>Dashboard Development</li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Data Preparation -->
+            <div class="glass-card tilt-card reveal-up p-6 rounded-2xl flex flex-col justify-start h-full" style="--reveal-delay: 160ms;">
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold text-base mb-3.5 flex items-center gap-2.5 relative z-10">
+                    <i class="fas fa-file-excel text-zinc-500 dark:text-zinc-400"></i>
+                    <span>Data Preparation</span>
+                </h3>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Advanced Excel</li>
+                    <li>Power Query</li>
+                    <li>ETL</li>
+                    <li>Data Cleaning</li>
+                    <li>Data Transformation</li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Programming -->
+            <div class="glass-card tilt-card reveal-up p-6 rounded-2xl flex flex-col justify-start h-full" style="--reveal-delay: 240ms;">
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold text-base mb-3.5 flex items-center gap-2.5 relative z-10">
+                    <i class="fab fa-python text-zinc-500 dark:text-zinc-400"></i>
+                    <span>Programming</span>
+                </h3>
+                <ul class="space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Python</li>
+                    <li>Pandas</li>
+                    <li>NumPy</li>
+                    <li>Matplotlib</li>
+                </ul>
+            </div>
+
+            <!-- Card 5 (Row 2, Centered on Desktop for Visual Balance): Analytical Capabilities -->
+            <div class="glass-card tilt-card reveal-up p-6 rounded-2xl flex flex-col justify-start h-full sm:col-span-2 lg:col-span-2 lg:col-start-2" style="--reveal-delay: 300ms;">
+                <h3 class="text-zinc-900 dark:text-zinc-100 font-semibold text-base mb-3.5 flex items-center gap-2.5 relative z-10">
+                    <i class="fas fa-magnifying-glass-chart text-zinc-500 dark:text-zinc-400"></i>
+                    <span>Analytical Capabilities</span>
+                </h3>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-zinc-600 dark:text-zinc-400 list-disc list-inside marker:text-zinc-400 dark:marker:text-zinc-500 relative z-10">
+                    <li>Exploratory Data Analysis</li>
+                    <li>Business Performance Analysis</li>
+                    <li>Root Cause Analysis</li>
+                    <li>Data Quality Assessment</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-14 px-6 max-w-3xl mx-auto relative z-10 reveal-up">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Connect With Me</h2>
+            <div class="w-16 h-1 bg-zinc-800 dark:bg-zinc-400 mx-auto mt-3 rounded-full"></div>
+            <p class="text-zinc-600 dark:text-zinc-400 mt-4 text-sm">Open to Data Analyst, Business Intelligence, and Business Operations opportunities.</p>
+        </div>
+
+        <div class="glass-card p-7 rounded-2xl flex flex-col items-center gap-4">
+            <!-- Primary Social & Email Buttons -->
+            <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                <a href="mailto:hariomtomar2226@gmail.com" data-copy-email="hariomtomar2226@gmail.com"
+                   title="Click to copy email & open mail client"
+                   class="tactile-btn w-full sm:w-auto flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-lg">
+                    <i class="fas fa-envelope"></i>
+                    <span>hariomtomar2226@gmail.com</span>
+                    <i class="far fa-copy text-xs opacity-75"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/hariom-tomar-b2021b19b/" target="_blank" data-sound="chime"
+                   class="tactile-btn w-full sm:w-auto flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl border border-zinc-300 dark:border-zinc-600 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:border-zinc-400 text-sm font-medium">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                </a>
+                <a href="https://github.com/hariomtomar2226-rgb" target="_blank" data-sound="chime"
+                   class="tactile-btn w-full sm:w-auto flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500 dark:hover:border-zinc-400 hover:text-zinc-950 dark:hover:text-white text-sm font-medium">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+
+            <!-- Download Resume Button -->
+            <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf" data-sound="chime"
+               title="Download Resume (PDF)"
+               class="tactile-btn relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold tracking-wide uppercase shadow-lg">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 0C0.895431 0 0 0.895431 0 2V20C0 21.1046 0.895431 22 2 22H16C17.1046 22 18 21.1046 18 20V6.5L11.5 0H2Z" fill="currentColor"/>
+                    <path d="M11.5 0V6.5H18" stroke="#18181b" class="dark:stroke-zinc-100" stroke-width="1.5"/>
+                    <path d="M9 9.5V16.5M9 16.5L6.2 13.7M9 16.5L11.8 13.7" stroke="#18181b" class="dark:stroke-zinc-100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Download Resume</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-zinc-500 text-xs border-t border-zinc-200 dark:border-zinc-800/80 relative z-10">
+        © 2026 Hariom Tomar. Built with HTML &amp; Tailwind CSS.
+    </footer>
+
+    <!-- =========================================================
+       MODAL 1: DASHBOARD GALLERY MODAL (VIEW DASHBOARD BUTTON)
+       ========================================================= -->
+    <div id="dashboard-gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title"
+         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/80 backdrop-blur-md">
+        <div class="modal-dialog w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+            <!-- Header -->
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                <div>
+                    <span class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
+                        Interactive Dashboard Gallery
+                    </span>
+                    <h3 id="gallery-modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                        Project Title
+                    </h3>
+                </div>
+                <button id="gallery-close-btn" type="button" aria-label="Close Dashboard Gallery"
+                        class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Gallery Images Container (Exact Sequence per Prompt) -->
+            <div id="gallery-images-container" class="space-y-6 py-6">
+                <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-end pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                <button id="gallery-footer-close" type="button"
+                        class="tactile-btn py-2.5 px-6 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-semibold shadow-md">
+                    Close Gallery
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+       MODAL 2: EXECUTIVE CASE STUDY MODAL (DOCUMENTATION BUTTON)
+       ========================================================= -->
+    <div id="case-study-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+         class="portfolio-modal fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-zinc-950/75 backdrop-blur-md">
+        <div class="modal-dialog w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700/90 shadow-2xl p-6 sm:p-8 text-zinc-800 dark:text-zinc-200">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+                <div>
+                    <span id="modal-badge" class="inline-block text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 mb-2">
+                        Executive Case Brief
+                    </span>
+                    <h3 id="modal-title" class="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                        Project Title
+                    </h3>
+                    <div id="modal-tags" class="flex flex-wrap gap-1.5 mt-2.5"></div>
+                </div>
+                <button id="modal-close-btn" type="button" aria-label="Close Case Study Preview"
+                        class="tactile-btn w-9 h-9 rounded-xl border border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white flex items-center justify-center shrink-0">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Structured Analytical Flow: Problem -> Architecture -> Impact -->
+            <div class="space-y-5 py-5 text-sm leading-relaxed">
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-bullseye"></i> 01. Business Problem
+                    </div>
+                    <p id="modal-problem" class="text-zinc-700 dark:text-zinc-300"></p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-diagram-project"></i> 02. Data Architecture &amp; ETL
+                    </div>
+                    <p id="modal-architecture" class="text-zinc-700 dark:text-zinc-300"></p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-100/80 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800/90">
+                    <div class="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-1.5 flex items-center gap-2">
+                        <i class="fas fa-chart-line"></i> 03. Key Findings &amp; Business Impact
+                    </div>
+                    <ul id="modal-impact" class="space-y-1.5 text-zinc-700 dark:text-zinc-300 list-disc list-inside"></ul>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions (Requested: EXPLORE TECHNICAL DOCUMENTATION ON GITHUB) -->
+            <div class="pt-4 border-t border-zinc-200 dark:border-zinc-800">
+                <a id="modal-github-btn" href="#" target="_blank" data-sound="chime"
+                   class="tactile-btn w-full text-center py-3 px-4 rounded-xl bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-bold tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
+                    <i class="fab fa-github"></i> EXPLORE TECHNICAL DOCUMENTATION ON GITHUB
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts Engine -->
+    <script>
+        (function () {
+            /* =========================================================
+               1. ZERO-DEPENDENCY WEB AUDIO API SOUND SYNTHESIZER
+               ========================================================= */
+            const SoundFX = (() => {
+                let ctx = null;
+                let enabled = localStorage.getItem('portfolio-sound') !== 'off';
+                let lastHoverTime = 0;
+
+                function ensureContext() {
+                    if (!ctx) {
+                        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                        if (AudioCtx) ctx = new AudioCtx();
+                    }
+                    if (ctx && ctx.state === 'suspended') {
+                        ctx.resume().catch(() => {});
+                    }
+                    return ctx;
+                }
+
+                ['pointerdown', 'keydown'].forEach(evt => {
+                    window.addEventListener(evt, () => ensureContext(), { once: true, passive: true });
+                });
+
+                function playTick() {
+                    if (!enabled) return;
+                    const now = performance.now();
+                    if (now - lastHoverTime < 65) return;
+                    lastHoverTime = now;
+
+                    const audio = ensureContext();
+                    if (!audio || audio.state !== 'running') return;
+
+                    const t = audio.currentTime;
+                    const osc = audio.createOscillator();
+                    const gain = audio.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1150, t);
+                    osc.frequency.exponentialRampToValueAtTime(620, t + 0.028);
+
+                    gain.gain.setValueAtTime(0.016, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.03);
+
+                    osc.connect(gain);
+                    gain.connect(audio.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.032);
+                }
+
+                function playDataStep(stepIndex) {
+                    if (!enabled) return;
+                    const audio = ensureContext();
+                    if (!audio || audio.state !== 'running') return;
+
+                    const t = audio.currentTime;
+                    const osc = audio.createOscillator();
+                    const gain = audio.createGain();
+                    osc.type = 'sine';
+                    const freq = 480 + stepIndex * 32;
+                    osc.frequency.setValueAtTime(freq, t);
+                    osc.frequency.exponentialRampToValueAtTime(freq * 1.15, t + 0.035);
+
+                    gain.gain.setValueAtTime(0.018, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.038);
+
+                    osc.connect(gain);
+                    gain.connect(audio.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.04);
+                }
+
+                function playSwitch(isDark) {
+                    if (!enabled) return;
+                    const audio = ensureContext();
+                    if (!audio) return;
+
+                    const t = audio.currentTime;
+                    const osc = audio.createOscillator();
+                    const gain = audio.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(isDark ? 520 : 380, t);
+                    osc.frequency.exponentialRampToValueAtTime(isDark ? 240 : 660, t + 0.075);
+
+                    gain.gain.setValueAtTime(0.075, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+
+                    osc.connect(gain);
+                    gain.connect(audio.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.085);
+                }
+
+                function playChime() {
+                    if (!enabled) return;
+                    const audio = ensureContext();
+                    if (!audio) return;
+
+                    const t = audio.currentTime;
+                    const freqs = [587.33, 880];
+                    freqs.forEach((f, idx) => {
+                        const osc = audio.createOscillator();
+                        const gain = audio.createGain();
+                        osc.type = 'sine';
+                        const start = t + idx * 0.055;
+                        osc.frequency.setValueAtTime(f, start);
+
+                        gain.gain.setValueAtTime(0.0001, start);
+                        gain.gain.linearRampToValueAtTime(0.045, start + 0.012);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.24);
+
+                        osc.connect(gain);
+                        gain.connect(audio.destination);
+                        osc.start(start);
+                        osc.stop(start + 0.25);
+                    });
+                }
+
+                function playPulse() {
+                    if (!enabled) return;
+                    const audio = ensureContext();
+                    if (!audio || audio.state !== 'running') return;
+
+                    const t = audio.currentTime;
+                    const osc = audio.createOscillator();
+                    const gain = audio.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(190, t);
+                    osc.frequency.exponentialRampToValueAtTime(65, t + 0.14);
+
+                    gain.gain.setValueAtTime(0.03, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+
+                    osc.connect(gain);
+                    gain.connect(audio.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.16);
+                }
+
+                return {
+                    isEnabled: () => enabled,
+                    toggle: () => {
+                        enabled = !enabled;
+                        localStorage.setItem('portfolio-sound', enabled ? 'on' : 'off');
+                        if (enabled) playChime();
+                        return enabled;
+                    },
+                    playTick,
+                    playDataStep,
+                    playSwitch,
+                    playChime,
+                    playPulse
+                };
+            })();
+
+            // Sound Toggle UI Binding (Horizontal Sliding Pill)
+            const soundBtn = document.getElementById('sound-toggle');
+            const soundIcon = document.getElementById('sound-icon');
+            const soundLabel = document.getElementById('sound-label');
+
+            function updateSoundUI(isOn) {
+                soundBtn.setAttribute('aria-checked', String(isOn));
+                soundBtn.title = isOn ? 'Sound Effects: ON (Click to Mute)' : 'Sound Effects: MUTED (Click to Unmute)';
+                soundIcon.className = isOn ? 'fas fa-volume-high text-[11px]' : 'fas fa-volume-xmark text-[11px] opacity-50';
+                soundLabel.textContent = isOn ? 'ON' : 'MUTE';
+                soundBtn.classList.toggle('is-right', isOn);
+            }
+            updateSoundUI(SoundFX.isEnabled());
+
+            soundBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const state = SoundFX.toggle();
+                updateSoundUI(state);
+            });
+
+            document.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('mouseenter', () => SoundFX.playTick());
+                if (el.dataset.sound === 'chime') {
+                    el.addEventListener('click', () => SoundFX.playChime());
+                }
+            });
+
+            /* =========================================================
+               2. AUTOMATIC POP-OUT ENTRANCE FOR FLOATING RAIL
+               ========================================================= */
+            const floatingRail = document.getElementById('floating-drawer');
+            window.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    floatingRail.classList.add('is-visible');
+                }, 420);
+            });
+
+            /* =========================================================
+               3. NEUMORPHIC THEME SWITCH (Horizontal Sliding Pill)
+               ========================================================= */
+            const htmlEl = document.documentElement;
+            const toggleBtn = document.getElementById('theme-toggle');
+            const sunSvg = document.getElementById('theme-svg-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const themeLabel = document.getElementById('theme-label');
+
+            function applyThemeUI(isDark) {
+                if (isDark) {
+                    htmlEl.classList.add('dark');
+                    document.body.classList.remove('bg-slate-50', 'text-zinc-800');
+                    document.body.classList.add('bg-zinc-950', 'text-zinc-200');
+                    sunSvg.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    themeLabel.textContent = 'DARK';
+                    toggleBtn.setAttribute('aria-checked', 'true');
+                    toggleBtn.classList.add('is-right');
+                } else {
+                    htmlEl.classList.remove('dark');
+                    document.body.classList.remove('bg-zinc-950', 'text-zinc-200');
+                    document.body.classList.add('bg-slate-50', 'text-zinc-800');
+                    moonIcon.classList.add('hidden');
+                    sunSvg.classList.remove('hidden');
+                    themeLabel.textContent = 'LIGHT';
+                    toggleBtn.setAttribute('aria-checked', 'false');
+                    toggleBtn.classList.remove('is-right');
+                }
+            }
+
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            applyThemeUI(savedTheme !== 'light');
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const nextIsDark = !htmlEl.classList.contains('dark');
+                applyThemeUI(nextIsDark);
+                localStorage.setItem('portfolio-theme', nextIsDark ? 'dark' : 'light');
+                SoundFX.playSwitch(nextIsDark);
+            });
+
+            /* =========================================================
+               4. ANIMATED IMPACT & KPI COUNTER STRIP
+               ========================================================= */
+            const kpiSection = document.getElementById('impact-kpis');
+            const kpiCounters = document.querySelectorAll('.kpi-counter');
+            let kpisAnimated = false;
+
+            function animateKpis() {
+                if (kpisAnimated) return;
+                kpisAnimated = true;
+
+                const duration = 1450;
+                const startTime = performance.now();
+                let lastTickBucket = -1;
+
+                function step(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+
+                    const bucket = Math.floor(progress * 10);
+                    if (bucket > lastTickBucket && progress < 1) {
+                        lastTickBucket = bucket;
+                        SoundFX.playDataStep(bucket);
+                    }
+
+                    kpiCounters.forEach(el => {
+                        const target = Number(el.dataset.target);
+                        const suffix = el.dataset.suffix || '';
+                        const current = Math.round(target * eased);
+                        el.textContent = current.toLocaleString('en-US') + suffix;
+                    });
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            const kpiObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateKpis();
+                        kpiObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.35 });
+            if (kpiSection) kpiObserver.observe(kpiSection);
+
+            /* =========================================================
+               5. TECH-STACK PROJECT FILTER PILLS
+               ========================================================= */
+            const filterBtns = document.querySelectorAll('.filter-pill');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    SoundFX.playSwitch(filter !== 'all');
+
+                    filterBtns.forEach(b => {
+                        const isActive = b === btn;
+                        b.className = isActive
+                            ? 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-950 shadow-sm'
+                            : 'filter-pill tactile-btn px-4 py-1.5 rounded-xl text-xs font-semibold tracking-wide text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200/70 dark:hover:bg-zinc-800';
+                    });
+
+                    projectCards.forEach(card => {
+                        const stacks = (card.dataset.stacks || '').split(' ');
+                        const match = filter === 'all' || stacks.includes(filter);
+                        if (match) {
+                            card.classList.remove('hidden');
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(12px) scale(0.98)';
+                            requestAnimationFrame(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = '';
+                            });
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            /* =========================================================
+               6. DASHBOARD GALLERY DATA & MODAL LOGIC (SOURCE A: ASSETS)
+               ========================================================= */
+            const GALLERIES = {
+                netflix: {
+                    title: 'Netflix User Analytics Dashboard',
+                    images: [
+                        { src: 'assets/netflix/01Executive_performance_overview.png', caption: '01. Executive Performance Overview' },
+                        { src: 'assets/netflix/02Customer_demographics_overview.png', caption: '02. Customer Demographics Overview' },
+                        { src: 'assets/netflix/03Strategic_key_insights.png', caption: '03. Strategic Key Insights' },
+                        { src: 'assets/netflix/04Strategic_recommendations.png', caption: '04. Strategic Recommendations' }
+                    ]
+                },
+                retail: {
+                    title: 'Global Retail Sales Performance Analysis',
+                    images: [
+                        { src: 'assets/Global Retail Sales Performance Analysis/Sales Overview.png', caption: 'Sales Overview' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/Regional Sales Distribution.png', caption: 'Regional Sales Distribution' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 1.png', caption: 'Profit Analysis - Part 1' },
+                        { src: 'assets/Global Retail Sales Performance Analysis/profit analysis 2.png', caption: 'Profit Analysis - Part 2' }
+                    ]
+                },
+                quality: {
+                    title: 'Sales Performance Data Quality Assessment',
+                    images: [
+                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_1.png', caption: 'Dashboard View 1' },
+                        { src: 'assets/Sales Performance Data Quality Assessment/dashboard_2.png', caption: 'Dashboard View 2' }
+                    ]
+                },
+                bbs: {
+                    title: 'Behavior-Based Safety (BBS) Analysis',
+                    images: [
+                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard 1.png', caption: 'Dashboard View 1' },
+                        { src: 'assets/Behavior-Based Safety (BBS) Analysis/Dashboard2.png', caption: 'Dashboard View 2' }
+                    ]
+                }
+            };
+
+            const galleryModal = document.getElementById('dashboard-gallery-modal');
+            const galleryTitle = document.getElementById('gallery-modal-title');
+            const galleryImagesContainer = document.getElementById('gallery-images-container');
+            const galleryCloseBtn = document.getElementById('gallery-close-btn');
+            const galleryFooterClose = document.getElementById('gallery-footer-close');
+
+            function openGallery(id) {
+                const data = GALLERIES[id];
+                if (!data) return;
+
+                galleryTitle.textContent = data.title;
+                galleryImagesContainer.innerHTML = data.images.map((img, idx) => `
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs font-semibold text-zinc-500 dark:text-zinc-400">
+                            <span>Image ${idx + 1} of ${data.images.length}</span>
+                            <span class="font-mono text-[11px]">${img.src}</span>
+                        </div>
+                        <div class="rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-950 shadow-lg">
+                            <img src="${img.src}" alt="${img.caption}" loading="lazy" class="w-full h-auto object-contain hover:scale-[1.01] transition-transform duration-300">
+                        </div>
+                        <p class="text-xs font-medium text-zinc-700 dark:text-zinc-300 px-1">${img.caption}</p>
+                    </div>
+                `).join('');
+
+                galleryModal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                SoundFX.playChime();
+            }
+
+            function closeGallery() {
+                if (!galleryModal.classList.contains('is-open')) return;
+                galleryModal.classList.remove('is-open');
+                document.body.style.overflow = '';
+                SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-gallery]').forEach(btn => {
+                btn.addEventListener('click', () => openGallery(btn.dataset.gallery));
+            });
+
+            galleryCloseBtn.addEventListener('click', closeGallery);
+            galleryFooterClose.addEventListener('click', closeGallery);
+            galleryModal.addEventListener('click', (e) => {
+                if (e.target === galleryModal) closeGallery();
+            });
+
+            /* =========================================================
+               7. EXECUTIVE CASE STUDY MODAL & GITHUB REPO LINKS
+               ========================================================= */
+            const CASE_STUDIES = {
+                netflix: {
+                    title: 'Netflix User Analytics Dashboard',
+                    tags: ['MySQL', 'SQL', 'Power BI', 'DAX', '4-Table Schema'],
+                    problem: 'Raw subscriber exports lacked relational normalization and longitudinal tracking, making it difficult to pinpoint subscription tier churn drivers, regional revenue concentration, and device engagement differences across 2,500+ user records.',
+                    architecture: 'Engineered a 4-table normalized relational schema in MySQL with primary/foreign key constraints, executed SQL cleaning and validation scripts (CTEs, joins, window functions), and modeled DAX time-intelligence and retention measures inside a 4-page Power BI report.',
+                    impact: [
+                        'Identified top-performing subscription tiers and age cohorts driving recurring monthly revenue.',
+                        'Surfaced device-level watch-time disparities to guide targeted retention and plan-upgrade campaigns.',
+                        'Reduced manual reporting time by consolidating demographic, billing, and engagement KPIs into one interactive view.'
+                    ],
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Netflix-Project'
+                },
+                retail: {
+                    title: 'Global Retail Sales Performance Analysis',
+                    tags: ['Advanced Excel', 'Power Query', '51,000+ Rows', '4-Page Dashboard'],
+                    problem: 'Despite strong top-line revenue across 51,000+ global retail orders, net profit margins varied sharply across regions, shipping modes, and sub-categories—masking loss-making product lines.',
+                    architecture: 'Automated ingestion and transformation of 51,000+ transaction records using Power Query, built a dynamic Pivot-driven data model with custom calculated fields, and designed a 4-page interactive Excel executive dashboard with synchronized slicers.',
+                    impact: [
+                        'Pinpointed specific sub-categories and high-discount regions acting as structural profitability drains.',
+                        'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers.',
+                        'Delivered actionable discount-cap and regional pricing recommendations to protect operating margin.'
+                    ],
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
+                },
+                quality: {
+                    title: 'Sales Performance Data Quality Assessment',
+                    tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2014–2018 Audit'],
+                    problem: 'Leadership relied on multi-year historical sales dashboards (2014–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across records.',
+                    architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built dual-layer diagnostic visualizations in Excel and Tableau to isolate corrupted segments.',
+                    impact: [
+                        'Uncovered missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
+                        'Demonstrated side-by-side KPI variance before vs. after data remediation to establish governance standards.',
+                        'Provided a repeatable pre-BI validation checklist to prevent flawed executive decision-making.'
+                    ],
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
+                },
+                bbs: {
+                    title: 'Behavior-Based Safety (BBS) Analysis',
+                    tags: ['Excel', 'Power Query', '2,000+ Observations', '10 Business Units'],
+                    problem: 'Over 2,000 workplace safety observation logs across 10 business units and 18 hazard categories were stored in fragmented spreadsheets, preventing EHS leaders from spotting recurring high-risk zones early.',
+                    architecture: 'Standardized categorical taxonomies and cleaned 2,000+ observation records via Power Query, constructing an interactive risk-matrix dashboard segmented by department, shift, and hazard type.',
+                    impact: [
+                        'Isolated high-frequency unsafe acts across specific business units and 18 safety categories.',
+                        'Enabled proactive safety interventions and targeted training in top-risk operational zones.',
+                        'Established clear compliance trend tracking across departments.'
+                    ],
+                    gitUrl: 'https://github.com/hariomtomar2226-rgb/Behavior-Based-Safety-BBS-Analysis-Dashboard'
+                }
+            };
+
+            const caseModal = document.getElementById('case-study-modal');
+            const caseTitle = document.getElementById('modal-title');
+            const caseTags = document.getElementById('modal-tags');
+            const caseProblem = document.getElementById('modal-problem');
+            const caseArch = document.getElementById('modal-architecture');
+            const caseImpact = document.getElementById('modal-impact');
+            const caseGithubBtn = document.getElementById('modal-github-btn');
+            const caseCloseBtn = document.getElementById('modal-close-btn');
+
+            function openCaseStudy(id) {
+                const data = CASE_STUDIES[id];
+                if (!data) return;
+
+                caseTitle.textContent = data.title;
+                caseTags.innerHTML = data.tags.map(t =>
+                    `<span class="text-[11px] px-2.5 py-0.5 rounded-md bg-zinc-200/80 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700">${t}</span>`
+                ).join('');
+                caseProblem.textContent = data.problem;
+                caseArch.textContent = data.architecture;
+                caseImpact.innerHTML = data.impact.map(item => `<li>${item}</li>`).join('');
+                caseGithubBtn.href = data.gitUrl;
+
+                caseModal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                SoundFX.playChime();
+            }
+
+            function closeCaseStudy() {
+                if (!caseModal.classList.contains('is-open')) return;
+                caseModal.classList.remove('is-open');
+                document.body.style.overflow = '';
+                SoundFX.playTick();
+            }
+
+            document.querySelectorAll('[data-case-study]').forEach(btn => {
+                btn.addEventListener('click', () => openCaseStudy(btn.dataset.caseStudy));
+            });
+
+            caseCloseBtn.addEventListener('click', closeCaseStudy);
+            caseModal.addEventListener('click', (e) => {
+                if (e.target === caseModal) closeCaseStudy();
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeGallery();
+                    closeCaseStudy();
+                }
+            });
+
+            /* =========================================================
+               8. ONE-CLICK "COPY EMAIL" GLASS TOAST NOTIFICATION
+               ========================================================= */
+            const copyToast = document.getElementById('copy-toast');
+            let toastTimer = null;
+
+            function showCopyToast() {
+                copyToast.classList.add('is-shown');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    copyToast.classList.remove('is-shown');
+                }, 3000);
+            }
+
+            document.querySelectorAll('[data-copy-email]').forEach(link => {
+                link.addEventListener('click', () => {
+                    const email = link.dataset.copyEmail;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(email).catch(() => {});
+                    }
+                    SoundFX.playChime();
+                    showCopyToast();
+                });
+            });
+
+            /* =========================================================
+               9. 3D MAGNETIC TILT & SPECULAR LIGHT SHEEN ON GLASS CARDS
+               ========================================================= */
+            document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+
+                    if (card.classList.contains('tilt-card') && window.innerWidth >= 768) {
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = ((y - centerY) / centerY) * -2.6;
+                        const rotateY = ((x - centerX) / centerX) * 2.6;
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+
+            /* =========================================================
+               10. SCROLL REVEAL, READING PROGRESS BAR & NAV SCROLL-SPY
+               ========================================================= */
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+            document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+
+            const progressBar = document.getElementById('scroll-progress');
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            function onScroll() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = `${pct}%`;
+
+                let currentId = '';
+                sections.forEach(sec => {
+                    const top = sec.offsetTop - 160;
+                    if (scrollTop >= top) {
+                        currentId = sec.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.toggle('active-nav', link.getAttribute('href') === `#${currentId}`);
+                });
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            /* =========================================================
+               11. KINETIC SUBTITLE ROTATION (ANALYTICAL TAGLINES)
+               ========================================================= */
+            const taglineEl = document.getElementById('typed-tagline');
+            const phrases = [
+                'Turning Data into Actionable Insights',
+                'SQL • Power BI • Tableau • Python',
+                'Uncovering Patterns That Drive Growth'
+            ];
+            let phraseIdx = 0;
+            let charIdx = phrases[0].length;
+            let isDeleting = false;
+
+            function tickTagline() {
+                const currentPhrase = phrases[phraseIdx];
+                if (!isDeleting) {
+                    charIdx++;
+                    taglineEl.textContent = currentPhrase.slice(0, charIdx);
+                    if (charIdx === currentPhrase.length) {
+                        isDeleting = true;
+                        setTimeout(tickTagline, 2800);
+                        return;
+                    }
+                    setTimeout(tickTagline, 42);
+                } else {
+                    charIdx--;
+                    taglineEl.textContent = currentPhrase.slice(0, charIdx);
+                    if (charIdx === 0) {
+                        isDeleting = false;
+                        phraseIdx = (phraseIdx + 1) % phrases.length;
+                        setTimeout(tickTagline, 350);
+                        return;
+                    }
+                    setTimeout(tickTagline, 24);
+                }
+            }
+            setTimeout(() => { isDeleting = true; tickTagline(); }, 3200);
+
+            /* =========================================================
+               12. INTERACTIVE DATA-CONSTELLATION CANVAS + CLICK RIPPLES
+               ========================================================= */
+            const mouse = { x: -1000, y: -1000 };
+            const ripples = [];
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+                document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
+                document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
+            });
+
+            window.addEventListener('mouseleave', () => {
+                mouse.x = -1000;
+                mouse.y = -1000;
+                document.documentElement.style.setProperty('--cursor-x', `-1000px`);
+                document.documentElement.style.setProperty('--cursor-y', `-1000px`);
+            });
+
+            window.addEventListener('click', (e) => {
+                ripples.push({ x: e.clientX, y: e.clientY, radius: 6, maxRadius: 210, alpha: 0.45 });
+                if (!e.target.closest('a, button, .modal-dialog')) {
+                    SoundFX.playPulse();
+                }
+            });
+
+            const canvas = document.getElementById('sparkle-canvas');
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                initParticles();
+            });
+
+            let particles = [];
+            function initParticles() {
+                particles = [];
+                const count = Math.min(Math.floor((width * height) / 11000), 135);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        radius: Math.random() * 1.6 + 0.6,
+                        vx: (Math.random() - 0.5) * 0.28,
+                        vy: (Math.random() - 0.5) * 0.28,
+                        twinkleSpeed: Math.random() * 0.03 + 0.01,
+                        twinklePhase: Math.random() * Math.PI * 2,
+                        baseAlpha: Math.random() * 0.45 + 0.18
+                    });
+                }
+            }
+
+            initParticles();
+
+            function animateConstellation() {
+                ctx.clearRect(0, 0, width, height);
+                const isDark = htmlEl.classList.contains('dark');
+                const glowRadius = 185;
+                const linkDist = 115;
+
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const rp = ripples[i];
+                    rp.radius += 5.5;
+                    rp.alpha *= 0.94;
+                    ctx.beginPath();
+                    ctx.arc(rp.x, rp.y, rp.radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = isDark
+                        ? `rgba(255, 255, 255, ${rp.alpha})`
+                        : `rgba(15, 23, 42, ${rp.alpha * 0.7})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                    if (rp.alpha < 0.015 || rp.radius >= rp.maxRadius) {
+                        ripples.splice(i, 1);
+                    }
+                }
+
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.twinklePhase += p.twinkleSpeed;
+
+                    if (p.x < 0) p.x = width;
+                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = height;
+                    if (p.y > height) p.y = 0;
+
+                    const twinkle = (Math.sin(p.twinklePhase) + 1) * 0.5;
+                    let alpha = p.baseAlpha * (0.45 + twinkle * 0.55);
+                    let r = p.radius;
+
+                    const distMouse = Math.hypot(p.x - mouse.x, p.y - mouse.y);
+                    if (distMouse < glowRadius) {
+                        const proximity = 1 - distMouse / glowRadius;
+                        alpha = Math.min(1, alpha + proximity * 0.65);
+                        r += proximity * 1.3;
+
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = isDark
+                            ? `rgba(255, 255, 255, ${proximity * 0.22})`
+                            : `rgba(15, 23, 42, ${proximity * 0.16})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const p2 = particles[j];
+                            const d12 = Math.hypot(p.x - p2.x, p.y - p2.y);
+                            if (d12 < linkDist) {
+                                const lineAlpha = (1 - d12 / linkDist) * proximity * 0.28;
+                                ctx.beginPath();
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.strokeStyle = isDark
+                                    ? `rgba(255, 255, 255, ${lineAlpha})`
+                                    : `rgba(15, 23, 42, ${lineAlpha * 0.8})`;
+                                ctx.lineWidth = 0.75;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+                    if (isDark) {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                        if (distMouse < glowRadius) {
+                            ctx.shadowColor = 'rgba(255, 255, 255, 0.85)';
+                            ctx.shadowBlur = 8;
+                        } else {
+                            ctx.shadowBlur = 0;
+                        }
+                    } else {
+                        ctx.fillStyle = `rgba(24, 24, 27, ${alpha * 0.65})`;
+                        ctx.shadowBlur = 0;
+                    }
+                    ctx.fill();
+                }
+                ctx.shadowBlur = 0;
+
+                requestAnimationFrame(animateConstellation);
+            }
+
+            animateConstellation();
+        })();
+    </script>
+</body>
+</html>

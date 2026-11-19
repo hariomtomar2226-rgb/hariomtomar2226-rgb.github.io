@@ -376,6 +376,57 @@
                 inset -1px -1px 3px rgba(255, 255, 255, 0.05);
         }
 
+        /* Subtle Slow Infinite Opacity Pulse for DOWNLOADING... Label */
+        @keyframes downloadingOpacityPulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.35;
+            }
+        }
+
+        /* Pressed / Inset Neumorphic State for Side-Panel Resume Button */
+        .neumorphic-press-pill.is-downloading,
+        .neumorphic-press-pill.is-downloading:hover,
+        .neumorphic-press-pill.is-downloading:active {
+            transform: scale(0.97);
+            justify-content: center;
+            padding: 3px 6px;
+            cursor: default;
+            pointer-events: none;
+            background: linear-gradient(145deg, #d5d9e0, #e8ecf2);
+            box-shadow:
+                inset 2px 2px 5px rgba(155, 163, 177, 0.72),
+                inset -2px -2px 5px rgba(255, 255, 255, 0.92),
+                0 2px 6px rgba(15, 23, 42, 0.08);
+            border-color: rgba(100, 116, 139, 0.35);
+            color: #475569;
+        }
+        html.dark .neumorphic-press-pill.is-downloading,
+        html.dark .neumorphic-press-pill.is-downloading:hover,
+        html.dark .neumorphic-press-pill.is-downloading:active {
+            background: linear-gradient(145deg, #101014, #1b1b21);
+            box-shadow:
+                inset 2px 2px 5px rgba(0, 0, 0, 0.88),
+                inset -1px -1px 3px rgba(255, 255, 255, 0.07),
+                0 3px 8px rgba(0, 0, 0, 0.65);
+            border-color: rgba(255, 255, 255, 0.14);
+            color: #d4d4d8;
+        }
+
+        .neumorphic-press-pill.is-downloading .press-pill-icon {
+            display: none;
+        }
+
+        .neumorphic-press-pill.is-downloading .press-pill-text {
+            flex: none;
+            width: 100%;
+            font-size: 6.8px;
+            letter-spacing: 0.02em;
+            animation: downloadingOpacityPulse 1.8s ease-in-out infinite;
+        }
+
         .press-pill-icon {
             width: 23px;
             height: 23px;
@@ -529,8 +580,11 @@
             <div class="w-10 h-[1px] bg-zinc-300/80 dark:bg-zinc-700/70 my-0.5"></div>
 
             <!-- 3. Resume Download Pill (Extruded Depth Button) -->
-            <a href="assets/Hariom_Tomar_Resume.pdf" download="Hariom_Tomar_Resume.pdf"
+            <a id="side-resume-download-btn"
+               href="assets/Hariom_Tomar_Resume.pdf"
+               download="Hariom_Tomar_Resume.pdf"
                data-sound="chime"
+               data-resume-download
                aria-label="Download Resume PDF" title="Download Resume (PDF)"
                class="neumorphic-press-pill group">
                 <span class="press-pill-icon">
@@ -1305,6 +1359,98 @@
                     floatingRail.classList.add('is-visible');
                 }, 420);
             });
+
+            /* =========================================================
+               2B. SIDE-PANEL RESUME BUTTON INSET & DOWNLOAD COORDINATOR
+               ========================================================= */
+            const sideResumeBtn = document.getElementById('side-resume-download-btn');
+            if (sideResumeBtn && !sideResumeBtn.dataset.resumeBound) {
+                sideResumeBtn.dataset.resumeBound = 'true';
+
+                const pillTextEl = sideResumeBtn.querySelector('.press-pill-text');
+                const originalText = pillTextEl ? pillTextEl.textContent.trim() : 'RESUME';
+                const MIN_DISPLAY_MS = 7000;
+                let isDownloading = false;
+
+                function waitMinimumDuration(ms) {
+                    return new Promise((resolve) => {
+                        window.setTimeout(resolve, ms);
+                    });
+                }
+
+                function triggerFallbackAnchorDownload(href, filename) {
+                    const tempLink = document.createElement('a');
+                    tempLink.href = href;
+                    tempLink.download = filename || 'Hariom_Tomar_Resume.pdf';
+                    tempLink.style.display = 'none';
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+                    tempLink.remove();
+                }
+
+                async function performActualDownload(href, filename) {
+                    if (!href) {
+                        throw new Error('Missing resume download URL.');
+                    }
+
+                    try {
+                        const response = await fetch(href, { cache: 'no-store' });
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status} while fetching resume.`);
+                        }
+                        const blob = await response.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+
+                        try {
+                            const tempLink = document.createElement('a');
+                            tempLink.href = blobUrl;
+                            tempLink.download = filename || 'Hariom_Tomar_Resume.pdf';
+                            tempLink.style.display = 'none';
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            tempLink.remove();
+                        } finally {
+                            window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1500);
+                        }
+                    } catch (fetchErr) {
+                        triggerFallbackAnchorDownload(href, filename);
+                    }
+                }
+
+                function setDownloadingVisualState(active) {
+                    sideResumeBtn.classList.toggle('is-downloading', active);
+                    sideResumeBtn.setAttribute('aria-busy', String(active));
+                    sideResumeBtn.setAttribute('aria-disabled', String(active));
+                    if (pillTextEl) {
+                        pillTextEl.textContent = active ? 'DOWNLOADING...' : originalText;
+                    }
+                }
+
+                sideResumeBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    if (isDownloading) return;
+                    isDownloading = true;
+
+                    const href = sideResumeBtn.getAttribute('href');
+                    const filename = sideResumeBtn.getAttribute('download') || 'Hariom_Tomar_Resume.pdf';
+
+                    setDownloadingVisualState(true);
+
+                    try {
+                        await Promise.all([
+                            waitMinimumDuration(MIN_DISPLAY_MS),
+                            performActualDownload(href, filename)
+                        ]);
+                    } catch (err) {
+                        console.error('Resume download error:', err);
+                    } finally {
+                        setDownloadingVisualState(false);
+                        isDownloading = false;
+                    }
+                });
+            }
 
             /* =========================================================
                3. NEUMORPHIC THEME SWITCH (Horizontal Sliding Pill)

@@ -1708,24 +1708,24 @@
                 retail: {
                     title: 'Global Retail Sales Performance Analysis',
                     tags: ['Advanced Excel', 'Power Query', '51,000+ Rows', '4-Page Dashboard'],
-                    problem: 'Despite strong top-line revenue across 51,000+ global retail orders, net profit margins varied sharply across regions, shipping modes, and sub-categories—masking loss-making product lines.',
-                    architecture: 'Automated ingestion and transformation of 51,000+ transaction records using Power Query, built a dynamic Pivot-driven data model with custom calculated fields, and designed a 4-page interactive Excel executive dashboard with synchronized slicers.',
+                    problem: 'Strong sales across 51,000+ retail records concealed uneven profitability, with 29 countries generating losses and regional, country, and product-level performance requiring deeper investigation.',
+                    architecture: 'Cleaned and transformed 51,000+ records using Power Query, built a PivotTable-driven model with calculated fields and synchronized slicers, and developed a 4-page interactive Excel dashboard covering sales, profit, margins, and regional performance.',
                     impact: [
-                        'Pinpointed specific sub-categories and high-discount regions acting as structural profitability drains.',
-                        'Quantified shipping cost-to-margin ratios across Standard, Second Class, and Same-Day fulfillment tiers.',
-                        'Delivered actionable discount-cap and regional pricing recommendations to protect operating margin.'
+                        'Identified 29 loss-making countries, contributing to a 23.4% reduction in overall profitability.',
+                        'Compared regional and category-level performance, revealing profit concentration and weak markets.',
+                        'Recommended pricing adjustments and stronger market prioritization to improve profitability sustainably.'
                     ],
                     gitUrl: 'https://github.com/hariomtomar2226-rgb/Global-Retail-Sales-Performance-Analysis'
                 },
                 quality: {
                     title: 'Sales Performance Data Quality Assessment',
                     tags: ['Excel', 'Power Query', 'Tableau', 'Data Governance', '2014–2018 Audit'],
-                    problem: 'Leadership relied on multi-year historical sales dashboards (2014–2018) without visibility into underlying missing fields, duplicate entries, and geographic attribution gaps across records.',
-                    architecture: 'Conducted a systematic completeness, consistency, and anomaly audit using Power Query profiling rules and built dual-layer diagnostic visualizations in Excel and Tableau to isolate corrupted segments.',
+                    problem: 'Historical sales comparisons across 2014–2018 were potentially misleading because the 2018 dataset ended on November 15, omitting year-end records from annual performance comparisons.',
+                    architecture: 'Audited five years of sales data in Excel and Power Query, investigated incomplete 2018 date coverage, compared historical December quantities, and built a two-page Tableau dashboard',
                     impact: [
-                        'Uncovered missing location attributes and historical timestamp anomalies skewing regional sales attribution.',
-                        'Demonstrated side-by-side KPI variance before vs. after data remediation to establish governance standards.',
-                        'Provided a repeatable pre-BI validation checklist to prevent flawed executive decision-making.'
+                        'Found 2018 records stopped November 15, leaving year-end sales out of totals.',
+                        'Historical December volumes suggested 6,066–6,618 additional units could be missing from 2018 totals.',
+                        'Estimated missing year-end sales using historical December quantity patterns for context.'
                     ],
                     gitUrl: 'https://github.com/hariomtomar2226-rgb/Sales-Performance-Data-Quality-Assessment-'
                 },
